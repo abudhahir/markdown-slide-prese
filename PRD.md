@@ -47,6 +47,13 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Progression**: Component mount → Apply full-screen styles → Center slide content
 - **Success criteria**: Slides fill viewport on all screen sizes, content properly centered and scaled
 
+### Theme Selector
+- **Functionality**: Switch between multiple color scheme themes in real-time
+- **Purpose**: Allow users to customize the visual appearance of presentations to match preferences or contexts
+- **Trigger**: Click theme selector button in top-right corner
+- **Progression**: Click theme button → Open theme dropdown → Select theme → Apply colors instantly → Persist selection
+- **Success criteria**: Theme changes apply immediately, selection persists across sessions, all themes maintain readable contrast ratios
+
 ## Edge Case Handling
 
 - **Empty Slides**: Display placeholder message if markdown produces no slides
@@ -62,16 +69,41 @@ The design should evoke confidence, clarity, and professionalism—like standing
 
 ## Color Selection
 
-A bold, high-contrast presentation theme with a sophisticated dark base and vibrant accent colors.
+A bold, high-contrast presentation theme system with multiple color schemes to suit different moods and contexts. All themes use OKLCH color space for perceptual uniformity.
 
-- **Primary Color**: Deep Indigo `oklch(0.25 0.08 265)` - Communicates authority and professionalism, used for slide backgrounds
-- **Secondary Colors**: Slate Gray `oklch(0.35 0.02 265)` for subtle UI elements like navigation controls; Rich Purple `oklch(0.45 0.12 285)` for code blocks and emphasis
-- **Accent Color**: Electric Cyan `oklch(0.75 0.15 195)` - High-energy highlight for interactive elements, CTAs, and progress indicators
-- **Foreground/Background Pairings**: 
-  - Primary Background (Deep Indigo #2A2852): White text (#FFFFFF) - Ratio 9.8:1 ✓
-  - Secondary Background (Slate Gray #4A4A5E): White text (#FFFFFF) - Ratio 7.2:1 ✓
-  - Accent (Electric Cyan #5DD9E8): Deep Indigo (#2A2852) - Ratio 6.1:1 ✓
-  - Code blocks (Rich Purple #654FA3): White text (#FFFFFF) - Ratio 5.8:1 ✓
+**Available Themes:**
+
+1. **Midnight** (Default) - Deep Indigo base with electric cyan accents
+   - Primary: `oklch(0.25 0.08 265)` - Deep indigo background
+   - Accent: `oklch(0.75 0.15 195)` - Electric cyan for highlights
+   - Foreground/Background: Deep Indigo (#2A2852): White text (#FFFFFF) - Ratio 9.8:1 ✓
+
+2. **Forest** - Dark green base with lime accents
+   - Primary: `oklch(0.22 0.06 160)` - Deep forest green
+   - Accent: `oklch(0.78 0.16 145)` - Bright lime for energy
+   - Foreground/Background: Forest Green (#1E3A29): White text (#FFFFFF) - Ratio 10.2:1 ✓
+
+3. **Sunset** - Warm brown base with golden orange accents
+   - Primary: `oklch(0.28 0.08 35)` - Rich earth brown
+   - Accent: `oklch(0.75 0.20 55)` - Golden orange for warmth
+   - Foreground/Background: Earth Brown (#3D2B1F): White text (#FFFFFF) - Ratio 8.5:1 ✓
+
+4. **Ocean** - Deep blue base with bright cyan accents
+   - Primary: `oklch(0.20 0.06 235)` - Deep ocean blue
+   - Accent: `oklch(0.72 0.18 195)` - Aqua cyan for freshness
+   - Foreground/Background: Ocean Blue (#1A2B3D): White text (#FFFFFF) - Ratio 11.3:1 ✓
+
+5. **Ember** - Near-black base with fiery orange-red accents
+   - Primary: `oklch(0.18 0.04 20)` - Charcoal black
+   - Accent: `oklch(0.68 0.24 35)` - Ember orange for intensity
+   - Foreground/Background: Charcoal (#1F1C1A): White text (#FFFFFF) - Ratio 12.1:1 ✓
+
+6. **Lavender** - Purple-grey base with pink-purple accents
+   - Primary: `oklch(0.26 0.07 300)` - Deep lavender
+   - Accent: `oklch(0.78 0.18 320)` - Bright magenta for sophistication
+   - Foreground/Background: Deep Lavender (#3A2D47): White text (#FFFFFF) - Ratio 9.4:1 ✓
+
+All themes maintain WCAG AA contrast ratios for accessibility and use consistent structure for seamless switching.
 
 ## Font Selection
 
@@ -95,17 +127,21 @@ Animations should enhance the presentation experience with purposeful, confident
   - Card (shadcn) for slide containers with custom full-screen modifications
   - Badge (shadcn) for progress indicator with custom accent styling
   - Separator (shadcn) for dividing content within slides
+  - DropdownMenu (shadcn) for theme selector with color preview swatches
 - **Customizations**: 
   - Custom `SlideContainer` component wrapping Card for full-screen behavior
   - Custom `MarkdownRenderer` component to parse and style markdown content
   - Custom `NavigationControls` component for arrow buttons positioned at screen edges
   - Custom `ProgressIndicator` component for slide counter badge
+  - Custom `ThemeSelector` component with visual theme previews and persistence
 - **States**: 
   - Navigation buttons: Semi-transparent default, full opacity on hover, slight scale on active, hidden on first/last slides
   - Slide transitions: Fade + slide animation between slides, loading skeleton for markdown parsing
   - Progress indicator: Subtle pulse on change, persistent visibility
+  - Theme selector: Glassmorphic button with palette icon, dropdown shows color swatches, selected theme highlighted
 - **Icon Selection**: 
   - CaretLeft/CaretRight from Phosphor for navigation arrows
+  - Palette from Phosphor for theme selector
   - X or XCircle for potential exit/close functionality
 - **Spacing**: 
   - Slide padding: p-16 (64px) on desktop, p-8 (32px) on mobile

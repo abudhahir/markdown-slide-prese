@@ -3,6 +3,7 @@ import { parseMarkdownToSlides } from '@/lib/markdown-parser'
 import { SlideContainer } from './SlideContainer'
 import { NavigationControls } from './NavigationControls'
 import { ProgressIndicator } from './ProgressIndicator'
+import { ThemeSelector } from './ThemeSelector'
 
 interface SlidePresentationProps {
   markdown: string
@@ -111,7 +112,8 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
         </div>
       </div>
 
-      <div className="absolute top-8 right-8">
+      <div className="absolute top-8 right-8 flex items-center gap-3">
+        <ThemeSelector />
         <ProgressIndicator current={currentIndex + 1} total={slides.length} />
       </div>
     </div>
