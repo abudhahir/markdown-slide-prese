@@ -22,7 +22,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
   const [isFileSelectorOpen, setIsFileSelectorOpen] = useState(false)
   const [isMarkdownNameOpen, setIsMarkdownNameOpen] = useState(false)
-  const [currentFileName, setCurrentFileName] = useState('Sample Tutorial Slides')
+  const [currentFileName, setCurrentFileName] = useState('tutorial-slides.md')
 
   useEffect(() => {
     const parsedSlides = parseMarkdownToSlides(markdown)
