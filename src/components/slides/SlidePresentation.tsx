@@ -6,6 +6,7 @@ import { ProgressIndicator } from './ProgressIndicator'
 import { ThemeSelector } from './ThemeSelector'
 import { FileSelector } from './FileSelector'
 import { PresentationTimer } from './PresentationTimer'
+import { MarkdownNameDisplay } from './MarkdownNameDisplay'
 import { Button } from '@/components/ui/button'
 import { FolderOpen } from '@phosphor-icons/react'
 
@@ -20,6 +21,8 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [direction, setDirection] = useState(0)
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
   const [isFileSelectorOpen, setIsFileSelectorOpen] = useState(false)
+  const [isMarkdownNameOpen, setIsMarkdownNameOpen] = useState(false)
+  const [currentFileName, setCurrentFileName] = useState('Sample Tutorial Slides')
 
   useEffect(() => {
     const parsedSlides = parseMarkdownToSlides(markdown)
@@ -55,6 +58,9 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       } else if (e.key === 'o' || e.key === 'O') {
         e.preventDefault()
         setIsFileSelectorOpen(prev => !prev)
+      } else if (e.key === 'd' || e.key === 'D') {
+        e.preventDefault()
+        setIsMarkdownNameOpen(prev => !prev)
       }
     }
 
@@ -109,6 +115,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const currentSlide = slides[currentIndex]
 
   const handleFileSelect = (content: string, fileName: string) => {
+    setCurrentFileName(fileName)
     if (onMarkdownChange) {
       onMarkdownChange(content, fileName)
     }
@@ -153,6 +160,12 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
         isOpen={isFileSelectorOpen}
         onOpenChange={setIsFileSelectorOpen}
         onFileSelect={handleFileSelect}
+      />
+
+      <MarkdownNameDisplay
+        isOpen={isMarkdownNameOpen}
+        onOpenChange={setIsMarkdownNameOpen}
+        fileName={currentFileName}
       />
     </div>
   )
