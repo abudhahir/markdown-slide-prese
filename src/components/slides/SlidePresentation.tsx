@@ -5,6 +5,7 @@ import { NavigationControls } from './NavigationControls'
 import { ProgressIndicator } from './ProgressIndicator'
 import { ThemeSelector } from './ThemeSelector'
 import { FileSelector } from './FileSelector'
+import { PresentationTimer } from './PresentationTimer'
 import { Button } from '@/components/ui/button'
 import { FolderOpen } from '@phosphor-icons/react'
 
@@ -128,6 +129,10 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
             canGoNext={currentIndex < slides.length - 1}
           />
         </div>
+      </div>
+
+      <div className="absolute top-8 left-8">
+        <PresentationTimer />
       </div>
 
       <div className="absolute top-8 right-8 flex items-center gap-3">

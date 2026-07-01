@@ -79,6 +79,7 @@ Perfect for technical presentations!
 - **Arrow Keys** (→ ← ↑ ↓) - Navigate between slides
 - **Spacebar** - Go to next slide
 - **T Key** - Toggle theme selector
+- **O Key** - Open file selector
 
 ### Touch Controls
 - **Swipe Left** - Next slide
@@ -120,6 +121,28 @@ Your choice persists across sessions!
 - Load directly from GitHub or GitLab
 - No download needed
 - Always get the latest version
+
+---
+
+## Presentation Timer ⏱️
+
+### Track Your Time
+
+A built-in timer in the **top-left corner** helps you stay on schedule:
+
+#### Timer Features
+- **Auto-start** - Begins when presentation loads
+- **Pause/Resume** - Click the play/pause button
+- **Reset** - Click the reset button to start over
+- **Format** - Shows minutes:seconds (or hours:minutes:seconds for long presentations)
+
+#### How to Use
+1. Timer starts automatically when you begin
+2. Pause if you need to take a break
+3. Reset when starting a new presentation session
+4. Keep an eye on it to manage your time
+
+Perfect for timed presentations and practice runs!
 
 ---
 
@@ -322,11 +345,13 @@ Structure slides: Title → Problem → Solution → Examples → Conclusion
 - Switch between themes
 - Load a file from your system
 - Test a Git URL
+- Use the timer to practice timing
 
 ### Create
 - Write your first presentation
 - Use the markdown examples here
 - Experiment with layouts
+- Track your delivery time with the timer
 - Share with others!
 
 ---
@@ -355,6 +380,7 @@ You now know:
 - ✅ Theme switching
 - ✅ File loading (local and Git)
 - ✅ Mobile gestures
+- ✅ Presentation timer
 - ✅ Best practices
 
 ---

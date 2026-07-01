@@ -61,6 +61,13 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Progression**: Open file selector → Choose local files tab or Git URL tab → Browse local folder or paste Git URL → Select/load file → Parse markdown → Display slides
 - **Success criteria**: Successfully loads .md/.markdown files from local directories and raw markdown files from GitHub/GitLab URLs, displays errors clearly if URL is invalid or file cannot be fetched
 
+### Presentation Timer
+- **Functionality**: Display elapsed time since presentation started with controls to pause/resume and reset
+- **Purpose**: Help presenters track time and stay on schedule during timed presentations
+- **Trigger**: Starts automatically when presentation loads
+- **Progression**: Component mount → Initialize timer → Auto-start counting → User clicks pause/play button → Timer pauses/resumes → User clicks reset → Timer returns to 0:00
+- **Success criteria**: Timer accurately displays elapsed time in M:SS or H:MM:SS format, pause/resume works reliably, reset returns to zero and resumes counting, timer persists across slide changes
+
 ## Edge Case Handling
 
 - **Empty Slides**: Display placeholder message if markdown produces no slides
@@ -149,6 +156,7 @@ Animations should enhance the presentation experience with purposeful, confident
   - Custom `ProgressIndicator` component for slide counter badge
   - Custom `ThemeSelector` component with visual theme previews and persistence
   - Custom `FileSelector` component with dual modes (local file browser and Git URL loader)
+  - Custom `PresentationTimer` component with elapsed time display and play/pause/reset controls
 - **States**: 
   - Navigation buttons: Semi-transparent default, full opacity on hover, slight scale on active, hidden on first/last slides
   - Slide transitions: Fade + slide animation between slides, loading skeleton for markdown parsing
@@ -162,6 +170,8 @@ Animations should enhance the presentation experience with purposeful, confident
   - Link from Phosphor for Git URL tab icon
   - Folder from Phosphor for local files tab icon
   - File from Phosphor for markdown file items
+  - Play/Pause from Phosphor for timer controls
+  - ArrowClockwise from Phosphor for timer reset
   - X or XCircle for potential exit/close functionality
 - **Spacing**: 
   - Slide padding: p-16 (64px) on desktop, p-8 (32px) on mobile
