@@ -8,6 +8,7 @@ import { FileSelector } from './FileSelector'
 import { PresentationTimer } from './PresentationTimer'
 import { MarkdownNameDisplay } from './MarkdownNameDisplay'
 import { SlidesListOverlay } from './SlidesListOverlay'
+import { CommandsListDialog } from './CommandsListDialog'
 import { Button } from '@/components/ui/button'
 import { FolderOpen } from '@phosphor-icons/react'
 
@@ -24,6 +25,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [isFileSelectorOpen, setIsFileSelectorOpen] = useState(false)
   const [isMarkdownNameOpen, setIsMarkdownNameOpen] = useState(false)
   const [isSlidesListOpen, setIsSlidesListOpen] = useState(false)
+  const [isCommandsListOpen, setIsCommandsListOpen] = useState(false)
   const [currentFileName, setCurrentFileName] = useState('tutorial-slides.md')
 
   useEffect(() => {
@@ -46,8 +48,20 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
     }
   }, [currentIndex])
 
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+    } else {
+      document.exitFullscreen()
+    }
+  }, [])
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
+      if (isSlidesListOpen) {
+        return
+      }
+
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
         e.preventDefault()
         goToNext()
@@ -66,12 +80,23 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       } else if (e.key === 's' || e.key === 'S') {
         e.preventDefault()
         setIsSlidesListOpen(prev => !prev)
+      } else if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault()
+        toggleFullscreen()
+      } else if (e.key === '?') {
+        e.preventDefault()
+        setIsCommandsListOpen(prev => !prev)
+      } else if (e.key === 'Escape') {
+        if (document.fullscreenElement) {
+          e.preventDefault()
+          document.exitFullscreen()
+        }
       }
     }
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [goToNext, goToPrevious])
+  }, [goToNext, goToPrevious, isSlidesListOpen, toggleFullscreen])
 
   useEffect(() => {
     let touchStartX = 0
@@ -130,6 +155,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
     const diff = index - currentIndex
     setDirection(diff > 0 ? 1 : -1)
     setCurrentIndex(index)
+    setIsSlidesListOpen(false)
   }
 
   return (
@@ -185,6 +211,11 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
         slides={slides}
         currentIndex={currentIndex}
         onSlideSelect={handleSlideSelect}
+      />
+
+      <CommandsListDialog
+        isOpen={isCommandsListOpen}
+        onOpenChange={setIsCommandsListOpen}
       />
     </div>
   )
