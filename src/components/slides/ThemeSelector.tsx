@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Palette } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,9 +11,13 @@ import { themes, applyTheme, getThemeByName } from '@/lib/themes'
 import { useKV } from '@github/spark/hooks'
 import { cn } from '@/lib/utils'
 
-export function ThemeSelector() {
+interface ThemeSelectorProps {
+  isOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+}
+
+export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
   const [selectedTheme, setSelectedTheme] = useKV('slide-theme', 'midnight')
-  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (selectedTheme) {
@@ -26,13 +30,11 @@ export function ThemeSelector() {
 
   const handleThemeChange = (themeName: string) => {
     setSelectedTheme(themeName)
-    setIsOpen(false)
+    onOpenChange?.(false)
   }
 
-  const currentTheme = themes.find(t => t.name === selectedTheme)
-
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu open={isOpen} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="secondary"

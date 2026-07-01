@@ -13,6 +13,7 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
   const [slides, setSlides] = useState(() => parseMarkdownToSlides(markdown))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
 
   useEffect(() => {
     const parsedSlides = parseMarkdownToSlides(markdown)
@@ -42,6 +43,9 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault()
         goToPrevious()
+      } else if (e.key === 't' || e.key === 'T') {
+        e.preventDefault()
+        setIsThemeSelectorOpen(prev => !prev)
       }
     }
 
@@ -113,7 +117,7 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
       </div>
 
       <div className="absolute top-8 right-8 flex items-center gap-3">
-        <ThemeSelector />
+        <ThemeSelector isOpen={isThemeSelectorOpen} onOpenChange={setIsThemeSelectorOpen} />
         <ProgressIndicator current={currentIndex + 1} total={slides.length} />
       </div>
     </div>
