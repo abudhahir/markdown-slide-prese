@@ -17,7 +17,7 @@ interface ThemeSelectorProps {
 }
 
 export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
-  const [selectedTheme, setSelectedTheme] = useKV('slide-theme', 'midnight')
+  const [selectedTheme, setSelectedTheme] = useKV('slide-theme', 'light')
 
   useEffect(() => {
     if (selectedTheme) {

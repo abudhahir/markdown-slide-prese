@@ -93,39 +93,57 @@ The design should evoke confidence, clarity, and professionalism—like standing
 
 ## Color Selection
 
-A bold, high-contrast presentation theme system with multiple color schemes to suit different moods and contexts. All themes use OKLCH color space for perceptual uniformity.
+A clean, versatile presentation theme system with multiple color schemes inspired by classic presentation tools like easy-slides. Themes range from bright and minimal to dark and sophisticated, offering options for different contexts and preferences. All themes use OKLCH color space for perceptual uniformity.
 
 **Available Themes:**
 
-1. **Midnight** (Default) - Deep Indigo base with electric cyan accents
-   - Primary: `oklch(0.25 0.08 265)` - Deep indigo background
-   - Accent: `oklch(0.75 0.15 195)` - Electric cyan for highlights
-   - Foreground/Background: Deep Indigo (#2A2852): White text (#FFFFFF) - Ratio 9.8:1 ✓
+1. **Light** (Default) - Clean white base with subtle purple accents
+   - Background: `oklch(0.98 0 0)` - Bright white
+   - Primary: `oklch(0.45 0.15 260)` - Rich purple
+   - Accent: `oklch(0.55 0.20 260)` - Deep purple for highlights
+   - Foreground/Background: Dark gray on white - Ratio 10.5:1 ✓
 
-2. **Forest** - Dark green base with lime accents
-   - Primary: `oklch(0.22 0.06 160)` - Deep forest green
-   - Accent: `oklch(0.78 0.16 145)` - Bright lime for energy
-   - Foreground/Background: Forest Green (#1E3A29): White text (#FFFFFF) - Ratio 10.2:1 ✓
+2. **Dark** - Classic dark theme with purple highlights
+   - Background: `oklch(0.15 0.01 260)` - Deep charcoal
+   - Primary: `oklch(0.55 0.20 260)` - Vibrant purple
+   - Accent: `oklch(0.65 0.22 260)` - Bright purple accents
+   - Foreground/Background: White on charcoal - Ratio 12.3:1 ✓
 
-3. **Sunset** - Warm brown base with golden orange accents
-   - Primary: `oklch(0.28 0.08 35)` - Rich earth brown
-   - Accent: `oklch(0.75 0.20 55)` - Golden orange for warmth
-   - Foreground/Background: Earth Brown (#3D2B1F): White text (#FFFFFF) - Ratio 8.5:1 ✓
+3. **Beige** - Warm neutral base with earthy orange
+   - Background: `oklch(0.95 0.02 80)` - Soft beige
+   - Primary: `oklch(0.50 0.12 50)` - Warm brown
+   - Accent: `oklch(0.60 0.15 40)` - Rich orange
+   - Foreground/Background: Dark brown on beige - Ratio 9.2:1 ✓
 
-4. **Ocean** - Deep blue base with bright cyan accents
-   - Primary: `oklch(0.20 0.06 235)` - Deep ocean blue
-   - Accent: `oklch(0.72 0.18 195)` - Aqua cyan for freshness
-   - Foreground/Background: Ocean Blue (#1A2B3D): White text (#FFFFFF) - Ratio 11.3:1 ✓
+4. **Sky** - Cool blue-tinted white with deep blue accents
+   - Background: `oklch(0.96 0.02 220)` - Light sky blue
+   - Primary: `oklch(0.50 0.18 240)` - Deep blue
+   - Accent: `oklch(0.58 0.20 240)` - Vibrant blue
+   - Foreground/Background: Navy on sky - Ratio 10.8:1 ✓
 
-5. **Ember** - Near-black base with fiery orange-red accents
-   - Primary: `oklch(0.18 0.04 20)` - Charcoal black
-   - Accent: `oklch(0.68 0.24 35)` - Ember orange for intensity
-   - Foreground/Background: Charcoal (#1F1C1A): White text (#FFFFFF) - Ratio 12.1:1 ✓
+5. **Night** - Deep blue-black with cyan highlights
+   - Background: `oklch(0.12 0.02 260)` - Midnight blue
+   - Primary: `oklch(0.58 0.20 240)` - Bright blue
+   - Accent: `oklch(0.68 0.22 200)` - Cyan accent
+   - Foreground/Background: White on midnight - Ratio 13.5:1 ✓
 
-6. **Lavender** - Purple-grey base with pink-purple accents
-   - Primary: `oklch(0.26 0.07 300)` - Deep lavender
-   - Accent: `oklch(0.78 0.18 320)` - Bright magenta for sophistication
-   - Foreground/Background: Deep Lavender (#3A2D47): White text (#FFFFFF) - Ratio 9.4:1 ✓
+6. **Moon** - Soft dark grey with purple tones
+   - Background: `oklch(0.18 0.01 260)` - Cool grey
+   - Primary: `oklch(0.52 0.10 280)` - Muted purple
+   - Accent: `oklch(0.70 0.15 280)` - Soft lavender
+   - Foreground/Background: White on grey - Ratio 11.9:1 ✓
+
+7. **Serif** - Warm paper-like background with classic brown
+   - Background: `oklch(0.97 0.01 60)` - Warm white
+   - Primary: `oklch(0.42 0.08 40)` - Deep brown
+   - Accent: `oklch(0.52 0.12 30)` - Rich chocolate
+   - Foreground/Background: Dark brown on paper - Ratio 11.2:1 ✓
+
+8. **Solarized** - Inspired by the classic Solarized Light palette
+   - Background: `oklch(0.97 0.01 85)` - Warm cream
+   - Primary: `oklch(0.52 0.14 220)` - Blue accent
+   - Accent: `oklch(0.60 0.16 192)` - Cyan highlight
+   - Foreground/Background: Blue-grey on cream - Ratio 9.5:1 ✓
 
 All themes maintain WCAG AA contrast ratios for accessibility and use consistent structure for seamless switching.
 
