@@ -278,6 +278,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   type="file"
                   accept=".md,.markdown"
                   multiple
+                  {...({ webkitdirectory: '' } as any)}
                   className="hidden"
                   onChange={handleFileInput}
                 />
