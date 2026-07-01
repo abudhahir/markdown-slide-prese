@@ -7,6 +7,7 @@ import { ThemeSelector } from './ThemeSelector'
 import { FileSelector } from './FileSelector'
 import { PresentationTimer } from './PresentationTimer'
 import { MarkdownNameDisplay } from './MarkdownNameDisplay'
+import { SlidesListOverlay } from './SlidesListOverlay'
 import { Button } from '@/components/ui/button'
 import { FolderOpen } from '@phosphor-icons/react'
 
@@ -22,6 +23,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
   const [isFileSelectorOpen, setIsFileSelectorOpen] = useState(false)
   const [isMarkdownNameOpen, setIsMarkdownNameOpen] = useState(false)
+  const [isSlidesListOpen, setIsSlidesListOpen] = useState(false)
   const [currentFileName, setCurrentFileName] = useState('tutorial-slides.md')
 
   useEffect(() => {
@@ -61,6 +63,9 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       } else if (e.key === 'd' || e.key === 'D') {
         e.preventDefault()
         setIsMarkdownNameOpen(prev => !prev)
+      } else if (e.key === 's' || e.key === 'S') {
+        e.preventDefault()
+        setIsSlidesListOpen(prev => !prev)
       }
     }
 
@@ -121,6 +126,12 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
     }
   }
 
+  const handleSlideSelect = (index: number) => {
+    const diff = index - currentIndex
+    setDirection(diff > 0 ? 1 : -1)
+    setCurrentIndex(index)
+  }
+
   return (
     <div className="h-screen w-screen bg-background text-foreground overflow-hidden relative">
       <div className="absolute inset-0 flex items-center justify-center">
@@ -166,6 +177,14 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
         isOpen={isMarkdownNameOpen}
         onOpenChange={setIsMarkdownNameOpen}
         fileName={currentFileName}
+      />
+
+      <SlidesListOverlay
+        isOpen={isSlidesListOpen}
+        onOpenChange={setIsSlidesListOpen}
+        slides={slides}
+        currentIndex={currentIndex}
+        onSlideSelect={handleSlideSelect}
       />
     </div>
   )

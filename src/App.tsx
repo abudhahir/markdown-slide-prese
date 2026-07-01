@@ -78,6 +78,7 @@ Perfect for technical presentations!
 ### Keyboard Controls
 - **Arrow Keys** (→ ← ↑ ↓) - Navigate between slides
 - **Spacebar** - Go to next slide
+- **S Key** - Show slides list with search
 - **T Key** - Toggle theme selector
 - **O Key** - Open file selector
 - **D Key** - Display current markdown file name
@@ -104,6 +105,30 @@ Try them now!
    - **Lavender** - Purple-grey with magenta
 
 Your choice persists across sessions!
+
+---
+
+## Slides List Overview 📋
+
+### Quick Navigation with Search
+
+**Press S** or use the keyboard shortcut to see all slides at once
+
+#### What You'll See
+- **Complete slide listing** - All slides in your presentation
+- **Live search** - Filter slides as you type
+- **Slide previews** - First line or heading from each slide
+- **Current indicator** - Highlighted badge shows where you are
+- **Slide numbers** - Easy reference for navigation
+
+#### How to Use
+1. Press **S** to open the slides list
+2. Type to **search** slide content
+3. Use **↑ ↓** arrows to select
+4. Press **Enter** to jump to that slide
+5. Or click any slide to navigate
+
+Perfect for long presentations and quick navigation!
 
 ---
 
@@ -213,6 +238,7 @@ https://gitlab.com/owner/repo/-/blob/main/slides.md
 | **→** or **↓** | Next slide |
 | **←** or **↑** | Previous slide |
 | **Spacebar** | Next slide |
+| **S** | Show slides list with search |
 | **T** | Toggle theme selector |
 | **O** | Open file selector |
 | **D** | Display file name |
@@ -364,12 +390,13 @@ Structure slides: Title → Problem → Solution → Examples → Conclusion
 ## What's Next?
 
 ### Practice
-- Try all keyboard shortcuts (→ ← T O D)
+- Try all keyboard shortcuts (→ ← S T O D)
 - Switch between themes
 - Load a file from your system
 - Test a Git URL
 - Use the timer to practice timing
 - Check which file you're presenting
+- Browse slides with the list view
 
 ### Create
 - Write your first presentation
@@ -400,7 +427,8 @@ Works on desktop, tablet, and mobile
 
 You now know:
 - ✅ How to create slides with markdown
-- ✅ All keyboard shortcuts (arrows, T, O, D)
+- ✅ All keyboard shortcuts (arrows, S, T, O, D)
+- ✅ Slides list with search
 - ✅ Theme switching
 - ✅ File loading (local and Git)
 - ✅ Mobile gestures
