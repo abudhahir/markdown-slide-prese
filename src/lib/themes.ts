@@ -1,6 +1,11 @@
 export interface Theme {
   name: string
   label: string
+  fonts: {
+    heading: string
+    body: string
+    code: string
+  }
   colors: {
     background: string
     foreground: string
@@ -28,6 +33,11 @@ export const themes: Theme[] = [
   {
     name: 'light',
     label: 'Light',
+    fonts: {
+      heading: "'Space Grotesk', sans-serif",
+      body: "'Inter', sans-serif",
+      code: "'JetBrains Mono', monospace"
+    },
     colors: {
       background: 'oklch(0.98 0 0)',
       foreground: 'oklch(0.20 0 0)',
@@ -53,6 +63,11 @@ export const themes: Theme[] = [
   {
     name: 'dark',
     label: 'Dark',
+    fonts: {
+      heading: "'Outfit', sans-serif",
+      body: "'Work Sans', sans-serif",
+      code: "'Fira Code', monospace"
+    },
     colors: {
       background: 'oklch(0.15 0.01 260)',
       foreground: 'oklch(0.98 0 0)',
@@ -78,6 +93,11 @@ export const themes: Theme[] = [
   {
     name: 'beige',
     label: 'Beige',
+    fonts: {
+      heading: "'Playfair Display', serif",
+      body: "'Lora', serif",
+      code: "'Source Code Pro', monospace"
+    },
     colors: {
       background: 'oklch(0.95 0.02 80)',
       foreground: 'oklch(0.25 0.03 80)',
@@ -103,6 +123,11 @@ export const themes: Theme[] = [
   {
     name: 'sky',
     label: 'Sky',
+    fonts: {
+      heading: "'Poppins', sans-serif",
+      body: "'Open Sans', sans-serif",
+      code: "'Roboto Mono', monospace"
+    },
     colors: {
       background: 'oklch(0.96 0.02 220)',
       foreground: 'oklch(0.22 0.04 240)',
@@ -128,6 +153,11 @@ export const themes: Theme[] = [
   {
     name: 'night',
     label: 'Night',
+    fonts: {
+      heading: "'Montserrat', sans-serif",
+      body: "'Raleway', sans-serif",
+      code: "'IBM Plex Mono', monospace"
+    },
     colors: {
       background: 'oklch(0.12 0.02 260)',
       foreground: 'oklch(0.95 0.01 220)',
@@ -153,6 +183,11 @@ export const themes: Theme[] = [
   {
     name: 'moon',
     label: 'Moon',
+    fonts: {
+      heading: "'Archivo', sans-serif",
+      body: "'Karla', sans-serif",
+      code: "'Space Mono', monospace"
+    },
     colors: {
       background: 'oklch(0.18 0.01 260)',
       foreground: 'oklch(0.92 0.01 260)',
@@ -178,6 +213,11 @@ export const themes: Theme[] = [
   {
     name: 'serif',
     label: 'Serif',
+    fonts: {
+      heading: "'Merriweather', serif",
+      body: "'Crimson Pro', serif",
+      code: "'Courier Prime', monospace"
+    },
     colors: {
       background: 'oklch(0.97 0.01 60)',
       foreground: 'oklch(0.18 0.02 40)',
@@ -203,6 +243,11 @@ export const themes: Theme[] = [
   {
     name: 'solarized',
     label: 'Solarized',
+    fonts: {
+      heading: "'IBM Plex Sans', sans-serif",
+      body: "'Source Sans 3', sans-serif",
+      code: "'Inconsolata', monospace"
+    },
     colors: {
       background: 'oklch(0.97 0.01 85)',
       foreground: 'oklch(0.35 0.04 192)',
@@ -233,8 +278,33 @@ export function applyTheme(theme: Theme) {
     const cssVarName = key.replace(/([A-Z])/g, '-$1').toLowerCase()
     root.style.setProperty(`--${cssVarName}`, value)
   })
+  
+  root.style.setProperty('--font-heading', theme.fonts.heading)
+  root.style.setProperty('--font-body', theme.fonts.body)
+  root.style.setProperty('--font-code', theme.fonts.code)
 }
 
 export function getThemeByName(name: string): Theme | undefined {
   return themes.find(theme => theme.name === name)
+}
+
+export function getAllFonts(): string[] {
+  const allFonts = new Set<string>()
+  
+  themes.forEach(theme => {
+    const extractFontName = (fontString: string) => {
+      const match = fontString.match(/'([^']+)'/)
+      return match ? match[1] : null
+    }
+    
+    const heading = extractFontName(theme.fonts.heading)
+    const body = extractFontName(theme.fonts.body)
+    const code = extractFontName(theme.fonts.code)
+    
+    if (heading) allFonts.add(heading)
+    if (body) allFonts.add(body)
+    if (code) allFonts.add(code)
+  })
+  
+  return Array.from(allFonts)
 }
