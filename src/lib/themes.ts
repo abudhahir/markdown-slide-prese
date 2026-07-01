@@ -34,9 +34,9 @@ export const themes: Theme[] = [
     name: 'light',
     label: 'Light',
     fonts: {
-      heading: "'Space Grotesk', sans-serif",
-      body: "'Inter', sans-serif",
-      code: "'JetBrains Mono', monospace"
+      heading: "'Poppins', sans-serif",
+      body: "'Open Sans', sans-serif",
+      code: "'Fira Code', monospace"
     },
     colors: {
       background: 'oklch(0.98 0 0)',
@@ -64,8 +64,8 @@ export const themes: Theme[] = [
     name: 'dark',
     label: 'Dark',
     fonts: {
-      heading: "'Outfit', sans-serif",
-      body: "'Work Sans', sans-serif",
+      heading: "'Montserrat', sans-serif",
+      body: "'Open Sans', sans-serif",
       code: "'Fira Code', monospace"
     },
     colors: {
@@ -94,9 +94,9 @@ export const themes: Theme[] = [
     name: 'beige',
     label: 'Beige',
     fonts: {
-      heading: "'Playfair Display', serif",
+      heading: "'Merriweather', serif",
       body: "'Lora', serif",
-      code: "'Source Code Pro', monospace"
+      code: "'Courier Prime', monospace"
     },
     colors: {
       background: 'oklch(0.95 0.02 80)',
@@ -124,9 +124,9 @@ export const themes: Theme[] = [
     name: 'sky',
     label: 'Sky',
     fonts: {
-      heading: "'Poppins', sans-serif",
-      body: "'Open Sans', sans-serif",
-      code: "'Roboto Mono', monospace"
+      heading: "'Space Grotesk', sans-serif",
+      body: "'Inter', sans-serif",
+      code: "'JetBrains Mono', monospace"
     },
     colors: {
       background: 'oklch(0.96 0.02 220)',
@@ -154,9 +154,9 @@ export const themes: Theme[] = [
     name: 'night',
     label: 'Night',
     fonts: {
-      heading: "'Montserrat', sans-serif",
-      body: "'Raleway', sans-serif",
-      code: "'IBM Plex Mono', monospace"
+      heading: "'Raleway', sans-serif",
+      body: "'Lora', serif",
+      code: "'Source Code Pro', monospace"
     },
     colors: {
       background: 'oklch(0.12 0.02 260)',
@@ -184,9 +184,9 @@ export const themes: Theme[] = [
     name: 'moon',
     label: 'Moon',
     fonts: {
-      heading: "'Archivo', sans-serif",
-      body: "'Karla', sans-serif",
-      code: "'Space Mono', monospace"
+      heading: "'Space Grotesk', sans-serif",
+      body: "'Work Sans', sans-serif",
+      code: "'Fira Code', monospace"
     },
     colors: {
       background: 'oklch(0.18 0.01 260)',
@@ -214,9 +214,9 @@ export const themes: Theme[] = [
     name: 'serif',
     label: 'Serif',
     fonts: {
-      heading: "'Merriweather', serif",
+      heading: "'Playfair Display', serif",
       body: "'Crimson Pro', serif",
-      code: "'Courier Prime', monospace"
+      code: "'IBM Plex Mono', monospace"
     },
     colors: {
       background: 'oklch(0.97 0.01 60)',
@@ -244,7 +244,7 @@ export const themes: Theme[] = [
     name: 'solarized',
     label: 'Solarized',
     fonts: {
-      heading: "'IBM Plex Sans', sans-serif",
+      heading: "'Outfit', sans-serif",
       body: "'Source Sans 3', sans-serif",
       code: "'Inconsolata', monospace"
     },
