@@ -30,6 +30,7 @@ export function SlidesListOverlay({
   const [selectedIndex, setSelectedIndex] = useState(currentIndex)
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
+  const selectedButtonRefs = useRef<Map<number, HTMLButtonElement>>(new Map())
 
   useEffect(() => {
     if (isOpen) {
@@ -54,6 +55,18 @@ export function SlidesListOverlay({
       const content = slide.rawContent.toLowerCase()
       return preview.includes(searchQuery.toLowerCase()) || content.includes(searchQuery.toLowerCase())
     })
+
+  useEffect(() => {
+    if (isOpen && selectedIndex !== undefined) {
+      const selectedButton = selectedButtonRefs.current.get(selectedIndex)
+      if (selectedButton) {
+        selectedButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
+      }
+    }
+  }, [selectedIndex, isOpen])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -124,6 +137,13 @@ export function SlidesListOverlay({
                   return (
                     <Button
                       key={index}
+                      ref={(el) => {
+                        if (el) {
+                          selectedButtonRefs.current.set(index, el)
+                        } else {
+                          selectedButtonRefs.current.delete(index)
+                        }
+                      }}
                       variant="ghost"
                       onClick={() => handleSlideClick(index)}
                       className={cn(
