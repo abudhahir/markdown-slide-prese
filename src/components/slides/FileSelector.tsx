@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { File, Folder, FolderOpen, CaretRight } from '@phosphor-icons/react'
+import { File, Folder, FolderOpen, CaretRight, Link } from '@phosphor-icons/react'
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,11 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 
 interface FileNode {
   name: string
@@ -27,6 +31,77 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
   const [files, setFiles] = useState<FileNode[]>([])
   const [expandedDirs, setExpandedDirs] = useState<Set<string>>(new Set())
   const [isLoading, setIsLoading] = useState(false)
+  const [gitUrl, setGitUrl] = useState('')
+
+  const parseGitUrl = (url: string): { platform: 'github' | 'gitlab', owner: string, repo: string, branch: string, path: string } | null => {
+    try {
+      const githubMatch = url.match(/github\.com\/([^\/]+)\/([^\/]+)(?:\/blob\/([^\/]+)\/(.+))?/)
+      if (githubMatch) {
+        return {
+          platform: 'github',
+          owner: githubMatch[1],
+          repo: githubMatch[2].replace(/\.git$/, ''),
+          branch: githubMatch[3] || 'main',
+          path: githubMatch[4] || ''
+        }
+      }
+
+      const gitlabMatch = url.match(/gitlab\.com\/([^\/]+)\/([^\/]+)(?:\/-\/blob\/([^\/]+)\/(.+))?/)
+      if (gitlabMatch) {
+        return {
+          platform: 'gitlab',
+          owner: gitlabMatch[1],
+          repo: gitlabMatch[2].replace(/\.git$/, ''),
+          branch: gitlabMatch[3] || 'main',
+          path: gitlabMatch[4] || ''
+        }
+      }
+
+      return null
+    } catch (error) {
+      return null
+    }
+  }
+
+  const fetchFromGitUrl = async () => {
+    if (!gitUrl.trim()) {
+      toast.error('Please enter a Git URL')
+      return
+    }
+
+    const parsed = parseGitUrl(gitUrl)
+    if (!parsed) {
+      toast.error('Invalid Git URL. Supported: GitHub and GitLab URLs')
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      let rawUrl = ''
+      
+      if (parsed.platform === 'github') {
+        rawUrl = `https://raw.githubusercontent.com/${parsed.owner}/${parsed.repo}/${parsed.branch}/${parsed.path}`
+      } else if (parsed.platform === 'gitlab') {
+        rawUrl = `https://gitlab.com/${parsed.owner}/${parsed.repo}/-/raw/${parsed.branch}/${parsed.path}`
+      }
+
+      const response = await fetch(rawUrl)
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.statusText}`)
+      }
+
+      const content = await response.text()
+      const fileName = parsed.path.split('/').pop() || 'presentation.md'
+      
+      onFileSelect(content, fileName)
+      onOpenChange(false)
+      toast.success(`Loaded ${fileName} from ${parsed.platform}`)
+    } catch (error) {
+      toast.error(`Failed to load file: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleFileInput = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files
@@ -179,65 +254,119 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
           <DialogTitle className="text-2xl font-bold">Open Markdown File</DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col gap-4 overflow-hidden">
-          {files.length === 0 ? (
-            <div className="flex-1 flex flex-col items-center justify-center gap-4 py-8">
-              <Folder className="text-muted-foreground" size={64} />
-              <p className="text-center text-muted-foreground">
-                Select a folder containing markdown files
-              </p>
-              <input
-                id="file-directory-input"
-                type="file"
-                accept=".md,.markdown"
-                multiple
-                className="hidden"
-                onChange={handleFileInput}
-              />
-              <Button
-                onClick={() => {
-                  const input = document.getElementById('file-directory-input') as HTMLInputElement
-                  input?.click()
-                }}
-                className="mt-2"
-              >
-                Browse Folder
-              </Button>
-            </div>
-          ) : (
-            <>
-              <div className="flex items-center justify-between border-b border-border pb-3">
-                <p className="text-sm text-muted-foreground">
-                  Select a markdown file to open
+        <Tabs defaultValue="local" className="flex-1 flex flex-col overflow-hidden">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="local">
+              <Folder className="mr-2" size={16} />
+              Local Files
+            </TabsTrigger>
+            <TabsTrigger value="git">
+              <Link className="mr-2" size={16} />
+              Git URL
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="local" className="flex-1 flex flex-col gap-4 overflow-hidden mt-4">
+            {files.length === 0 ? (
+              <div className="flex-1 flex flex-col items-center justify-center gap-4 py-8">
+                <Folder className="text-muted-foreground" size={64} />
+                <p className="text-center text-muted-foreground">
+                  Select a folder containing markdown files
                 </p>
+                <input
+                  id="file-directory-input"
+                  type="file"
+                  accept=".md,.markdown"
+                  multiple
+                  className="hidden"
+                  onChange={handleFileInput}
+                />
                 <Button
-                  variant="ghost"
-                  size="sm"
                   onClick={() => {
-                    setFiles([])
-                    setExpandedDirs(new Set())
                     const input = document.getElementById('file-directory-input') as HTMLInputElement
-                    if (input) input.value = ''
+                    input?.click()
                   }}
+                  className="mt-2"
                 >
-                  Change Folder
+                  Browse Folder
                 </Button>
               </div>
-
-              <ScrollArea className="flex-1 pr-4">
-                <div className="space-y-1">
-                  {isLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                      <div className="text-muted-foreground">Loading files...</div>
-                    </div>
-                  ) : (
-                    renderFileTree(files)
-                  )}
+            ) : (
+              <>
+                <div className="flex items-center justify-between border-b border-border pb-3">
+                  <p className="text-sm text-muted-foreground">
+                    Select a markdown file to open
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      setFiles([])
+                      setExpandedDirs(new Set())
+                      const input = document.getElementById('file-directory-input') as HTMLInputElement
+                      if (input) input.value = ''
+                    }}
+                  >
+                    Change Folder
+                  </Button>
                 </div>
-              </ScrollArea>
-            </>
-          )}
-        </div>
+
+                <ScrollArea className="flex-1 pr-4">
+                  <div className="space-y-1">
+                    {isLoading ? (
+                      <div className="flex items-center justify-center py-8">
+                        <div className="text-muted-foreground">Loading files...</div>
+                      </div>
+                    ) : (
+                      renderFileTree(files)
+                    )}
+                  </div>
+                </ScrollArea>
+              </>
+            )}
+          </TabsContent>
+
+          <TabsContent value="git" className="flex-1 flex flex-col gap-4 overflow-hidden mt-4">
+            <div className="flex-1 flex flex-col gap-6 py-4">
+              <div className="space-y-4">
+                <div className="flex items-start gap-2 p-4 bg-accent/10 rounded-lg border border-accent/20">
+                  <Link className="text-accent flex-shrink-0 mt-0.5" size={20} />
+                  <div className="space-y-2 text-sm">
+                    <p className="font-medium text-foreground">Supported Git URLs:</p>
+                    <ul className="space-y-1 text-muted-foreground">
+                      <li>• GitHub: <code className="text-xs bg-primary/20 px-1.5 py-0.5 rounded">https://github.com/owner/repo/blob/main/file.md</code></li>
+                      <li>• GitLab: <code className="text-xs bg-primary/20 px-1.5 py-0.5 rounded">https://gitlab.com/owner/repo/-/blob/main/file.md</code></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="git-url" className="text-base">Git URL</Label>
+                  <Input
+                    id="git-url"
+                    placeholder="https://github.com/owner/repo/blob/main/slides.md"
+                    value={gitUrl}
+                    onChange={(e) => setGitUrl(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        fetchFromGitUrl()
+                      }
+                    }}
+                    className="font-mono text-sm"
+                  />
+                </div>
+
+                <Button
+                  onClick={fetchFromGitUrl}
+                  disabled={isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? 'Loading...' : 'Load from Git'}
+                </Button>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   )

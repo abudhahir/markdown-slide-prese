@@ -50,9 +50,16 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 ### Theme Selector
 - **Functionality**: Switch between multiple color scheme themes in real-time
 - **Purpose**: Allow users to customize the visual appearance of presentations to match preferences or contexts
-- **Trigger**: Click theme selector button in top-right corner
+- **Trigger**: Click theme selector button in top-right corner or press 'T' key
 - **Progression**: Click theme button → Open theme dropdown → Select theme → Apply colors instantly → Persist selection
 - **Success criteria**: Theme changes apply immediately, selection persists across sessions, all themes maintain readable contrast ratios
+
+### File Loading System
+- **Functionality**: Load markdown presentations from local filesystem or remote Git URLs (GitHub/GitLab)
+- **Purpose**: Enable users to present from various sources without manually copying content
+- **Trigger**: Press 'O' key or click folder icon button in top-right corner
+- **Progression**: Open file selector → Choose local files tab or Git URL tab → Browse local folder or paste Git URL → Select/load file → Parse markdown → Display slides
+- **Success criteria**: Successfully loads .md/.markdown files from local directories and raw markdown files from GitHub/GitLab URLs, displays errors clearly if URL is invalid or file cannot be fetched
 
 ## Edge Case Handling
 
@@ -62,6 +69,9 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Long Content**: Apply scroll within slide if content exceeds viewport height
 - **Rapid Navigation**: Debounce or queue rapid key presses to prevent broken animations
 - **Image Handling**: Support markdown images with proper sizing and loading states
+- **Invalid Git URLs**: Display clear error messages for unsupported or malformed Git URLs
+- **Network Failures**: Show appropriate error messages when Git URL fetch fails due to network issues or file not found
+- **Private Repositories**: Inform users that private repository files cannot be accessed (only public repos supported)
 
 ## Design Direction
 
@@ -128,20 +138,30 @@ Animations should enhance the presentation experience with purposeful, confident
   - Badge (shadcn) for progress indicator with custom accent styling
   - Separator (shadcn) for dividing content within slides
   - DropdownMenu (shadcn) for theme selector with color preview swatches
+  - Dialog (shadcn) for file selector modal
+  - Tabs (shadcn) for switching between local files and Git URL input
+  - Input (shadcn) for Git URL text input
+  - ScrollArea (shadcn) for file tree navigation
 - **Customizations**: 
   - Custom `SlideContainer` component wrapping Card for full-screen behavior
   - Custom `MarkdownRenderer` component to parse and style markdown content
   - Custom `NavigationControls` component for arrow buttons positioned at screen edges
   - Custom `ProgressIndicator` component for slide counter badge
   - Custom `ThemeSelector` component with visual theme previews and persistence
+  - Custom `FileSelector` component with dual modes (local file browser and Git URL loader)
 - **States**: 
   - Navigation buttons: Semi-transparent default, full opacity on hover, slight scale on active, hidden on first/last slides
   - Slide transitions: Fade + slide animation between slides, loading skeleton for markdown parsing
   - Progress indicator: Subtle pulse on change, persistent visibility
   - Theme selector: Glassmorphic button with palette icon, dropdown shows color swatches, selected theme highlighted
+  - File selector: Modal dialog with tabs, loading state during file fetch, error state for invalid URLs
 - **Icon Selection**: 
   - CaretLeft/CaretRight from Phosphor for navigation arrows
   - Palette from Phosphor for theme selector
+  - FolderOpen from Phosphor for file selector button
+  - Link from Phosphor for Git URL tab icon
+  - Folder from Phosphor for local files tab icon
+  - File from Phosphor for markdown file items
   - X or XCircle for potential exit/close functionality
 - **Spacing**: 
   - Slide padding: p-16 (64px) on desktop, p-8 (32px) on mobile
