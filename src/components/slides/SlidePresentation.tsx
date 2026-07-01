@@ -5,6 +5,8 @@ import { NavigationControls } from './NavigationControls'
 import { ProgressIndicator } from './ProgressIndicator'
 import { ThemeSelector } from './ThemeSelector'
 import { FileSelector } from './FileSelector'
+import { Button } from '@/components/ui/button'
+import { FolderOpen } from '@phosphor-icons/react'
 
 interface SlidePresentationProps {
   markdown: string
@@ -129,6 +131,15 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       </div>
 
       <div className="absolute top-8 right-8 flex items-center gap-3">
+        <Button
+          variant="secondary"
+          size="icon"
+          onClick={() => setIsFileSelectorOpen(true)}
+          className="h-10 w-10 rounded-full bg-secondary/80 hover:bg-secondary backdrop-blur-sm border border-border/50 transition-all duration-200 hover:scale-105"
+          aria-label="Open file selector"
+        >
+          <FolderOpen className="text-foreground" />
+        </Button>
         <ThemeSelector isOpen={isThemeSelectorOpen} onOpenChange={setIsThemeSelectorOpen} />
         <ProgressIndicator current={currentIndex + 1} total={slides.length} />
       </div>
