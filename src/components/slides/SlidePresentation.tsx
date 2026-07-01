@@ -4,16 +4,19 @@ import { SlideContainer } from './SlideContainer'
 import { NavigationControls } from './NavigationControls'
 import { ProgressIndicator } from './ProgressIndicator'
 import { ThemeSelector } from './ThemeSelector'
+import { FileSelector } from './FileSelector'
 
 interface SlidePresentationProps {
   markdown: string
+  onMarkdownChange?: (markdown: string, fileName: string) => void
 }
 
-export function SlidePresentation({ markdown }: SlidePresentationProps) {
+export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentationProps) {
   const [slides, setSlides] = useState(() => parseMarkdownToSlides(markdown))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
+  const [isFileSelectorOpen, setIsFileSelectorOpen] = useState(false)
 
   useEffect(() => {
     const parsedSlides = parseMarkdownToSlides(markdown)
@@ -46,6 +49,9 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
       } else if (e.key === 't' || e.key === 'T') {
         e.preventDefault()
         setIsThemeSelectorOpen(prev => !prev)
+      } else if (e.key === 'o' || e.key === 'O') {
+        e.preventDefault()
+        setIsFileSelectorOpen(prev => !prev)
       }
     }
 
@@ -99,6 +105,12 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
 
   const currentSlide = slides[currentIndex]
 
+  const handleFileSelect = (content: string, fileName: string) => {
+    if (onMarkdownChange) {
+      onMarkdownChange(content, fileName)
+    }
+  }
+
   return (
     <div className="h-screen w-screen bg-background text-foreground overflow-hidden relative">
       <div className="absolute inset-0 flex items-center justify-center">
@@ -120,6 +132,12 @@ export function SlidePresentation({ markdown }: SlidePresentationProps) {
         <ThemeSelector isOpen={isThemeSelectorOpen} onOpenChange={setIsThemeSelectorOpen} />
         <ProgressIndicator current={currentIndex + 1} total={slides.length} />
       </div>
+
+      <FileSelector
+        isOpen={isFileSelectorOpen}
+        onOpenChange={setIsFileSelectorOpen}
+        onFileSelect={handleFileSelect}
+      />
     </div>
   )
 }

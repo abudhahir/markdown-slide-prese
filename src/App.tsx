@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { SlidePresentation } from '@/components/slides/SlidePresentation'
+import { toast, Toaster } from 'sonner'
 
 const sampleMarkdown = `# Welcome to Markdown Slides
 
@@ -57,6 +59,8 @@ You can include:
 - **Arrow Keys** → Navigate between slides
 - **Spacebar** → Go to next slide
 - **Touch** → Swipe left/right on mobile
+- **T Key** → Toggle theme selector
+- **O Key** → Open file selector
 
 ---
 
@@ -68,7 +72,19 @@ Start creating your own presentations with markdown
 `
 
 function App() {
-  return <SlidePresentation markdown={sampleMarkdown} />
+  const [markdown, setMarkdown] = useState(sampleMarkdown)
+
+  const handleMarkdownChange = (newMarkdown: string, fileName: string) => {
+    setMarkdown(newMarkdown)
+    toast.success(`Loaded ${fileName}`)
+  }
+
+  return (
+    <>
+      <SlidePresentation markdown={markdown} onMarkdownChange={handleMarkdownChange} />
+      <Toaster position="top-center" />
+    </>
+  )
 }
 
 export default App
