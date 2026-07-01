@@ -76,6 +76,9 @@ function hello() {
 | `→` or `↓` | Next slide |
 | `←` or `↑` | Previous slide |
 | `Space` | Next slide |
+| `T` | Toggle theme selector |
+| `O` | Open file selector |
+| `D` | Display current markdown file name |
 
 ### Mouse/Touch
 

@@ -34,11 +34,11 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Success criteria**: Always shows accurate "X / Y" format in unobtrusive location
 
 ### Keyboard Controls
-- **Functionality**: Arrow keys (left/right or up/down), spacebar, and escape key support
-- **Purpose**: Standard presentation navigation without mouse
+- **Functionality**: Arrow keys (left/right or up/down), spacebar, and keyboard shortcuts (T, O, D)
+- **Purpose**: Standard presentation navigation without mouse and quick access to features
 - **Trigger**: Keyboard event while presentation is focused
-- **Progression**: Key press → Map to navigation action → Execute slide change or exit
-- **Success criteria**: All standard presentation shortcuts work reliably
+- **Progression**: Key press → Map to navigation action or feature toggle → Execute slide change, theme selector, file selector, or file name display
+- **Success criteria**: All standard presentation shortcuts work reliably, keyboard shortcuts feel intuitive and respond instantly
 
 ### Full-Screen Mode
 - **Functionality**: Display slides in full viewport with no surrounding UI chrome
@@ -67,6 +67,13 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Trigger**: Starts automatically when presentation loads
 - **Progression**: Component mount → Initialize timer → Auto-start counting → User clicks pause/play button → Timer pauses/resumes → User clicks reset → Timer returns to 0:00
 - **Success criteria**: Timer accurately displays elapsed time in M:SS or H:MM:SS format, pause/resume works reliably, reset returns to zero and resumes counting, timer persists across slide changes
+
+### Markdown File Name Display
+- **Functionality**: Display the name of the currently loaded markdown file in a modal dialog
+- **Purpose**: Help presenters identify which presentation file they're currently viewing, especially useful when switching between multiple presentations
+- **Trigger**: Press 'D' key to toggle the display
+- **Progression**: Key press → Open modal dialog → Display current file name → Press 'D' again or close button to dismiss
+- **Success criteria**: Shows correct file name for both default tutorial slides and user-loaded files (local or Git URLs), modal displays clearly with file icon and name, keyboard shortcut works reliably
 
 ## Edge Case Handling
 
@@ -170,6 +177,7 @@ Animations should enhance the presentation experience with purposeful, confident
   - Link from Phosphor for Git URL tab icon
   - Folder from Phosphor for local files tab icon
   - File from Phosphor for markdown file items
+  - FileText from Phosphor for markdown name display
   - Play/Pause from Phosphor for timer controls
   - ArrowClockwise from Phosphor for timer reset
   - X or XCircle for potential exit/close functionality

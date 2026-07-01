@@ -80,6 +80,7 @@ Perfect for technical presentations!
 - **Spacebar** - Go to next slide
 - **T Key** - Toggle theme selector
 - **O Key** - Open file selector
+- **D Key** - Display current markdown file name
 
 ### Touch Controls
 - **Swipe Left** - Next slide
@@ -103,6 +104,27 @@ Try them now!
    - **Lavender** - Purple-grey with magenta
 
 Your choice persists across sessions!
+
+---
+
+## Current File Name 📄
+
+### Identify Your Presentation
+
+**Press D** or use the keyboard shortcut to see which markdown file is currently loaded
+
+#### When to Use
+- Working with multiple presentations
+- Confirming which file you loaded
+- Switching between local and Git-based files
+- Verifying you're presenting the right deck
+
+#### What You'll See
+- **File name** or **URL** of the current markdown
+- **Dialog box** with clear file information
+- Press **D again** to close the display
+
+Useful for managing multiple presentation files!
 
 ---
 
@@ -193,6 +215,7 @@ https://gitlab.com/owner/repo/-/blob/main/slides.md
 | **Spacebar** | Next slide |
 | **T** | Toggle theme selector |
 | **O** | Open file selector |
+| **D** | Display file name |
 
 *Master these for seamless presenting!*
 
@@ -341,11 +364,12 @@ Structure slides: Title → Problem → Solution → Examples → Conclusion
 ## What's Next?
 
 ### Practice
-- Try all keyboard shortcuts
+- Try all keyboard shortcuts (→ ← T O D)
 - Switch between themes
 - Load a file from your system
 - Test a Git URL
 - Use the timer to practice timing
+- Check which file you're presenting
 
 ### Create
 - Write your first presentation
@@ -376,11 +400,12 @@ Works on desktop, tablet, and mobile
 
 You now know:
 - ✅ How to create slides with markdown
-- ✅ All keyboard shortcuts
+- ✅ All keyboard shortcuts (arrows, T, O, D)
 - ✅ Theme switching
 - ✅ File loading (local and Git)
 - ✅ Mobile gestures
 - ✅ Presentation timer
+- ✅ File name display
 - ✅ Best practices
 
 ---
