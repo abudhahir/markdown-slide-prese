@@ -348,7 +348,7 @@ Choose themes that match your content:
 Bookmark Git URLs in your file selector for quick access
 
 ### Presentation Flow
-Structure slides: Title → Problem → Solution → Examples → Conclusion
+Structure slides: Title → Problem → Solution ��� Examples → Conclusion
 
 ---
 
