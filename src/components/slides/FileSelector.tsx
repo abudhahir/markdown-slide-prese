@@ -271,8 +271,22 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
               <div className="flex-1 flex flex-col items-center justify-center gap-4 py-8">
                 <Folder className="text-muted-foreground" size={64} />
                 <p className="text-center text-muted-foreground">
-                  Select a folder containing markdown files
+                  Select a markdown file or folder
                 </p>
+                <input
+                  id="file-single-input"
+                  type="file"
+                  accept=".md,.markdown"
+                  className="hidden"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                      const content = await file.text()
+                      onFileSelect(content, file.name)
+                      onOpenChange(false)
+                    }
+                  }}
+                />
                 <input
                   id="file-directory-input"
                   type="file"
@@ -282,15 +296,28 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   className="hidden"
                   onChange={handleFileInput}
                 />
-                <Button
-                  onClick={() => {
-                    const input = document.getElementById('file-directory-input') as HTMLInputElement
-                    input?.click()
-                  }}
-                  className="mt-2"
-                >
-                  Browse Folder
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => {
+                      const input = document.getElementById('file-single-input') as HTMLInputElement
+                      input?.click()
+                    }}
+                    variant="default"
+                  >
+                    <File className="mr-2" size={16} />
+                    Select File
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      const input = document.getElementById('file-directory-input') as HTMLInputElement
+                      input?.click()
+                    }}
+                    variant="secondary"
+                  >
+                    <Folder className="mr-2" size={16} />
+                    Browse Folder
+                  </Button>
+                </div>
               </div>
             ) : (
               <>
