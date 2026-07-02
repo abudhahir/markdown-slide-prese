@@ -44,6 +44,52 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
 
       const computedStyles = window.getComputedStyle(document.documentElement)
       
+      const oklchToRgb = (l: number, c: number, h: number): [number, number, number] => {
+        const hRad = h * Math.PI / 180
+        const a = c * Math.cos(hRad)
+        const b = c * Math.sin(hRad)
+        
+        let L = l * 100
+        let A = a
+        let B = b
+        
+        let x = L + 0.3963377774 * A + 0.2158037573 * B
+        let y = L - 0.1055613458 * A - 0.0638541728 * B
+        let z = L - 0.0894841775 * A - 1.2914855480 * B
+        
+        x = x / 100
+        y = y / 100
+        z = z / 100
+        
+        const toLinear = (c: number) => {
+          const abs = Math.abs(c)
+          if (abs <= 0.04045) return c / 12.92
+          return Math.sign(c) * Math.pow((abs + 0.055) / 1.055, 2.4)
+        }
+        
+        let r = toLinear(x * 3.2406 + y * -1.5372 + z * -0.4986)
+        let g = toLinear(x * -0.9689 + y * 1.8758 + z * 0.0415)
+        let bl = toLinear(x * 0.0557 + y * -0.2040 + z * 1.0570)
+        
+        const toGamma = (c: number) => {
+          const abs = Math.abs(c)
+          if (abs > 0.0031308) {
+            return Math.sign(c) * (1.055 * Math.pow(abs, 1 / 2.4) - 0.055)
+          }
+          return 12.92 * c
+        }
+        
+        r = toGamma(r)
+        g = toGamma(g)
+        bl = toGamma(bl)
+        
+        r = Math.max(0, Math.min(255, Math.round(r * 255)))
+        g = Math.max(0, Math.min(255, Math.round(g * 255)))
+        bl = Math.max(0, Math.min(255, Math.round(bl * 255)))
+        
+        return [r, g, bl]
+      }
+      
       const getColor = (varName: string, fallback: string) => {
         const value = computedStyles.getPropertyValue(varName).trim()
         if (value && value.startsWith('oklch')) {
@@ -54,19 +100,13 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
             const h = parseFloat(match[3])
             const alpha = match[4] ? (match[4].includes('%') ? parseFloat(match[4]) / 100 : parseFloat(match[4])) : 1
             
-            const lrgb = l * 100
-            const a = c * Math.cos(h * Math.PI / 180)
-            const b = c * Math.sin(h * Math.PI / 180)
-            
-            let r = lrgb + (a * 0.3963377774)
-            let g = lrgb - (a * 0.1055613458) - (b * 0.0894841775)
-            let bl = lrgb - (a * 0.0894841775) + (b * 1.2914855480)
-            
-            r = Math.max(0, Math.min(255, Math.round(r * 2.55)))
-            g = Math.max(0, Math.min(255, Math.round(g * 2.55)))
-            bl = Math.max(0, Math.min(255, Math.round(bl * 2.55)))
-            
-            return alpha < 1 ? `rgba(${r}, ${g}, ${bl}, ${alpha})` : `rgb(${r}, ${g}, ${bl})`
+            try {
+              const [r, g, bl] = oklchToRgb(l, c, h)
+              return alpha < 1 ? `rgba(${r}, ${g}, ${bl}, ${alpha})` : `rgb(${r}, ${g}, ${bl})`
+            } catch (e) {
+              console.warn('Color conversion failed for', varName, value)
+              return fallback
+            }
           }
         }
         return value || fallback
@@ -80,6 +120,8 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const fontHeading = computedStyles.getPropertyValue('--font-heading').trim() || 'sans-serif'
       const fontBody = computedStyles.getPropertyValue('--font-body').trim() || 'sans-serif'
       const fontCode = computedStyles.getPropertyValue('--font-code').trim() || 'monospace'
+
+      await document.fonts.ready
 
       for (let i = 0; i < slides.length; i++) {
         const slide = slides[i]
@@ -209,23 +251,33 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         tempDiv.appendChild(contentDiv)
         document.body.appendChild(tempDiv)
 
-        await new Promise(resolve => setTimeout(resolve, 200))
+        await new Promise(resolve => setTimeout(resolve, 100))
 
         const canvas = await html2canvas(tempDiv, {
           backgroundColor: bgColor,
-          scale: 2,
+          scale: 1.5,
           logging: false,
           useCORS: true,
           allowTaint: true,
           width: slideWidth,
           height: slideHeight,
           windowWidth: slideWidth,
-          windowHeight: slideHeight
+          windowHeight: slideHeight,
+          onclone: (clonedDoc) => {
+            const clonedDiv = clonedDoc.querySelector('div') as HTMLElement
+            if (clonedDiv) {
+              clonedDiv.style.transform = 'none'
+            }
+          }
         })
 
         document.body.removeChild(tempDiv)
 
-        const imgData = canvas.toDataURL('image/png', 1.0)
+        if (!canvas || canvas.width === 0 || canvas.height === 0) {
+          throw new Error(`Failed to render slide ${i + 1}`)
+        }
+
+        const imgData = canvas.toDataURL('image/png', 0.95)
 
         if (i > 0) {
           pdf.addPage()
@@ -252,7 +304,8 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
     } catch (error) {
       console.error('PDF export error:', error)
       setExportStatus('error')
-      toast.error('Failed to export PDF. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      toast.error(`Failed to export PDF: ${errorMessage}`)
       setIsExporting(false)
     }
   }
