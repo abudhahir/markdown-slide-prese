@@ -42,6 +42,45 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const slideWidth = 1920
       const slideHeight = 1080
 
+      const computedStyles = window.getComputedStyle(document.documentElement)
+      
+      const getColor = (varName: string, fallback: string) => {
+        const value = computedStyles.getPropertyValue(varName).trim()
+        if (value && value.startsWith('oklch')) {
+          const match = value.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+%?))?\)/)
+          if (match) {
+            const l = parseFloat(match[1])
+            const c = parseFloat(match[2])
+            const h = parseFloat(match[3])
+            const alpha = match[4] ? (match[4].includes('%') ? parseFloat(match[4]) / 100 : parseFloat(match[4])) : 1
+            
+            const lrgb = l * 100
+            const a = c * Math.cos(h * Math.PI / 180)
+            const b = c * Math.sin(h * Math.PI / 180)
+            
+            let r = lrgb + (a * 0.3963377774)
+            let g = lrgb - (a * 0.1055613458) - (b * 0.0894841775)
+            let bl = lrgb - (a * 0.0894841775) + (b * 1.2914855480)
+            
+            r = Math.max(0, Math.min(255, Math.round(r * 2.55)))
+            g = Math.max(0, Math.min(255, Math.round(g * 2.55)))
+            bl = Math.max(0, Math.min(255, Math.round(bl * 2.55)))
+            
+            return alpha < 1 ? `rgba(${r}, ${g}, ${bl}, ${alpha})` : `rgb(${r}, ${g}, ${bl})`
+          }
+        }
+        return value || fallback
+      }
+
+      const bgColor = getColor('--background', '#ffffff')
+      const fgColor = getColor('--foreground', '#000000')
+      const primaryColor = getColor('--primary', 'rgba(139, 92, 246, 0.8)')
+      const accentColor = getColor('--accent', 'rgba(139, 92, 246, 0.8)')
+      
+      const fontHeading = computedStyles.getPropertyValue('--font-heading').trim() || 'sans-serif'
+      const fontBody = computedStyles.getPropertyValue('--font-body').trim() || 'sans-serif'
+      const fontCode = computedStyles.getPropertyValue('--font-code').trim() || 'monospace'
+
       for (let i = 0; i < slides.length; i++) {
         const slide = slides[i]
         
@@ -58,10 +97,8 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         tempDiv.style.alignItems = 'center'
         tempDiv.style.justifyContent = 'center'
         tempDiv.style.padding = '128px'
-        
-        const computedStyles = window.getComputedStyle(document.documentElement)
-        tempDiv.style.backgroundColor = computedStyles.getPropertyValue('--background') || '#ffffff'
-        tempDiv.style.color = computedStyles.getPropertyValue('--foreground') || '#000000'
+        tempDiv.style.backgroundColor = bgColor
+        tempDiv.style.color = fgColor
 
         const contentDiv = document.createElement('div')
         contentDiv.className = 'markdown-content'
@@ -72,54 +109,60 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         const styles = document.createElement('style')
         styles.textContent = `
           .markdown-content {
-            font-family: var(--font-body);
+            font-family: ${fontBody};
+            color: ${fgColor};
           }
           .markdown-content h1 {
-            font-family: var(--font-heading);
+            font-family: ${fontHeading};
             font-size: 60px;
             font-weight: 700;
             margin-bottom: 32px;
             line-height: 1.15;
+            color: ${fgColor};
           }
           .markdown-content h2 {
-            font-family: var(--font-heading);
+            font-family: ${fontHeading};
             font-size: 48px;
             font-weight: 600;
             margin-bottom: 24px;
             line-height: 1.2;
+            color: ${fgColor};
           }
           .markdown-content h3 {
-            font-family: var(--font-heading);
+            font-family: ${fontHeading};
             font-size: 36px;
             font-weight: 500;
             margin-bottom: 20px;
             line-height: 1.3;
+            color: ${fgColor};
           }
           .markdown-content p {
             font-size: 24px;
             margin-bottom: 24px;
             line-height: 1.6;
+            color: ${fgColor};
           }
           .markdown-content ul, .markdown-content ol {
             font-size: 24px;
             margin-bottom: 24px;
             padding-left: 32px;
+            color: ${fgColor};
           }
           .markdown-content li {
             margin-bottom: 12px;
             line-height: 1.6;
           }
           .markdown-content code {
-            font-family: var(--font-code);
-            background-color: rgba(139, 92, 246, 0.8);
+            font-family: ${fontCode};
+            background-color: ${primaryColor};
             color: white;
             padding: 10px 12px;
             border-radius: 4px;
             font-size: 20px;
           }
           .markdown-content pre {
-            font-family: var(--font-code);
-            background-color: rgba(139, 92, 246, 0.8);
+            font-family: ${fontCode};
+            background-color: ${primaryColor};
             color: white;
             padding: 24px;
             border-radius: 8px;
@@ -134,21 +177,26 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
             font-size: 18px;
           }
           .markdown-content blockquote {
-            border-left: 4px solid currentColor;
+            border-left: 4px solid ${accentColor};
             padding-left: 24px;
             font-style: italic;
             margin-bottom: 24px;
             font-size: 24px;
             line-height: 1.6;
+            color: ${fgColor};
           }
           .markdown-content a {
             text-decoration: underline;
+            color: ${accentColor};
           }
           .markdown-content strong {
             font-weight: 600;
+            color: ${accentColor};
           }
           .markdown-content hr {
             margin: 32px 0;
+            border-color: ${fgColor};
+            opacity: 0.3;
           }
           .markdown-content img {
             border-radius: 8px;
@@ -161,10 +209,10 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         tempDiv.appendChild(contentDiv)
         document.body.appendChild(tempDiv)
 
-        await new Promise(resolve => setTimeout(resolve, 100))
+        await new Promise(resolve => setTimeout(resolve, 200))
 
         const canvas = await html2canvas(tempDiv, {
-          backgroundColor: null,
+          backgroundColor: bgColor,
           scale: 2,
           logging: false,
           useCORS: true,
