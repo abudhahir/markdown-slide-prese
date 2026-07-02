@@ -42,16 +42,14 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const slideWidth = 1920
       const slideHeight = 1080
 
-      const computedStyles = window.getComputedStyle(document.documentElement)
-      
       const oklchToRgb = (l: number, c: number, h: number): [number, number, number] => {
         const hRad = h * Math.PI / 180
         const a = c * Math.cos(hRad)
         const b = c * Math.sin(hRad)
         
         let L = l * 100
-        let A = a
-        let B = b
+        let A = a * 125
+        let B = b * 125
         
         let x = L + 0.3963377774 * A + 0.2158037573 * B
         let y = L - 0.1055613458 * A - 0.0638541728 * B
@@ -90,24 +88,31 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         return [r, g, bl]
       }
       
-      const getColor = (varName: string, fallback: string) => {
+      const convertOklchToRgb = (oklchString: string): string => {
+        const match = oklchString.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+%?))?\)/)
+        if (match) {
+          const l = parseFloat(match[1])
+          const c = parseFloat(match[2])
+          const h = parseFloat(match[3])
+          const alpha = match[4] ? (match[4].includes('%') ? parseFloat(match[4]) / 100 : parseFloat(match[4])) : 1
+          
+          const [r, g, bl] = oklchToRgb(l, c, h)
+          return alpha < 1 ? `rgba(${r}, ${g}, ${bl}, ${alpha})` : `rgb(${r}, ${g}, ${bl})`
+        }
+        return oklchString
+      }
+      
+      const tempElement = document.createElement('div')
+      tempElement.style.position = 'absolute'
+      tempElement.style.visibility = 'hidden'
+      document.body.appendChild(tempElement)
+
+      const computedStyles = window.getComputedStyle(document.documentElement)
+      
+      const getColor = (varName: string, fallback: string): string => {
         const value = computedStyles.getPropertyValue(varName).trim()
-        if (value && value.startsWith('oklch')) {
-          const match = value.match(/oklch\(([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*(?:\/\s*([\d.]+%?))?\)/)
-          if (match) {
-            const l = parseFloat(match[1])
-            const c = parseFloat(match[2])
-            const h = parseFloat(match[3])
-            const alpha = match[4] ? (match[4].includes('%') ? parseFloat(match[4]) / 100 : parseFloat(match[4])) : 1
-            
-            try {
-              const [r, g, bl] = oklchToRgb(l, c, h)
-              return alpha < 1 ? `rgba(${r}, ${g}, ${bl}, ${alpha})` : `rgb(${r}, ${g}, ${bl})`
-            } catch (e) {
-              console.warn('Color conversion failed for', varName, value)
-              return fallback
-            }
-          }
+        if (value && value.includes('oklch')) {
+          return convertOklchToRgb(value)
         }
         return value || fallback
       }
@@ -120,6 +125,8 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const fontHeading = computedStyles.getPropertyValue('--font-heading').trim() || 'sans-serif'
       const fontBody = computedStyles.getPropertyValue('--font-body').trim() || 'sans-serif'
       const fontCode = computedStyles.getPropertyValue('--font-code').trim() || 'monospace'
+      
+      document.body.removeChild(tempElement)
 
       await document.fonts.ready
 
