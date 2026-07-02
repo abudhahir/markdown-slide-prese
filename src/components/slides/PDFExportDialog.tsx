@@ -102,11 +102,6 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
         return oklchString
       }
       
-      const tempElement = document.createElement('div')
-      tempElement.style.position = 'absolute'
-      tempElement.style.visibility = 'hidden'
-      document.body.appendChild(tempElement)
-
       const computedStyles = window.getComputedStyle(document.documentElement)
       
       const getColor = (varName: string, fallback: string): string => {
@@ -120,13 +115,13 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const bgColor = getColor('--background', '#ffffff')
       const fgColor = getColor('--foreground', '#000000')
       const primaryColor = getColor('--primary', 'rgba(139, 92, 246, 0.8)')
+      const primaryFgColor = getColor('--primary-foreground', '#ffffff')
       const accentColor = getColor('--accent', 'rgba(139, 92, 246, 0.8)')
+      const mutedFgColor = getColor('--muted-foreground', '#666666')
       
       const fontHeading = computedStyles.getPropertyValue('--font-heading').trim() || 'sans-serif'
       const fontBody = computedStyles.getPropertyValue('--font-body').trim() || 'sans-serif'
       const fontCode = computedStyles.getPropertyValue('--font-code').trim() || 'monospace'
-      
-      document.body.removeChild(tempElement)
 
       await document.fonts.ready
 
@@ -204,7 +199,7 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
           .markdown-content code {
             font-family: ${fontCode};
             background-color: ${primaryColor};
-            color: white;
+            color: ${primaryFgColor};
             padding: 10px 12px;
             border-radius: 4px;
             font-size: 20px;
@@ -212,7 +207,7 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
           .markdown-content pre {
             font-family: ${fontCode};
             background-color: ${primaryColor};
-            color: white;
+            color: ${primaryFgColor};
             padding: 24px;
             border-radius: 8px;
             margin-bottom: 24px;
@@ -224,6 +219,7 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
             background-color: transparent;
             padding: 0;
             font-size: 18px;
+            color: inherit;
           }
           .markdown-content blockquote {
             border-left: 4px solid ${accentColor};
