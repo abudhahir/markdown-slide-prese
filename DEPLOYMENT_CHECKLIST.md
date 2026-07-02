@@ -18,7 +18,7 @@ Use this checklist to ensure successful deployment of your Markdown Slides app t
 - [ ] Test keyboard shortcuts and navigation
 - [ ] Ensure responsive design works on mobile
 
-## GitHub Pages Deployment
+## GitLab Setup
 
 ### Setup
 
