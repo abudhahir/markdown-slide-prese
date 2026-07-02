@@ -1,13 +1,14 @@
-import { useEffect } from 'react'
-import { Palette } from '@phosphor-icons/react'
+import { useEffect, useState } from 'react'
+import { Palette, Sun, Moon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { themes, applyTheme, getThemeByName } from '@/lib/themes'
+import { themes, applyTheme, getThemeByName, type Theme } from '@/lib/themes'
 import { useKV } from '@github/spark/hooks'
 import { cn } from '@/lib/utils'
 
@@ -17,21 +18,39 @@ interface ThemeSelectorProps {
 }
 
 export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
-  const [selectedTheme, setSelectedTheme] = useKV('slide-theme', 'light')
+  const [selectedTheme, setSelectedTheme] = useKV('slide-theme', 'solarized-light')
+  const [variant, setVariant] = useState<'light' | 'dark'>('light')
+  const [baseTheme, setBaseTheme] = useState<'solarized' | 'dracula' | 'code'>('solarized')
 
   useEffect(() => {
     if (selectedTheme) {
       const theme = getThemeByName(selectedTheme)
       if (theme) {
         applyTheme(theme)
+        setVariant(theme.variant)
+        setBaseTheme(theme.baseTheme)
       }
     }
   }, [selectedTheme])
 
-  const handleThemeChange = (themeName: string) => {
-    setSelectedTheme(themeName)
-    onOpenChange?.(false)
+  const handleVariantToggle = () => {
+    const newVariant = variant === 'light' ? 'dark' : 'light'
+    const newThemeName = `${baseTheme}-${newVariant}`
+    setSelectedTheme(newThemeName)
   }
+
+  const handleBaseThemeChange = (newBaseTheme: 'solarized' | 'dracula' | 'code') => {
+    const newThemeName = `${newBaseTheme}-${variant}`
+    setSelectedTheme(newThemeName)
+  }
+
+  const uniqueThemes = themes.reduce((acc, theme) => {
+    const existing = acc.find(t => t.baseTheme === theme.baseTheme)
+    if (!existing) {
+      acc.push(theme)
+    }
+    return acc
+  }, [] as Theme[])
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={onOpenChange}>
@@ -47,15 +66,41 @@ export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-48 bg-popover/95 backdrop-blur-md border-border/50"
+        className="w-56 bg-popover/95 backdrop-blur-md border-border/50"
       >
-        {themes.map((theme) => (
+        <div className="px-2 py-3">
+          <div className="flex items-center justify-between gap-3 mb-2">
+            <span className="text-sm font-medium text-foreground">Mode</span>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleVariantToggle}
+              className="h-8 px-3 flex items-center gap-2"
+            >
+              {variant === 'light' ? (
+                <>
+                  <Sun weight="fill" className="h-4 w-4" />
+                  <span className="text-xs">Light</span>
+                </>
+              ) : (
+                <>
+                  <Moon weight="fill" className="h-4 w-4" />
+                  <span className="text-xs">Dark</span>
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+        
+        <DropdownMenuSeparator />
+        
+        {uniqueThemes.map((theme) => (
           <DropdownMenuItem
-            key={theme.name}
-            onClick={() => handleThemeChange(theme.name)}
+            key={theme.baseTheme}
+            onClick={() => handleBaseThemeChange(theme.baseTheme)}
             className={cn(
               'cursor-pointer flex items-center gap-3 px-3 py-2.5',
-              theme.name === selectedTheme && 'bg-accent/20'
+              theme.baseTheme === baseTheme && 'bg-accent/20'
             )}
           >
             <div
@@ -64,7 +109,7 @@ export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
             />
             <span className={cn(
               'flex-1',
-              theme.name === selectedTheme && 'font-semibold text-accent'
+              theme.baseTheme === baseTheme && 'font-semibold text-accent'
             )}>
               {theme.label}
             </span>
