@@ -9,39 +9,50 @@ import "./main.css"
 import "./styles/theme.css"
 import "./index.css"
 
+const isResizeObserverError = (message: string) => {
+  return message.includes('ResizeObserver loop') ||
+         message.includes('ResizeObserver loop completed with undelivered notifications') ||
+         message.includes('ResizeObserver loop limit exceeded')
+}
+
 const originalConsoleError = console.error
 console.error = (...args) => {
   const errorMessage = args[0]?.toString() || ''
-  if (errorMessage.includes('ResizeObserver loop completed with undelivered notifications') ||
-      errorMessage.includes('ResizeObserver loop limit exceeded')) {
+  if (isResizeObserverError(errorMessage)) {
     return
   }
   originalConsoleError.apply(console, args)
 }
 
-window.addEventListener('error', (event) => {
-  if (event.message && (
-    event.message.includes('ResizeObserver loop completed with undelivered notifications') ||
-    event.message.includes('ResizeObserver loop limit exceeded')
-  )) {
-    event.preventDefault()
-    event.stopPropagation()
-    return false
+const originalConsoleWarn = console.warn
+console.warn = (...args) => {
+  const warnMessage = args[0]?.toString() || ''
+  if (isResizeObserverError(warnMessage)) {
+    return
   }
-})
+  originalConsoleWarn.apply(console, args)
+}
 
-const resizeObserverErrorHandler = (e: ErrorEvent) => {
-  if (e.message && (
-    e.message.includes('ResizeObserver') ||
-    e.error?.message?.includes('ResizeObserver')
-  )) {
-    e.preventDefault()
-    e.stopImmediatePropagation()
+const resizeObserverErrorHandler = (event: ErrorEvent) => {
+  const message = event.message || event.error?.message || ''
+  if (isResizeObserverError(message)) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
     return false
   }
 }
 
 window.addEventListener('error', resizeObserverErrorHandler, true)
+
+const unhandledRejectionHandler = (event: PromiseRejectionEvent) => {
+  const message = event.reason?.message || event.reason?.toString() || ''
+  if (isResizeObserverError(message)) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+  }
+}
+
+window.addEventListener('unhandledrejection', unhandledRejectionHandler, true)
 
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary FallbackComponent={ErrorFallback}>
