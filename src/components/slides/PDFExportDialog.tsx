@@ -274,10 +274,20 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       }
 
       const pdfFileName = fileName.replace(/\.md$|\.markdown$/i, '') + '.pdf'
-      pdf.save(pdfFileName)
+      
+      const pdfBlob = pdf.output('blob')
+      const url = URL.createObjectURL(pdfBlob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = pdfFileName
+      link.style.display = 'none'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
 
       setExportStatus('success')
-      toast.success(`PDF exported successfully: ${pdfFileName}`)
+      toast.success(`PDF downloaded: ${pdfFileName}`)
       
       setTimeout(() => {
         onOpenChange(false)
