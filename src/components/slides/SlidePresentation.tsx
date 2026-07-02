@@ -10,6 +10,7 @@ import { MarkdownNameDisplay } from './MarkdownNameDisplay'
 import { SlidesListOverlay } from './SlidesListOverlay'
 import { CommandsListDialog } from './CommandsListDialog'
 import { PDFExportDialog } from './PDFExportDialog'
+import { KeyboardHintsOverlay } from './KeyboardHintsOverlay'
 import { Button } from '@/components/ui/button'
 import { FolderOpen, FilePdf } from '@phosphor-icons/react'
 
@@ -238,6 +239,8 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
         slides={slides}
         fileName={currentFileName}
       />
+
+      <KeyboardHintsOverlay />
     </div>
   )
 }
