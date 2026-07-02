@@ -102,65 +102,81 @@ The design should evoke confidence, clarity, and professionalism—like standing
 
 ## Color Selection
 
-A clean, versatile presentation theme system with multiple color schemes inspired by classic presentation tools like easy-slides. Themes range from bright and minimal to dark and sophisticated, offering options for different contexts and preferences. All themes use OKLCH color space for perceptual uniformity.
+A refined theme system with three distinct aesthetic approaches (Solarized, Dracula, Code), each available in both light and dark variants. Each theme uses carefully calibrated OKLCH colors for perceptual uniformity and maintains excellent contrast ratios for accessibility.
 
-**Available Themes:**
+**Solarized (Light & Dark)**: Classic warm-tinted palette inspired by Ethan Schoonover's timeless design
+- **Solarized Light**:
+  - Background: `oklch(0.98 0.008 85)` - Warm cream paper
+  - Foreground: `oklch(0.35 0.04 192)` - Blue-grey text
+  - Primary: `oklch(0.50 0.13 205)` - Deep blue
+  - Accent: `oklch(0.58 0.15 175)` - Cyan highlight
+  - Character: Scholarly, calm, refined
+  - Foreground/Background: Blue-grey on cream - Ratio 9.8:1 ✓
 
-1. **Light** (Default) - Clean white base with subtle purple accents
-   - Background: `oklch(0.98 0 0)` - Bright white
-   - Primary: `oklch(0.45 0.15 260)` - Rich purple
-   - Accent: `oklch(0.55 0.20 260)` - Deep purple for highlights
-   - Foreground/Background: Dark gray on white - Ratio 10.5:1 ✓
+- **Solarized Dark**:
+  - Background: `oklch(0.16 0.025 192)` - Deep blue-black
+  - Foreground: `oklch(0.86 0.015 85)` - Warm off-white
+  - Primary: `oklch(0.60 0.16 205)` - Bright blue
+  - Accent: `oklch(0.68 0.17 175)` - Vibrant cyan
+  - Character: Sophisticated, low-glare, focused
+  - Foreground/Background: Off-white on blue-black - Ratio 11.2:1 ✓
 
-2. **Dark** - Classic dark theme with purple highlights
-   - Background: `oklch(0.15 0.01 260)` - Deep charcoal
-   - Primary: `oklch(0.55 0.20 260)` - Vibrant purple
-   - Accent: `oklch(0.65 0.22 260)` - Bright purple accents
-   - Foreground/Background: White on charcoal - Ratio 12.3:1 ✓
+**Dracula (Light & Dark)**: Purple-magenta palette with bold personality and modern energy
+- **Dracula Light**:
+  - Background: `oklch(0.97 0.008 285)` - Cool white with purple tint
+  - Foreground: `oklch(0.28 0.025 285)` - Deep purple-grey
+  - Primary: `oklch(0.52 0.16 325)` - Rich magenta
+  - Accent: `oklch(0.58 0.19 330)` - Vibrant pink
+  - Character: Creative, energetic, contemporary
+  - Foreground/Background: Purple-grey on white - Ratio 10.4:1 ✓
 
-3. **Beige** - Warm neutral base with earthy orange
-   - Background: `oklch(0.95 0.02 80)` - Soft beige
-   - Primary: `oklch(0.50 0.12 50)` - Warm brown
-   - Accent: `oklch(0.60 0.15 40)` - Rich orange
-   - Foreground/Background: Dark brown on beige - Ratio 9.2:1 ✓
+- **Dracula Dark**:
+  - Background: `oklch(0.19 0.025 285)` - Dark purple-grey
+  - Foreground: `oklch(0.90 0.01 285)` - Pure white
+  - Primary: `oklch(0.68 0.20 325)` - Electric magenta
+  - Accent: `oklch(0.72 0.22 330)` - Bright pink
+  - Character: Bold, nocturnal, striking
+  - Foreground/Background: White on dark purple - Ratio 11.8:1 ✓
 
-4. **Sky** - Cool blue-tinted white with deep blue accents
-   - Background: `oklch(0.96 0.02 220)` - Light sky blue
-   - Primary: `oklch(0.50 0.18 240)` - Deep blue
-   - Accent: `oklch(0.58 0.20 240)` - Vibrant blue
-   - Foreground/Background: Navy on sky - Ratio 10.8:1 ✓
+**Code (Light & Dark)**: Technical monochrome palette optimized for developers
+- **Code Light**:
+  - Background: `oklch(0.98 0.005 240)` - Pure white with blue hint
+  - Foreground: `oklch(0.27 0.015 240)` - Dark blue-grey
+  - Primary: `oklch(0.46 0.14 260)` - Deep purple-blue
+  - Accent: `oklch(0.54 0.18 190)` - Teal-cyan
+  - Character: Minimal, technical, precise
+  - Foreground/Background: Blue-grey on white - Ratio 11.0:1 ✓
 
-5. **Night** - Deep blue-black with cyan highlights
-   - Background: `oklch(0.12 0.02 260)` - Midnight blue
-   - Primary: `oklch(0.58 0.20 240)` - Bright blue
-   - Accent: `oklch(0.68 0.22 200)` - Cyan accent
-   - Foreground/Background: White on midnight - Ratio 13.5:1 ✓
-
-6. **Moon** - Soft dark grey with purple tones
-   - Background: `oklch(0.18 0.01 260)` - Cool grey
-   - Primary: `oklch(0.52 0.10 280)` - Muted purple
-   - Accent: `oklch(0.70 0.15 280)` - Soft lavender
-   - Foreground/Background: White on grey - Ratio 11.9:1 ✓
-
-7. **Serif** - Warm paper-like background with classic brown
-   - Background: `oklch(0.97 0.01 60)` - Warm white
-   - Primary: `oklch(0.42 0.08 40)` - Deep brown
-   - Accent: `oklch(0.52 0.12 30)` - Rich chocolate
-   - Foreground/Background: Dark brown on paper - Ratio 11.2:1 ✓
-
-8. **Solarized** - Inspired by the classic Solarized Light palette
-   - Background: `oklch(0.97 0.01 85)` - Warm cream
-   - Primary: `oklch(0.52 0.14 220)` - Blue accent
-   - Accent: `oklch(0.60 0.16 192)` - Cyan highlight
-   - Foreground/Background: Blue-grey on cream - Ratio 9.5:1 ✓
-
-All themes maintain WCAG AA contrast ratios for accessibility and use consistent structure for seamless switching.
+- **Code Dark**:
+  - Background: `oklch(0.15 0.012 240)` - Deep blue-black
+  - Foreground: `oklch(0.90 0.008 240)` - Cool white
+  - Primary: `oklch(0.62 0.17 260)` - Purple-blue
+  - Accent: `oklch(0.66 0.19 190)` - Bright cyan
+  - Character: Terminal-inspired, developer-focused, no-nonsense
+  - Foreground/Background: White on blue-black - Ratio 12.5:1 ✓
 
 ## Font Selection
 
-Typography should project confidence and readability at a distance, combining a strong geometric sans-serif for headings with a technical monospace for code.
+Typography varies per theme to reinforce each theme's distinct character, from classic serif for Solarized to modern sans-serif for Dracula to monospace for Code themes.
 
-- **Typographic Hierarchy**: 
+**Theme-Specific Font Pairings:**
+
+- **Solarized (Light & Dark)**: 
+  - Heading: Merriweather (serif) - Classic, academic feel with strong presence
+  - Body: Source Sans 3 (sans-serif) - Clean, highly legible for long-form content
+  - Code: Source Code Pro (monospace) - Professional, engineer-focused
+
+- **Dracula (Light & Dark)**:
+  - Heading: Poppins (sans-serif) - Modern, geometric with friendly curves
+  - Body: Open Sans (sans-serif) - Neutral, optimized for screen reading
+  - Code: Roboto Mono (monospace) - Technical with excellent readability
+
+- **Code (Light & Dark)**:
+  - Heading: Space Mono (monospace) - Technical, unique character
+  - Body: IBM Plex Sans (sans-serif) - Corporate precision with warmth
+  - Code: Fira Code (monospace) - Developer favorite with ligature support
+
+- **Typographic Hierarchy** (consistent across themes):
   - H1 (Slide Title): Bold/base:36px→md:48px→lg:60px/tight letter-spacing/line-height 1.15
   - H2 (Section Header): SemiBold/base:30px→md:36px→lg:48px/normal letter-spacing/line-height 1.2
   - H3 (Subsection): Medium/base:24px→md:30px→lg:36px/normal letter-spacing/line-height 1.3
