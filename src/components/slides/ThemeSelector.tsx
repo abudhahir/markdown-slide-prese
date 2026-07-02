@@ -11,7 +11,6 @@ import {
 import { themes, applyTheme, getThemeByName, type Theme } from '@/lib/themes'
 import { useKV } from '@github/spark/hooks'
 import { cn } from '@/lib/utils'
-import { ThemePreview } from './ThemePreview'
 
 interface ThemeSelectorProps {
   isOpen?: boolean
@@ -53,8 +52,6 @@ export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
     return acc
   }, [] as Theme[])
 
-  const currentTheme = themes.find(t => t.baseTheme === baseTheme && t.variant === variant)
-
   return (
     <DropdownMenu open={isOpen} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>
@@ -69,9 +66,9 @@ export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-80 bg-popover/95 backdrop-blur-md border-border/50 p-4"
+        className="w-72 bg-popover/95 backdrop-blur-md border-border/50 p-3"
       >
-        <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center justify-between gap-3 mb-3">
           <span className="text-sm font-medium text-foreground">Theme Mode</span>
           <Button
             variant="outline"
@@ -93,34 +90,25 @@ export function ThemeSelector({ isOpen, onOpenChange }: ThemeSelectorProps) {
           </Button>
         </div>
         
-        <DropdownMenuSeparator className="mb-4" />
+        <DropdownMenuSeparator className="mb-2" />
         
-        <div className="space-y-3">
+        <div className="space-y-1">
           {uniqueThemes.map((theme) => {
-            const themeWithVariant = themes.find(t => t.baseTheme === theme.baseTheme && t.variant === variant)
-            if (!themeWithVariant) return null
-            
             return (
               <DropdownMenuItem
                 key={theme.baseTheme}
                 onClick={() => handleBaseThemeChange(theme.baseTheme)}
                 className={cn(
-                  'cursor-pointer flex flex-col gap-2 p-3 rounded-lg transition-all',
-                  theme.baseTheme === baseTheme && 'bg-accent/10 ring-2 ring-accent/50'
+                  'cursor-pointer flex items-center justify-between px-3 py-2 rounded-md transition-all',
+                  theme.baseTheme === baseTheme && 'bg-accent text-accent-foreground'
                 )}
               >
-                <div className="flex items-center justify-between w-full">
-                  <span className={cn(
-                    'text-sm font-medium',
-                    theme.baseTheme === baseTheme && 'text-accent'
-                  )}>
-                    {theme.label}
-                  </span>
-                  {theme.baseTheme === baseTheme && (
-                    <div className="h-2 w-2 rounded-full bg-accent" />
-                  )}
-                </div>
-                <ThemePreview theme={themeWithVariant} />
+                <span className="text-sm font-medium">
+                  {theme.label}
+                </span>
+                {theme.baseTheme === baseTheme && (
+                  <div className="h-2 w-2 rounded-full bg-accent-foreground" />
+                )}
               </DropdownMenuItem>
             )
           })}
