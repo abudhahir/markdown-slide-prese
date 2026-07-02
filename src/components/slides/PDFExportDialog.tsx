@@ -44,9 +44,54 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
 
       const computedStyles = window.getComputedStyle(document.documentElement)
       
+      const oklchToRgb = (oklchStr: string): string => {
+        const match = oklchStr.match(/oklch\s*\(\s*([0-9.]+)\s+([0-9.]+)\s+([0-9.]+)(?:\s*\/\s*([0-9.%]+))?\s*\)/)
+        if (!match) return oklchStr
+        
+        const L = parseFloat(match[1])
+        const C = parseFloat(match[2])
+        const H = parseFloat(match[3])
+        const alpha = match[4] ? (match[4].includes('%') ? parseFloat(match[4]) / 100 : parseFloat(match[4])) : 1
+        
+        const hRad = (H * Math.PI) / 180
+        const a = C * Math.cos(hRad)
+        const b = C * Math.sin(hRad)
+        
+        let X = L + 0.3963377774 * a + 0.2158037573 * b
+        let Y = L - 0.1055613458 * a - 0.0638541728 * b
+        let Z = L - 0.0894841775 * a - 1.2914855480 * b
+        
+        X = X * X * X
+        Y = Y * Y * Y
+        Z = Z * Z * Z
+        
+        let r = 3.2404542 * X - 1.5371385 * Y - 0.4985314 * Z
+        let g = -0.9692660 * X + 1.8760108 * Y + 0.0415560 * Z
+        let bl = 0.0556434 * X - 0.2040259 * Y + 1.0572252 * Z
+        
+        r = r > 0.0031308 ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : 12.92 * r
+        g = g > 0.0031308 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : 12.92 * g
+        bl = bl > 0.0031308 ? 1.055 * Math.pow(bl, 1 / 2.4) - 0.055 : 12.92 * bl
+        
+        r = Math.max(0, Math.min(255, Math.round(r * 255)))
+        g = Math.max(0, Math.min(255, Math.round(g * 255)))
+        bl = Math.max(0, Math.min(255, Math.round(bl * 255)))
+        
+        if (alpha < 1) {
+          return `rgba(${r}, ${g}, ${bl}, ${alpha})`
+        }
+        return `rgb(${r}, ${g}, ${bl})`
+      }
+      
       const getColor = (varName: string, fallback: string): string => {
         const value = computedStyles.getPropertyValue(varName).trim()
-        return value || fallback
+        if (!value) return fallback
+        
+        if (value.startsWith('oklch(')) {
+          return oklchToRgb(value)
+        }
+        
+        return value
       }
 
       const bgColor = getColor('--background', 'rgb(255, 255, 255)')
