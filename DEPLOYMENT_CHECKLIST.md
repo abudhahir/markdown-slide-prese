@@ -1,6 +1,12 @@
-# GitLab Pages Deployment Checklist
+# Deployment Checklist
 
-Use this checklist to ensure successful deployment of your Markdown Slides app to GitLab Pages.
+Use this checklist to ensure successful deployment of your Markdown Slides app to GitHub Pages or GitLab Pages.
+
+## Choose Your Platform
+
+- [ ] GitHub Pages (recommended for GitHub projects)
+- [ ] GitLab Pages (recommended for GitLab projects)
+- [ ] Both (deploy to multiple platforms)
 
 ## Pre-Deployment
 
@@ -12,7 +18,61 @@ Use this checklist to ensure successful deployment of your Markdown Slides app t
 - [ ] Test keyboard shortcuts and navigation
 - [ ] Ensure responsive design works on mobile
 
-## GitLab Setup
+## GitHub Pages Deployment
+
+### Setup
+
+- [ ] Create a GitHub account at https://github.com
+- [ ] Create a new repository for your project
+- [ ] Go to **Settings > Pages**
+- [ ] Under **Source**, select **GitHub Actions**
+- [ ] Decide on base path:
+  - [ ] Repository page: `username.github.io/repo-name/` (configure VITE_BASE_PATH)
+  - [ ] User page: `username.github.io/` (no configuration needed)
+
+### Configuration
+
+- [ ] Ensure `.github/workflows/deploy.yml` exists in your repository
+- [ ] If using repository page, edit workflow to set base path:
+  ```yaml
+  - name: Build
+    run: npm run build
+    env:
+      VITE_BASE_PATH: /repo-name/
+  ```
+
+### Deployment
+
+- [ ] Initialize git (if not already done):
+  ```bash
+  git init
+  git add .
+  git commit -m "Initial commit"
+  ```
+
+- [ ] Add GitHub as remote:
+  ```bash
+  git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+  ```
+
+- [ ] Push to GitHub:
+  ```bash
+  git push -u origin main
+  ```
+
+### Verification
+
+- [ ] Go to your GitHub repository
+- [ ] Navigate to **Actions** tab
+- [ ] Verify the "Deploy to GitHub Pages" workflow is running
+- [ ] Wait for both `build` and `deploy` jobs to complete (green checkmark)
+- [ ] Check workflow logs for any errors
+- [ ] Go to **Settings > Pages** to see your live URL
+- [ ] Visit the URL to test your deployment
+
+## GitLab Pages Deployment
+
+### Setup
 
 - [ ] Create a GitLab account at https://gitlab.com
 - [ ] Create a new repository for your project
@@ -20,7 +80,12 @@ Use this checklist to ensure successful deployment of your Markdown Slides app t
   - [ ] Subdirectory: `username.gitlab.io/project-name/` (use `.gitlab-ci.yml`)
   - [ ] Root domain: `username.gitlab.io/` (use `.gitlab-ci.root-domain.yml`)
 
-## Git Configuration
+### Configuration
+
+- [ ] Ensure the correct `.gitlab-ci.yml` file exists
+- [ ] Verify base path is set correctly in the pipeline
+
+### Deployment
 
 - [ ] Initialize git (if not already done):
   ```bash
@@ -39,24 +104,21 @@ Use this checklist to ensure successful deployment of your Markdown Slides app t
   git push -u gitlab main
   ```
 
-## Pipeline Verification
+### Verification
 
 - [ ] Go to your GitLab repository
 - [ ] Navigate to **CI/CD > Pipelines**
 - [ ] Verify the pipeline is running
 - [ ] Wait for both `build` and `pages` jobs to complete (green checkmark)
 - [ ] Check build logs for any errors
-
-## Pages Configuration
-
-- [ ] Go to **Settings > Pages** in your GitLab repository
-- [ ] Verify Pages is enabled
-- [ ] Note your Pages URL: `https://YOUR_USERNAME.gitlab.io/YOUR_REPO/`
-- [ ] (Optional) Configure custom domain if needed
+- [ ] Go to **Settings > Pages** to see your live URL
+- [ ] Visit the URL to test your deployment
 
 ## Post-Deployment Testing
 
-- [ ] Visit your GitLab Pages URL
+Test all features on the live site:
+
+- [ ] Visit your deployment URL
 - [ ] Test navigation (arrow keys, spacebar)
 - [ ] Test theme switching (T key)
 - [ ] Test file selector (O key)
@@ -73,6 +135,7 @@ Use this checklist to ensure successful deployment of your Markdown Slides app t
 ## Browser Testing
 
 Test on multiple browsers:
+
 - [ ] Chrome/Chromium
 - [ ] Firefox
 - [ ] Safari
@@ -82,59 +145,73 @@ Test on multiple browsers:
 ## Performance Checks
 
 - [ ] Check page load speed (should be < 3 seconds)
-- [ ] Verify no console errors
+- [ ] Verify no console errors (F12 Developer Tools)
 - [ ] Test with large markdown files (50+ slides)
 - [ ] Ensure smooth slide transitions
 - [ ] Check that assets load correctly (fonts, etc.)
 
-## Troubleshooting (If Issues Occur)
+## Troubleshooting
 
-### Pipeline Fails
-- [ ] Check Node.js version in `.gitlab-ci.yml` (currently set to node:20)
+### GitHub Actions Pipeline Fails
+
+- [ ] Check workflow logs in Actions tab
+- [ ] Verify Node.js version in workflow (currently set to 20)
 - [ ] Verify all dependencies are in `package.json`
-- [ ] Check build logs for specific errors
+- [ ] Try running `npm ci && npm run build` locally
+- [ ] Check for permission errors (Settings > Actions > General)
+
+### GitLab CI Pipeline Fails
+
+- [ ] Check pipeline logs in CI/CD section
+- [ ] Verify Node.js version in `.gitlab-ci.yml` (currently set to node:20)
+- [ ] Verify all dependencies are in `package.json`
 - [ ] Try running `npm ci && npm run build` locally
 
 ### 404 Errors
-- [ ] Verify the base path is correct in `.gitlab-ci.yml`
+
+- [ ] Verify the base path is correct in workflow/pipeline
 - [ ] Check that `VITE_BASE_PATH` matches your repository name
 - [ ] Clear browser cache and try again
-- [ ] Verify artifacts were created in the Pages job
+- [ ] Verify artifacts were created correctly
+- [ ] Test with incognito/private browsing mode
 
 ### Assets Not Loading
-- [ ] Check browser console for 404 errors
-- [ ] Verify asset paths in built `public/` directory
+
+- [ ] Check browser console for 404 errors (F12)
+- [ ] Verify asset paths in built `dist/` or `public/` directory
 - [ ] Ensure base path is set correctly
 - [ ] Check that all imports use `@/` alias or relative paths
 
 ### Features Not Working
+
 - [ ] Check browser console for JavaScript errors
 - [ ] Verify environment variables are set correctly
-- [ ] Test in incognito/private browsing mode
 - [ ] Clear localStorage and try again
+- [ ] Test in different browser
 
 ## Optional Enhancements
 
-- [ ] Add custom domain
-- [ ] Configure SSL certificate
-- [ ] Set up deploy notifications
-- [ ] Add README badge showing deployment status
-- [ ] Configure scheduled pipelines for dependency updates
-- [ ] Set up preview deployments for branches
+- [ ] Add custom domain (both platforms support this)
+- [ ] Configure SSL certificate (automatic on both platforms)
+- [ ] Add deployment status badge to README
+- [ ] Set up branch preview deployments
+- [ ] Configure deploy notifications
+- [ ] Set up monitoring (uptime checks)
 
 ## Maintenance
 
-- [ ] Bookmark your GitLab Pages URL
+- [ ] Bookmark your deployment URL
 - [ ] Document deployment process for team members
-- [ ] Set up monitoring (uptime checks)
 - [ ] Plan for regular content updates
 - [ ] Keep dependencies updated
+- [ ] Monitor deployment status regularly
 
 ## Success Criteria
 
 Your deployment is successful when:
-- ✅ Pipeline completes without errors
-- ✅ Site is accessible at GitLab Pages URL
+
+- ✅ Pipeline/workflow completes without errors
+- ✅ Site is accessible at deployment URL
 - ✅ All navigation controls work
 - ✅ Themes switch correctly
 - ✅ Markdown files can be loaded
@@ -145,7 +222,7 @@ Your deployment is successful when:
 ## Next Steps After Deployment
 
 1. **Share Your Presentation**:
-   - Share the GitLab Pages URL
+   - Share the deployment URL
    - Demonstrate loading presentations from Git URLs
    - Show how to use keyboard shortcuts
 
@@ -160,11 +237,13 @@ Your deployment is successful when:
    - Add your branding
 
 4. **Monitor**:
-   - Check pipeline runs regularly
+   - Check pipeline/workflow runs regularly
    - Update dependencies periodically
    - Fix any issues that arise
 
 ---
+
+**Platform**: ____________ (GitHub Pages / GitLab Pages / Both)
 
 **Deployment Date**: _________________
 
