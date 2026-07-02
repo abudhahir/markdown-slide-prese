@@ -10,31 +10,36 @@ import "./styles/theme.css"
 import "./index.css"
 
 const isResizeObserverError = (message: string) => {
-  return message.includes('ResizeObserver loop') ||
-         message.includes('ResizeObserver loop completed with undelivered notifications') ||
-         message.includes('ResizeObserver loop limit exceeded')
+  if (!message || typeof message !== 'string') return false
+  return message.toLowerCase().includes('resizeobserver')
 }
 
 const originalConsoleError = console.error
-console.error = (...args) => {
-  const errorMessage = args[0]?.toString() || ''
-  if (isResizeObserverError(errorMessage)) {
-    return
+console.error = (...args: any[]) => {
+  if (args.length > 0) {
+    const firstArg = args[0]
+    const errorMessage = typeof firstArg === 'string' ? firstArg : (firstArg?.message || firstArg?.toString() || '')
+    if (isResizeObserverError(errorMessage)) {
+      return
+    }
   }
   originalConsoleError.apply(console, args)
 }
 
 const originalConsoleWarn = console.warn
-console.warn = (...args) => {
-  const warnMessage = args[0]?.toString() || ''
-  if (isResizeObserverError(warnMessage)) {
-    return
+console.warn = (...args: any[]) => {
+  if (args.length > 0) {
+    const firstArg = args[0]
+    const warnMessage = typeof firstArg === 'string' ? firstArg : (firstArg?.message || firstArg?.toString() || '')
+    if (isResizeObserverError(warnMessage)) {
+      return
+    }
   }
   originalConsoleWarn.apply(console, args)
 }
 
 const resizeObserverErrorHandler = (event: ErrorEvent) => {
-  const message = event.message || event.error?.message || ''
+  const message = event.message || event.error?.message || event.error?.toString() || ''
   if (isResizeObserverError(message)) {
     event.preventDefault()
     event.stopImmediatePropagation()
@@ -42,17 +47,47 @@ const resizeObserverErrorHandler = (event: ErrorEvent) => {
   }
 }
 
-window.addEventListener('error', resizeObserverErrorHandler, true)
+window.addEventListener('error', resizeObserverErrorHandler, { capture: true })
 
 const unhandledRejectionHandler = (event: PromiseRejectionEvent) => {
-  const message = event.reason?.message || event.reason?.toString() || ''
+  const reason = event.reason
+  const message = typeof reason === 'string' ? reason : (reason?.message || reason?.toString() || '')
   if (isResizeObserverError(message)) {
     event.preventDefault()
     event.stopImmediatePropagation()
   }
 }
 
-window.addEventListener('unhandledrejection', unhandledRejectionHandler, true)
+window.addEventListener('unhandledrejection', unhandledRejectionHandler, { capture: true })
+
+if (typeof window !== 'undefined') {
+  const debounce = (fn: (...args: any[]) => void, delay: number) => {
+    let timeoutId: number | null = null
+    return (...args: any[]) => {
+      if (timeoutId) clearTimeout(timeoutId)
+      timeoutId = window.setTimeout(() => fn(...args), delay)
+    }
+  }
+
+  const OriginalResizeObserver = window.ResizeObserver
+  window.ResizeObserver = class extends OriginalResizeObserver {
+    constructor(callback: ResizeObserverCallback) {
+      const wrappedCallback = debounce((entries: ResizeObserverEntry[], observer: ResizeObserver) => {
+        window.requestAnimationFrame(() => {
+          try {
+            callback(entries, observer)
+          } catch (error) {
+            const message = error instanceof Error ? error.message : String(error)
+            if (!isResizeObserverError(message)) {
+              throw error
+            }
+          }
+        })
+      }, 16)
+      super(wrappedCallback)
+    }
+  }
+}
 
 createRoot(document.getElementById('root')!).render(
   <ErrorBoundary FallbackComponent={ErrorFallback}>
