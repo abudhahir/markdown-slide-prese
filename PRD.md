@@ -152,11 +152,12 @@ All themes maintain WCAG AA contrast ratios for accessibility and use consistent
 Typography should project confidence and readability at a distance, combining a strong geometric sans-serif for headings with a technical monospace for code.
 
 - **Typographic Hierarchy**: 
-  - H1 (Slide Title): Space Grotesk Bold/56px/tight letter-spacing (-0.02em)/line-height 1.1
-  - H2 (Section Header): Space Grotesk SemiBold/42px/normal letter-spacing/line-height 1.2
-  - H3 (Subsection): Space Grotesk Medium/32px/normal letter-spacing/line-height 1.3
-  - Body Text: Inter Regular/24px/normal letter-spacing/line-height 1.6
-  - Code: JetBrains Mono Regular/20px/normal letter-spacing/line-height 1.5
+  - H1 (Slide Title): Bold/base:36px→md:48px→lg:60px/tight letter-spacing/line-height 1.15
+  - H2 (Section Header): SemiBold/base:30px→md:36px→lg:48px/normal letter-spacing/line-height 1.2
+  - H3 (Subsection): Medium/base:24px→md:30px→lg:36px/normal letter-spacing/line-height 1.3
+  - Body Text: Regular/base:18px→md:20px→lg:24px/normal letter-spacing/line-height 1.6
+  - Code Inline: Regular/base:16px→md:18px→lg:20px/normal letter-spacing/line-height 1.6
+  - Code Block: Regular/base:14px→md:16px→lg:18px/normal letter-spacing/line-height 1.5
 
 ## Animations
 
