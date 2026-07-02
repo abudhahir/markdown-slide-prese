@@ -9,8 +9,9 @@ import { PresentationTimer } from './PresentationTimer'
 import { MarkdownNameDisplay } from './MarkdownNameDisplay'
 import { SlidesListOverlay } from './SlidesListOverlay'
 import { CommandsListDialog } from './CommandsListDialog'
+import { PDFExportDialog } from './PDFExportDialog'
 import { Button } from '@/components/ui/button'
-import { FolderOpen } from '@phosphor-icons/react'
+import { FolderOpen, FilePdf } from '@phosphor-icons/react'
 
 interface SlidePresentationProps {
   markdown: string
@@ -26,6 +27,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [isMarkdownNameOpen, setIsMarkdownNameOpen] = useState(false)
   const [isSlidesListOpen, setIsSlidesListOpen] = useState(false)
   const [isCommandsListOpen, setIsCommandsListOpen] = useState(false)
+  const [isPDFExportOpen, setIsPDFExportOpen] = useState(false)
   const [currentFileName, setCurrentFileName] = useState('tutorial-slides.md')
 
   useEffect(() => {
@@ -86,6 +88,9 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       } else if (e.key === '?') {
         e.preventDefault()
         setIsCommandsListOpen(prev => !prev)
+      } else if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault()
+        setIsPDFExportOpen(prev => !prev)
       } else if (e.key === 'Escape') {
         if (document.fullscreenElement) {
           e.preventDefault()
@@ -183,6 +188,15 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
         <Button
           variant="secondary"
           size="icon"
+          onClick={() => setIsPDFExportOpen(true)}
+          className="h-10 w-10 rounded-full bg-secondary/80 hover:bg-secondary backdrop-blur-sm border border-border/50 transition-all duration-200 hover:scale-105"
+          aria-label="Export to PDF"
+        >
+          <FilePdf className="text-foreground" />
+        </Button>
+        <Button
+          variant="secondary"
+          size="icon"
           onClick={() => setIsFileSelectorOpen(true)}
           className="h-10 w-10 rounded-full bg-secondary/80 hover:bg-secondary backdrop-blur-sm border border-border/50 transition-all duration-200 hover:scale-105"
           aria-label="Open file selector"
@@ -216,6 +230,13 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
       <CommandsListDialog
         isOpen={isCommandsListOpen}
         onOpenChange={setIsCommandsListOpen}
+      />
+
+      <PDFExportDialog
+        isOpen={isPDFExportOpen}
+        onOpenChange={setIsPDFExportOpen}
+        slides={slides}
+        fileName={currentFileName}
       />
     </div>
   )

@@ -15,6 +15,7 @@ export function CommandsListDialog({ isOpen, onOpenChange }: CommandsListDialogP
     { key: 'T', description: 'Toggle theme selector' },
     { key: 'O', description: 'Open file selector' },
     { key: 'D', description: 'Display current file name' },
+    { key: 'P', description: 'Export slides to PDF' },
     { key: 'F', description: 'Toggle fullscreen mode' },
     { key: 'Escape', description: 'Exit fullscreen' },
     { key: '?', description: 'Show this commands list' },

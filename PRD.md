@@ -75,6 +75,13 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Progression**: Key press → Open modal dialog → Display current file name → Press 'D' again or close button to dismiss
 - **Success criteria**: Shows correct file name for both default tutorial slides and user-loaded files (local or Git URLs), modal displays clearly with file icon and name, keyboard shortcut works reliably
 
+### PDF Export
+- **Functionality**: Export all slides in the presentation to a high-quality PDF document
+- **Purpose**: Enable users to share presentations offline, print handouts, or archive slide decks for distribution
+- **Trigger**: Press 'P' key or click PDF icon button in top-right corner
+- **Progression**: Click export button → Open export dialog → Click "Export PDF" → Generate PDF from each slide (with progress indicator) → Download PDF file → Success confirmation
+- **Success criteria**: All slides exported with proper formatting and styling preserved, progress bar shows export status accurately, PDF downloads with correct filename (based on markdown filename), theme colors and fonts maintained in PDF output
+
 ## Edge Case Handling
 
 - **Empty Slides**: Display placeholder message if markdown produces no slides
@@ -86,6 +93,8 @@ This is a presentation viewer with navigation controls, markdown parsing, and st
 - **Invalid Git URLs**: Display clear error messages for unsupported or malformed Git URLs
 - **Network Failures**: Show appropriate error messages when Git URL fetch fails due to network issues or file not found
 - **Private Repositories**: Inform users that private repository files cannot be accessed (only public repos supported)
+- **PDF Export Failures**: Handle export errors gracefully with clear error messages if PDF generation fails or takes too long
+- **Large Presentations**: Show loading/progress for PDF exports with many slides to prevent user confusion during longer exports
 
 ## Design Direction
 
@@ -171,7 +180,8 @@ Animations should enhance the presentation experience with purposeful, confident
   - Badge (shadcn) for progress indicator with custom accent styling
   - Separator (shadcn) for dividing content within slides
   - DropdownMenu (shadcn) for theme selector with color preview swatches
-  - Dialog (shadcn) for file selector modal
+  - Dialog (shadcn) for file selector modal and PDF export dialog
+  - Progress (shadcn) for PDF export progress bar
   - Tabs (shadcn) for switching between local files and Git URL input
   - Input (shadcn) for Git URL text input
   - ScrollArea (shadcn) for file tree navigation
@@ -183,23 +193,27 @@ Animations should enhance the presentation experience with purposeful, confident
   - Custom `ThemeSelector` component with visual theme previews and persistence
   - Custom `FileSelector` component with dual modes (local file browser and Git URL loader)
   - Custom `PresentationTimer` component with elapsed time display and play/pause/reset controls
+  - Custom `PDFExportDialog` component with progress tracking and status display
 - **States**: 
   - Navigation buttons: Semi-transparent default, full opacity on hover, slight scale on active, hidden on first/last slides
   - Slide transitions: Fade + slide animation between slides, loading skeleton for markdown parsing
   - Progress indicator: Subtle pulse on change, persistent visibility
   - Theme selector: Glassmorphic button with palette icon, dropdown shows color swatches, selected theme highlighted
   - File selector: Modal dialog with tabs, loading state during file fetch, error state for invalid URLs
+  - PDF export: Modal dialog with export button, progress bar during generation, success/error states with appropriate messaging
 - **Icon Selection**: 
   - CaretLeft/CaretRight from Phosphor for navigation arrows
   - Palette from Phosphor for theme selector
   - FolderOpen from Phosphor for file selector button
+  - FilePdf from Phosphor for PDF export button
   - Link from Phosphor for Git URL tab icon
   - Folder from Phosphor for local files tab icon
   - File from Phosphor for markdown file items
   - FileText from Phosphor for markdown name display
   - Play/Pause from Phosphor for timer controls
   - ArrowClockwise from Phosphor for timer reset
-  - X or XCircle for potential exit/close functionality
+  - Check from Phosphor for success confirmation
+  - X from Phosphor for error states and close functionality
 - **Spacing**: 
   - Slide padding: p-16 (64px) on desktop, p-8 (32px) on mobile
   - Content spacing: space-y-6 for stacked elements within slides
