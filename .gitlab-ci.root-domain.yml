@@ -1,0 +1,47 @@
+# GitLab CI Configuration for Root Domain Deployment
+# Use this if your repository is named: username.gitlab.io
+# This will deploy to https://username.gitlab.io/ (without subdirectory)
+
+image: node:20
+
+stages:
+  - build
+  - deploy
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+before_script:
+  - npm config set cache .npm --global
+
+build:
+  stage: build
+  script:
+    - npm ci --prefer-offline
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 day
+  only:
+    - main
+    - master
+
+pages:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - rm -rf public
+    - mkdir -p public
+    - cp -r dist/* public/
+    - echo "Deployed to https://${CI_PROJECT_NAMESPACE}.gitlab.io/"
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+    - master

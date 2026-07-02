@@ -354,6 +354,45 @@ For issues, questions, or feature requests:
 3. Inspect browser console for errors
 4. Verify markdown syntax is correct
 
+## Deployment
+
+### GitLab Pages
+
+Deploy your presentation app to GitLab Pages for free hosting:
+
+1. **Push to GitLab**:
+   ```bash
+   git remote add gitlab https://gitlab.com/YOUR_USERNAME/YOUR_REPO.git
+   git push gitlab main
+   ```
+
+2. **Automatic Deployment**:
+   - The `.gitlab-ci.yml` file handles everything automatically
+   - Your site will be live at: `https://YOUR_USERNAME.gitlab.io/YOUR_REPO/`
+
+3. **Check Status**:
+   - Go to **CI/CD > Pipelines** in your GitLab repository
+   - Wait for the green checkmark
+   - Visit your Pages URL
+
+For detailed deployment instructions, see [GITLAB_PAGES_DEPLOYMENT.md](./GITLAB_PAGES_DEPLOYMENT.md)
+
+### Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Visit `http://localhost:5173` to view your presentation.
+
+### Production Build
+
+```bash
+npm run build
+npm run preview
+```
+
 ## Contributing
 
 To extend this presentation system:
