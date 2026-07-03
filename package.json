@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "module",
     "description": "A powerful markdown-based presentation tool with multiple themes, keyboard shortcuts, and PDF export",
-    "author": "Your Name <your.email@example.com>",
+    "author": "",
     "license": "MIT",
     "keywords": [
         "markdown",
@@ -15,16 +15,21 @@
         "typescript",
         "slideshow",
         "reveal",
-        "deck"
+        "deck",
+        "markdown-presentation",
+        "slide-deck",
+        "pdf-export",
+        "theme-switcher",
+        "keyboard-shortcuts"
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/yourusername/markdown-slides.git"
+        "url": ""
     },
     "bugs": {
-        "url": "https://github.com/yourusername/markdown-slides/issues"
+        "url": ""
     },
-    "homepage": "https://yourusername.github.io/markdown-slides",
+    "homepage": "",
     "bin": {
         "markdown-slides": "./bin/markdown-slides.js"
     },
