@@ -557,6 +557,62 @@ The Spark Template files and resources from GitHub are licensed under the terms 
 - Markdown parsing with [marked](https://marked.js.org/)
 - Animations with [Framer Motion](https://www.framer.com/motion/)
 
+## 📧 Contact Information
+
+### Project Maintainer
+
+**Author**: Your Name  
+**Email**: your.email@example.com  
+**GitHub**: [@yourusername](https://github.com/yourusername)  
+**Project Repository**: [github.com/yourusername/markdown-slides](https://github.com/yourusername/markdown-slides)
+
+### Get in Touch
+
+We'd love to hear from you! Here are the best ways to reach out:
+
+#### For Project-Related Questions
+- 📖 **Documentation**: Check the comprehensive guides in this repository
+- 💬 **GitHub Discussions**: [Start a discussion](https://github.com/yourusername/markdown-slides/discussions) for questions, ideas, or showcasing your presentations
+- 💡 **Feature Requests**: [Open an issue](https://github.com/yourusername/markdown-slides/issues/new?template=feature_request.md) with the enhancement label
+
+#### For Bug Reports & Issues
+- 🐛 **Bug Reports**: [Open an issue](https://github.com/yourusername/markdown-slides/issues/new?template=bug_report.md) with detailed reproduction steps
+- 🔍 **Search Existing Issues**: Check if your issue has already been reported or resolved
+
+#### For Collaboration & Contributions
+- 🤝 **Pull Requests**: Submit PRs for bug fixes, features, or documentation improvements
+- 📝 **Contributing Guide**: See [Contributing](#-contributing) section above
+- 👥 **Code Review**: We review all PRs promptly and provide constructive feedback
+
+#### For Direct Communication
+- 📧 **Email**: For private inquiries, security issues, or partnership opportunities: your.email@example.com
+- 🔒 **Security Issues**: Please email security-related issues privately before public disclosure
+
+#### Stay Updated
+- ⭐ **Star this repo** to get notifications about updates and releases
+- 👁️ **Watch this repo** to follow all discussions and issues
+- 📰 **Release Notes**: Check [CHANGELOG.md](./CHANGELOG.md) for version updates
+- 🐦 **Social Media**: Follow [@yourusername](https://twitter.com/yourusername) for project updates (optional)
+
+### Community Guidelines
+
+When reaching out, please:
+- ✅ Be respectful and constructive
+- ✅ Provide clear, detailed information
+- ✅ Search existing issues/discussions first
+- ✅ Follow our [Code of Conduct](./CODE_OF_CONDUCT.md)
+- ✅ Use appropriate issue templates
+
+### Response Time
+
+We aim to respond to:
+- 🐛 Critical bugs: Within 24 hours
+- 💡 Feature requests: Within 1 week
+- 💬 Discussions/Questions: Within 3-5 days
+- 🤝 Pull requests: Within 1 week
+
+*Please note that this is an open-source project maintained by volunteers. Response times may vary.*
+
 ## 📧 Support & Community
 
 - 📖 **Documentation**: Check the guides in this repository

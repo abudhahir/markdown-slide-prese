@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "module",
     "description": "A powerful markdown-based presentation tool with multiple themes, keyboard shortcuts, and PDF export",
-    "author": "Cleveloper <cleveloper@example.com>",
+    "author": "abudhahir <abudhahir@gmail.com>",
     "license": "MIT",
     "keywords": [
         "markdown",
@@ -24,12 +24,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/your-username/markdown-slides-presenter.git"
+        "url": "https://github.com/abudhahir/markdown-slides-presenter.git"
     },
     "bugs": {
-        "url": "https://github.com/your-username/markdown-slides-presenter/issues"
+        "url": "https://github.com/abudhahir/markdown-slides-presenter/issues"
     },
-    "homepage": "https://github.com/your-username/markdown-slides-presenter#readme",
+    "homepage": "https://github.com/abudhahir/markdown-slides-presenter#readme",
     "bin": {
         "markdown-slides": "./bin/markdown-slides.js"
     },
