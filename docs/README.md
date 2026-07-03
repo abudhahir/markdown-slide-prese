@@ -2,8 +2,6 @@
 
 Complete documentation for Markdown Slides presentation system.
 
-> **🚀 Migration in Progress**: Some documentation files are still being migrated. Run `chmod +x ../migrate-docs.sh && ../migrate-docs.sh` from the root directory to complete the migration. See [RUN_MIGRATION.md](../RUN_MIGRATION.md) for details.
-
 ## 📚 Documentation Structure
 
 ### Getting Started

@@ -2,7 +2,7 @@
 
 A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
-> **📚 Documentation Organization**: All documentation has been moved to the [`docs/`](./docs/) directory. See the [Documentation Index](./docs/README.md) or [Migration Guide](./MIGRATE_DOCS.md) for details.
+> **📚 Documentation**: All documentation is organized in the [`docs/`](./docs/) directory. See the [Documentation Index](./docs/README.md) for the complete guide.
 
 [![CI](https://github.com/yourusername/markdown-slides/workflows/CI/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/ci.yml)
 [![Release](https://github.com/yourusername/markdown-slides/workflows/Release/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/release.yml)
