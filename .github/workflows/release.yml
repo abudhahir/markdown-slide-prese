@@ -4,10 +4,13 @@ on:
   push:
     tags:
       - 'v*'
+      - 'v*-alpha.*'
+      - 'v*-beta.*'
+      - 'v*-rc.*'
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 1.0.0)'
+        description: 'Version to release (e.g., 1.0.0, 1.0.0-beta.1, 1.0.0-alpha.1)'
         required: true
         type: string
       prerelease:
@@ -27,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
+      is_prerelease: ${{ steps.get_version.outputs.is_prerelease }}
+      npm_tag: ${{ steps.get_version.outputs.npm_tag }}
+      prerelease_type: ${{ steps.get_version.outputs.prerelease_type }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,21 +44,64 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             VERSION="${{ github.event.inputs.version }}"
+            IS_PRERELEASE="${{ github.event.inputs.prerelease }}"
           else
             VERSION=${GITHUB_REF#refs/tags/v}
+            IS_PRERELEASE="false"
           fi
+          
+          # Detect pre-release type and set npm tag
+          NPM_TAG="latest"
+          PRERELEASE_TYPE=""
+          
+          if [[ $VERSION =~ -alpha ]]; then
+            IS_PRERELEASE="true"
+            NPM_TAG="alpha"
+            PRERELEASE_TYPE="alpha"
+            echo "🔷 Detected ALPHA pre-release"
+          elif [[ $VERSION =~ -beta ]]; then
+            IS_PRERELEASE="true"
+            NPM_TAG="beta"
+            PRERELEASE_TYPE="beta"
+            echo "🔶 Detected BETA pre-release"
+          elif [[ $VERSION =~ -rc ]]; then
+            IS_PRERELEASE="true"
+            NPM_TAG="rc"
+            PRERELEASE_TYPE="rc"
+            echo "🔸 Detected RC (Release Candidate) pre-release"
+          elif [[ $VERSION =~ -[a-zA-Z] ]]; then
+            IS_PRERELEASE="true"
+            NPM_TAG="next"
+            PRERELEASE_TYPE="next"
+            echo "🔹 Detected generic pre-release"
+          else
+            echo "✅ Detected stable release"
+          fi
+          
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Release version: $VERSION"
+          echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
+          echo "npm_tag=$NPM_TAG" >> $GITHUB_OUTPUT
+          echo "prerelease_type=$PRERELEASE_TYPE" >> $GITHUB_OUTPUT
+          
+          echo "📦 Release version: $VERSION"
+          echo "🏷️  npm tag: $NPM_TAG"
+          echo "🔖 Pre-release: $IS_PRERELEASE"
 
       - name: Validate version format
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
           if ! [[ $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
-            echo "Error: Invalid version format: $VERSION"
+            echo "❌ Error: Invalid version format: $VERSION"
             echo "Expected format: X.Y.Z or X.Y.Z-prerelease"
+            echo ""
+            echo "Valid examples:"
+            echo "  - 1.0.0 (stable)"
+            echo "  - 1.0.0-alpha.1 (alpha)"
+            echo "  - 1.0.0-beta.1 (beta)"
+            echo "  - 1.0.0-rc.1 (release candidate)"
             exit 1
           fi
-          echo "Version format is valid: $VERSION"
+          echo "✅ Version format is valid: $VERSION"
 
   build:
     name: Build Release
@@ -113,9 +162,66 @@ jobs:
         id: changelog
         run: |
           VERSION="${{ needs.validate.outputs.version }}"
+          IS_PRERELEASE="${{ needs.validate.outputs.is_prerelease }}"
+          PRERELEASE_TYPE="${{ needs.validate.outputs.prerelease_type }}"
           
           echo "# Release v${VERSION}" > RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
+          
+          # Add pre-release warning banner if applicable
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            case "$PRERELEASE_TYPE" in
+              "alpha")
+                echo "## ⚠️ ALPHA PRE-RELEASE" >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo "This is an **alpha** release intended for early testing and development." >> RELEASE_NOTES.md
+                echo "It may contain bugs and incomplete features. Not recommended for production use." >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo '```bash' >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@alpha" >> RELEASE_NOTES.md
+                echo "# or" >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo '```' >> RELEASE_NOTES.md
+                ;;
+              "beta")
+                echo "## ⚠️ BETA PRE-RELEASE" >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo "This is a **beta** release intended for testing before the stable release." >> RELEASE_NOTES.md
+                echo "Most features are complete but may still have bugs. Use with caution in production." >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo '```bash' >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@beta" >> RELEASE_NOTES.md
+                echo "# or" >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo '```' >> RELEASE_NOTES.md
+                ;;
+              "rc")
+                echo "## ⚠️ RELEASE CANDIDATE" >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo "This is a **release candidate** - the final testing version before stable release." >> RELEASE_NOTES.md
+                echo "Features are complete and tested. Report any issues found." >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo '```bash' >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@rc" >> RELEASE_NOTES.md
+                echo "# or" >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo '```' >> RELEASE_NOTES.md
+                ;;
+              *)
+                echo "## ⚠️ PRE-RELEASE" >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo "This is a pre-release version. Use with caution." >> RELEASE_NOTES.md
+                echo "" >> RELEASE_NOTES.md
+                echo '```bash' >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@next" >> RELEASE_NOTES.md
+                echo "# or" >> RELEASE_NOTES.md
+                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo '```' >> RELEASE_NOTES.md
+                ;;
+            esac
+            echo "" >> RELEASE_NOTES.md
+          fi
+          
           echo "## 🎉 What's New" >> RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
           
@@ -147,25 +253,29 @@ jobs:
             echo "" >> RELEASE_NOTES.md
           fi
           
-          echo "" >> RELEASE_NOTES.md
-          echo "## 📦 Installation" >> RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo '```bash' >> RELEASE_NOTES.md
-          echo "# Clone the repository" >> RELEASE_NOTES.md
-          echo "git clone https://github.com/${{ github.repository }}.git" >> RELEASE_NOTES.md
-          echo "cd $(basename ${{ github.repository }})" >> RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo "# Checkout this version" >> RELEASE_NOTES.md
-          echo "git checkout v${VERSION}" >> RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo "# Install and run" >> RELEASE_NOTES.md
-          echo "npm install" >> RELEASE_NOTES.md
-          echo "npm run dev" >> RELEASE_NOTES.md
-          echo '```' >> RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo "## 🌐 Live Demo" >> RELEASE_NOTES.md
-          echo "" >> RELEASE_NOTES.md
-          echo "Try it online: [GitHub Pages](https://${{ github.repository_owner }}.github.io/$(basename ${{ github.repository }}))" >> RELEASE_NOTES.md
+          # Only add installation section for stable releases
+          if [ "$IS_PRERELEASE" != "true" ]; then
+            echo "" >> RELEASE_NOTES.md
+            echo "## 📦 Installation" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo '```bash' >> RELEASE_NOTES.md
+            echo "# Clone the repository" >> RELEASE_NOTES.md
+            echo "git clone https://github.com/${{ github.repository }}.git" >> RELEASE_NOTES.md
+            echo "cd $(basename ${{ github.repository }})" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "# Checkout this version" >> RELEASE_NOTES.md
+            echo "git checkout v${VERSION}" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "# Install and run" >> RELEASE_NOTES.md
+            echo "npm install" >> RELEASE_NOTES.md
+            echo "npm run dev" >> RELEASE_NOTES.md
+            echo '```' >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "## 🌐 Live Demo" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "Try it online: [GitHub Pages](https://${{ github.repository_owner }}.github.io/$(basename ${{ github.repository }}))" >> RELEASE_NOTES.md
+          fi
+          
           echo "" >> RELEASE_NOTES.md
           echo "## 📝 Documentation" >> RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
@@ -182,7 +292,7 @@ jobs:
           name: Release v${{ needs.validate.outputs.version }}
           body_path: RELEASE_NOTES.md
           draft: false
-          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+          prerelease: ${{ needs.validate.outputs.is_prerelease == 'true' }}
           files: |
             markdown-slides-v${{ needs.validate.outputs.version }}-dist.tar.gz
           generate_release_notes: false
@@ -193,6 +303,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: [validate, build]
+    if: needs.validate.outputs.is_prerelease != 'true'
     permissions:
       contents: read
       pages: write
@@ -251,7 +362,7 @@ jobs:
         run: |
           VERSION="${{ needs.validate.outputs.version }}"
           npm version $VERSION --no-git-tag-version --allow-same-version
-          echo "Updated package.json to version $VERSION"
+          echo "✅ Updated package.json to version $VERSION"
 
       - name: Verify package contents
         run: |
@@ -262,8 +373,9 @@ jobs:
 
       - name: Publish to npm (dry-run)
         run: |
-          echo "🧪 Running publish dry-run..."
-          npm publish --dry-run
+          NPM_TAG="${{ needs.validate.outputs.npm_tag }}"
+          echo "🧪 Running publish dry-run with tag: $NPM_TAG..."
+          npm publish --dry-run --tag $NPM_TAG
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -271,9 +383,39 @@ jobs:
         if: success()
         id: npm-publish
         run: |
+          VERSION="${{ needs.validate.outputs.version }}"
+          NPM_TAG="${{ needs.validate.outputs.npm_tag }}"
+          IS_PRERELEASE="${{ needs.validate.outputs.is_prerelease }}"
+          PRERELEASE_TYPE="${{ needs.validate.outputs.prerelease_type }}"
+          
           echo "🚀 Publishing to npm..."
-          npm publish --access public
+          echo "📦 Version: $VERSION"
+          echo "🏷️  Tag: $NPM_TAG"
+          echo "🔖 Pre-release: $IS_PRERELEASE"
+          
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            case "$PRERELEASE_TYPE" in
+              "alpha")
+                echo "🔷 Publishing ALPHA version to npm with tag: alpha"
+                ;;
+              "beta")
+                echo "🔶 Publishing BETA version to npm with tag: beta"
+                ;;
+              "rc")
+                echo "🔸 Publishing RC version to npm with tag: rc"
+                ;;
+              *)
+                echo "🔹 Publishing pre-release version to npm with tag: $NPM_TAG"
+                ;;
+            esac
+          else
+            echo "✅ Publishing STABLE version to npm with tag: latest"
+          fi
+          
+          npm publish --access public --tag $NPM_TAG
           echo "✅ Successfully published to npm!"
+          echo "📦 Package: markdown-slides-presenter@$VERSION"
+          echo "🏷️  npm tag: $NPM_TAG"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -291,6 +433,9 @@ jobs:
           script: |
             const version = '${{ needs.validate.outputs.version }}';
             const packageName = '${{ steps.package-info.outputs.package_name }}';
+            const npmTag = '${{ needs.validate.outputs.npm_tag }}';
+            const isPrerelease = '${{ needs.validate.outputs.is_prerelease }}' === 'true';
+            const prereleaseType = '${{ needs.validate.outputs.prerelease_type }}';
             const releaseTag = `v${version}`;
             
             try {
@@ -301,8 +446,16 @@ jobs:
               });
               
               const npmBadge = `[![npm version](https://img.shields.io/npm/v/${packageName}.svg)](https://www.npmjs.com/package/${packageName})`;
-              const installCmd = '```bash\\nnpm install ' + packageName + '\\n# or\\nnpx ' + packageName + '\\n```';
-              const npmComment = `\\n\\n---\\n\\n## 📦 npm Package\\n\\n${npmBadge}\\n\\nThis release has been published to npm!\\n\\n### Installation\\n\\n${installCmd}\\n\\n**Package Page:** [npmjs.com/package/${packageName}](https://www.npmjs.com/package/${packageName})\\n\\n**Version:** [${version}](https://www.npmjs.com/package/${packageName}/v/${version})`;
+              
+              let installSection = '';
+              if (isPrerelease) {
+                const tagEmoji = prereleaseType === 'alpha' ? '🔷' : prereleaseType === 'beta' ? '🔶' : prereleaseType === 'rc' ? '🔸' : '🔹';
+                installSection = `### Installation (${prereleaseType.toUpperCase()})\\n\\n\`\`\`bash\\n# Install using ${npmTag} tag\\nnpm install ${packageName}@${npmTag}\\n\\n# Or install specific version\\nnpm install ${packageName}@${version}\\n\\n# Run with npx\\nnpx ${packageName}@${npmTag}\\n\`\`\`\\n\\n${tagEmoji} **Note:** This is a ${prereleaseType} version. For stable releases, use \`npm install ${packageName}\`.`;
+              } else {
+                installSection = `### Installation\\n\\n\`\`\`bash\\nnpm install ${packageName}\\n# or\\nnpx ${packageName}\\n\`\`\``;
+              }
+              
+              const npmComment = `\\n\\n---\\n\\n## 📦 npm Package\\n\\n${npmBadge}\\n\\nThis release has been published to npm!\\n\\n${installSection}\\n\\n**Package Page:** [npmjs.com/package/${packageName}](https://www.npmjs.com/package/${packageName})\\n\\n**Version:** [${version}](https://www.npmjs.com/package/${packageName}/v/${version})\\n\\n**npm Tag:** \`${npmTag}\``;
               
               await github.rest.repos.updateRelease({
                 owner: context.repo.owner,
@@ -323,11 +476,17 @@ jobs:
           sleep 10
           PACKAGE_NAME="${{ steps.package-info.outputs.package_name }}"
           VERSION="${{ needs.validate.outputs.version }}"
+          NPM_TAG="${{ needs.validate.outputs.npm_tag }}"
           
           if npm view $PACKAGE_NAME@$VERSION version &>/dev/null; then
             echo "✅ Package successfully published and verified!"
             echo "📦 Package: $PACKAGE_NAME@$VERSION"
+            echo "🏷️  npm tag: $NPM_TAG"
             echo "🔗 URL: https://www.npmjs.com/package/$PACKAGE_NAME"
+            echo ""
+            echo "Install with:"
+            echo "  npm install $PACKAGE_NAME@$NPM_TAG"
+            echo "  npm install $PACKAGE_NAME@$VERSION"
           else
             echo "⚠️ Package published but verification timed out (this is normal for new packages)"
           fi

@@ -71,7 +71,12 @@ See the **[Testing and Local Deployment Guide](./TESTING_AND_LOCAL_DEPLOYMENT.md
 Once published to npm, users can run instantly without installing:
 
 ```bash
+# Stable version
 npx markdown-slides-presenter
+
+# Pre-release versions (for testing)
+npx markdown-slides-presenter@beta
+npx markdown-slides-presenter@alpha
 ```
 
 ### Option 4: Global Installation (After Publishing)
@@ -79,8 +84,12 @@ npx markdown-slides-presenter
 After publishing to npm, install globally to use anywhere:
 
 ```bash
-# Install globally
+# Install stable version globally
 npm install -g markdown-slides-presenter
+
+# Or install pre-release for testing
+npm install -g markdown-slides-presenter@beta
+npm install -g markdown-slides-presenter@alpha
 
 # Run from anywhere
 markdown-slides
@@ -120,18 +129,40 @@ This project uses **fully automated** releases with GitHub Actions. Each release
 **Just push a tag** - Everything else is automatic!
 
 ```bash
-# Update version and create tag
+# Stable release
 git tag v1.0.0
 git push origin main
 git push origin v1.0.0
 
+# Pre-release (beta/alpha/rc)
+git tag v1.2.0-beta.1
+git push origin v1.2.0-beta.1
+
 # That's it! The workflow automatically:
 # ✅ Builds the application
 # ✅ Creates GitHub release
-# ✅ Publishes to npm
-# ✅ Deploys to GitHub Pages
+# ✅ Publishes to npm (with correct tag)
+# ✅ Deploys to GitHub Pages (stable only)
 # ✅ Builds Docker image
 ```
+
+### 🔖 Pre-Release Support
+
+Pre-releases are fully supported for testing before stable releases:
+
+| Version Type | Tag Format | npm Tag | Install Command |
+|-------------|------------|---------|-----------------|
+| **Alpha** | `v1.2.0-alpha.1` | `alpha` | `npm install markdown-slides-presenter@alpha` |
+| **Beta** | `v1.2.0-beta.1` | `beta` | `npm install markdown-slides-presenter@beta` |
+| **Release Candidate** | `v1.2.0-rc.1` | `rc` | `npm install markdown-slides-presenter@rc` |
+| **Stable** | `v1.2.0` | `latest` | `npm install markdown-slides-presenter` |
+
+**Key Points:**
+- Pre-releases won't affect stable users (they use different npm tags)
+- GitHub Pages only deploys for stable releases
+- Perfect for testing new features before general availability
+
+See **[Pre-Release Guide](./PRERELEASE_GUIDE.md)** for detailed instructions.
 
 ### 📦 npm Publishing Setup
 

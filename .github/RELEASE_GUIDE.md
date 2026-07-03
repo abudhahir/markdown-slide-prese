@@ -71,20 +71,37 @@ The push of the tag triggers the release workflow, which:
 - Publishes to npm (if configured)
 - Builds Docker image
 
-## Pre-release
+## Pre-release (Beta/Alpha/RC)
 
-For beta/alpha versions:
+For detailed information on pre-releases, see [PRERELEASE_GUIDE.md](../PRERELEASE_GUIDE.md).
+
+### Quick Pre-release
 
 ```bash
-# Create pre-release tag
+# Alpha (early development)
+git tag v1.0.0-alpha.1
+git push origin v1.0.0-alpha.1
+
+# Beta (feature complete, testing)
 git tag v1.0.0-beta.1
 git push origin v1.0.0-beta.1
+
+# Release Candidate (final testing)
+git tag v1.0.0-rc.1
+git push origin v1.0.0-rc.1
 ```
 
 Or use GitHub UI:
 - Actions → Release → Run workflow
-- Version: `1.0.0-beta.1`
+- Version: `1.0.0-beta.1` (or `-alpha.1`, `-rc.1`)
 - Pre-release: ✓
+
+**Important:** Pre-releases are published to npm with specific tags:
+- Alpha → `npm install markdown-slides-presenter@alpha`
+- Beta → `npm install markdown-slides-presenter@beta`
+- RC → `npm install markdown-slides-presenter@rc`
+
+**Note:** Pre-releases are NOT deployed to GitHub Pages (demo stays stable).
 
 ## Hotfix Release
 
