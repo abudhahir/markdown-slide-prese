@@ -4,13 +4,13 @@
 
 A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
-[![CI](https://github.com/yourusername/markdown-slides/workflows/CI/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/ci.yml)
-[![Release](https://github.com/yourusername/markdown-slides/workflows/Release/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/release.yml)
-[![Deploy](https://github.com/yourusername/markdown-slides/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/deploy.yml)
+[![CI](https://github.com/abudhahir/markdown-slides/workflows/CI/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/ci.yml)
+[![Release](https://github.com/abudhahir/markdown-slides/workflows/Release/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/release.yml)
+[![Deploy](https://github.com/abudhahir/markdown-slides/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/deploy.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![React](https://img.shields.io/badge/react-19.0.0-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.7.2-blue.svg)](https://www.typescriptlang.org/)
-[![GitHub release](https://img.shields.io/github/v/release/yourusername/markdown-slides)](https://github.com/yourusername/markdown-slides/releases)
+[![GitHub release](https://img.shields.io/github/v/release/abudhahir/markdown-slides)](https://github.com/abudhahir/markdown-slides/releases)
 [![npm version](https://img.shields.io/npm/v/markdown-slides)](https://www.npmjs.com/package/markdown-slides)
 
 [Quick Start](#-quick-start) • [Features](#-features) • [Documentation](./docs/README.md) • [Examples](#-usage-guide)
@@ -133,8 +133,8 @@ For contributors or local testing:
 
 ```bash
 # Clone the repository
-git clone https://github.com/abudhahir/markdown-slides-presenter.git
-cd markdown-slides-presenter
+git clone https://github.com/abudhahir/markdown-slides.git
+cd markdown-slides
 
 # Install dependencies
 npm install
@@ -288,15 +288,15 @@ See **[Automated npm Publishing Guide](./docs/release/AUTOMATED_NPM_PUBLISHING.m
 **Download build:**
 ```bash
 # From GitHub releases
-wget https://github.com/yourusername/markdown-slides/releases/download/v1.0.0/markdown-slides-v1.0.0-dist.tar.gz
+wget https://github.com/abudhahir/markdown-slides/releases/download/v1.0.0/markdown-slides-v1.0.0-dist.tar.gz
 tar -xzf markdown-slides-v1.0.0-dist.tar.gz
 ```
 
 **Docker:**
 ```bash
 # Pull and run
-docker pull ghcr.io/yourusername/markdown-slides:latest
-docker run -p 8080:80 ghcr.io/yourusername/markdown-slides:latest
+docker pull ghcr.io/abudhahir/markdown-slides:latest
+docker run -p 8080:80 ghcr.io/abudhahir/markdown-slides:latest
 ```
 
 **npm:**
@@ -743,10 +743,11 @@ The Spark Template files and resources from GitHub are licensed under the terms 
 
 ### Project Maintainer
 
-**Author**: Your Name  
-**Email**: your.email@example.com  
-**GitHub**: [@yourusername](https://github.com/yourusername)  
-**Project Repository**: [github.com/yourusername/markdown-slides](https://github.com/yourusername/markdown-slides)
+**Author**: abudhahir  
+**Email**: abudhahir@gmail.com  
+**GitHub**: [@abudhahir](https://github.com/abudhahir)  
+**Project Repository**: [github.com/abudhahir/markdown-slides](https://github.com/abudhahir/markdown-slides)
+**Live Demo**: [markdown-slides-abudhahir.github.app](https://markdown-slides-abudhahir.github.app)
 
 ### Get in Touch
 
@@ -754,11 +755,11 @@ We'd love to hear from you! Here are the best ways to reach out:
 
 #### For Project-Related Questions
 - 📖 **Documentation**: Check the comprehensive guides in this repository
-- 💬 **GitHub Discussions**: [Start a discussion](https://github.com/yourusername/markdown-slides/discussions) for questions, ideas, or showcasing your presentations
-- 💡 **Feature Requests**: [Open an issue](https://github.com/yourusername/markdown-slides/issues/new?template=feature_request.md) with the enhancement label
+- 💬 **GitHub Discussions**: [Start a discussion](https://github.com/abudhahir/markdown-slides/discussions) for questions, ideas, or showcasing your presentations
+- 💡 **Feature Requests**: [Open an issue](https://github.com/abudhahir/markdown-slides/issues/new?template=feature_request.md) with the enhancement label
 
 #### For Bug Reports & Issues
-- 🐛 **Bug Reports**: [Open an issue](https://github.com/yourusername/markdown-slides/issues/new?template=bug_report.md) with detailed reproduction steps
+- 🐛 **Bug Reports**: [Open an issue](https://github.com/abudhahir/markdown-slides/issues/new?template=bug_report.md) with detailed reproduction steps
 - 🔍 **Search Existing Issues**: Check if your issue has already been reported or resolved
 
 #### For Collaboration & Contributions
@@ -767,14 +768,13 @@ We'd love to hear from you! Here are the best ways to reach out:
 - 👥 **Code Review**: We review all PRs promptly and provide constructive feedback
 
 #### For Direct Communication
-- 📧 **Email**: For private inquiries, security issues, or partnership opportunities: your.email@example.com
+- 📧 **Email**: For private inquiries, security issues, or partnership opportunities: abudhahir@gmail.com
 - 🔒 **Security Issues**: Please email security-related issues privately before public disclosure
 
 #### Stay Updated
 - ⭐ **Star this repo** to get notifications about updates and releases
 - 👁️ **Watch this repo** to follow all discussions and issues
 - 📰 **Release Notes**: Check [CHANGELOG.md](./CHANGELOG.md) for version updates
-- 🐦 **Social Media**: Follow [@yourusername](https://twitter.com/yourusername) for project updates (optional)
 
 ### Community Guidelines
 

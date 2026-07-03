@@ -24,12 +24,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/abudhahir/markdown-slides-presenter.git"
+        "url": "https://github.com/abudhahir/markdown-slides.git"
     },
     "bugs": {
-        "url": "https://github.com/abudhahir/markdown-slides-presenter/issues"
+        "url": "https://github.com/abudhahir/markdown-slides/issues"
     },
-    "homepage": "https://github.com/abudhahir/markdown-slides-presenter#readme",
+    "homepage": "https://markdown-slides-abudhahir.github.app",
     "bin": {
         "markdown-slides": "./bin/markdown-slides.js"
     },
