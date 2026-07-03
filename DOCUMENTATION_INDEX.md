@@ -9,6 +9,8 @@ Start here if you're new to the project:
 | Document | Description | Time |
 |----------|-------------|------|
 | [README.md](./README.md) | Project overview, features, and quick start | 5 min |
+| [QUICKSTART_CLI.md](./QUICKSTART_CLI.md) | Get started with CLI in 60 seconds | 2 min |
+| [CLI_USAGE_GUIDE.md](./CLI_USAGE_GUIDE.md) | Complete CLI reference and troubleshooting | 10 min |
 | [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) | Create your first release in 5 minutes | 5 min |
 | [USER_GUIDE.md](./USER_GUIDE.md) | Complete guide to using the application | 15 min |
 
@@ -57,6 +59,11 @@ Quick reference materials:
 | [LICENSE](./LICENSE) | MIT license information | Legal |
 
 ## 🎯 By Use Case
+
+### "I want to use the CLI"
+1. [QUICKSTART_CLI.md](./QUICKSTART_CLI.md) - 60 second start
+2. [CLI_USAGE_GUIDE.md](./CLI_USAGE_GUIDE.md) - Complete CLI reference
+3. [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) - Publishing to npm
 
 ### "I want to create a release"
 1. [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) - 5 minute guide
@@ -136,9 +143,10 @@ Quick reference materials:
 
 ### Beginner Path (1 hour)
 1. [README.md](./README.md) - 5 min - Overview
-2. [USER_GUIDE.md](./USER_GUIDE.md) - 15 min - How to use
-3. [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) - 5 min - First release
-4. [examples/](./examples/) - 35 min - Try examples
+2. [QUICKSTART_CLI.md](./QUICKSTART_CLI.md) - 2 min - Quick start
+3. [USER_GUIDE.md](./USER_GUIDE.md) - 15 min - How to use
+4. [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) - 5 min - First release
+5. [examples/](./examples/) - 33 min - Try examples
 
 ### Developer Path (2 hours)
 1. [README.md](./README.md) - 5 min - Overview

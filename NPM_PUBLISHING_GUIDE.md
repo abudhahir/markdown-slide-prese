@@ -52,6 +52,10 @@ Update your `package.json` with the following changes:
     "url": "https://github.com/yourusername/markdown-slides/issues"
   },
   "homepage": "https://yourusername.github.io/markdown-slides",
+  "bin": {
+    "markdown-slides": "./bin/markdown-slides.js",
+    "markdown-slides-presenter": "./bin/markdown-slides.js"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -64,6 +68,7 @@ Update your `package.json` with the following changes:
     "./package.json": "./package.json"
   },
   "files": [
+    "bin",
     "dist",
     "README.md",
     "LICENSE"
@@ -73,6 +78,7 @@ Update your `package.json` with the following changes:
     "build": "tsc -b --noCheck && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "start": "node bin/markdown-slides.js",
     "prepublishOnly": "npm run build"
   }
 }
@@ -82,6 +88,7 @@ Update your `package.json` with the following changes:
 - `name`: Must be unique on npm (check with `npm view <name>`)
 - `version`: Follow semantic versioning (MAJOR.MINOR.PATCH)
 - `private`: Must be `false` to publish
+- `bin`: CLI entry point for npx/npm run commands
 - `files`: Array of files/folders to include in package
 - `repository`: Link to your git repository
 - `prepublishOnly`: Script that runs automatically before publishing
@@ -114,23 +121,50 @@ Before publishing, test your package:
 # Build the project
 npm run build
 
+# Test the CLI locally
+npm run start
+
+# Or test directly
+node bin/markdown-slides.js --help
+
 # Create a tarball
 npm pack
 
 # This creates a file like: markdown-slides-presenter-1.0.0.tgz
 ```
 
-Test the tarball in another project:
+Test the tarball in another directory:
 
 ```bash
 # In a different directory
 mkdir test-project
 cd test-project
-npm init -y
+
+# Install the tarball
 npm install /path/to/markdown-slides-presenter-1.0.0.tgz
 
-# Test importing
-node -e "console.log(require('markdown-slides-presenter'))"
+# Test the CLI
+npx markdown-slides --help
+
+# Test running it
+npx markdown-slides --port 8080
+```
+
+Test global installation:
+
+```bash
+# Install globally from tarball
+npm install -g /path/to/markdown-slides-presenter-1.0.0.tgz
+
+# Test command
+markdown-slides --version
+markdown-slides --help
+
+# Test running
+markdown-slides
+
+# Cleanup
+npm uninstall -g markdown-slides-presenter
 ```
 
 ### 4. Login to npm

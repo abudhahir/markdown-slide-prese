@@ -1,15 +1,48 @@
 {
-    "name": "spark-template",
-    "private": true,
-    "version": "0.0.0",
+    "name": "markdown-slides-presenter",
+    "private": false,
+    "version": "1.0.0",
     "type": "module",
+    "description": "A powerful markdown-based presentation tool with multiple themes, keyboard shortcuts, and PDF export",
+    "author": "Your Name <your.email@example.com>",
+    "license": "MIT",
+    "keywords": [
+        "markdown",
+        "slides",
+        "presentation",
+        "presenter",
+        "react",
+        "typescript",
+        "slideshow",
+        "reveal",
+        "deck"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yourusername/markdown-slides.git"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/markdown-slides/issues"
+    },
+    "homepage": "https://yourusername.github.io/markdown-slides",
+    "bin": {
+        "markdown-slides": "./bin/markdown-slides.js"
+    },
+    "files": [
+        "bin",
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
         "dev": "vite",
         "kill": "fuser -k 5000/tcp",
         "build": "tsc -b --noCheck && vite build",
         "lint": "eslint .",
         "optimize": "vite optimize",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "start": "node bin/markdown-slides.js",
+        "prepublishOnly": "npm run build"
     },
     "dependencies": {
         "@github/spark": ">=0.43.1 <1",

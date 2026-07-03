@@ -23,15 +23,57 @@ A powerful full-screen presentation system that transforms markdown files into b
 - 📤 **PDF Export** - Export your presentation to PDF
 - ✨ **Smooth Transitions** - Polished animations and effects
 - 🌐 **Cross-Platform** - Works on desktop, tablet, and mobile
+- 🚀 **CLI Ready** - Run with npm or npx without installation
 
-## 🚀 Quick Start
-
-### Prerequisites
+## 📋 Prerequisites
 
 - Node.js 18.x or higher
 - npm 8.x or higher
 
-### Installation
+## 🚀 Quick Start
+
+### Using npx (No Installation Required)
+
+Run instantly without installing:
+
+```bash
+npx markdown-slides-presenter
+```
+
+Open your browser to `http://localhost:3000` and start presenting!
+
+### Using npm Global Install
+
+Install globally to use anywhere:
+
+```bash
+# Install globally
+npm install -g markdown-slides-presenter
+
+# Run from anywhere
+markdown-slides
+```
+
+### CLI Options
+
+```bash
+# Run on default port 3000
+markdown-slides
+
+# Run on custom port
+markdown-slides --port 8080
+markdown-slides -p 5000
+
+# Show help
+markdown-slides --help
+
+# Show version
+markdown-slides --version
+```
+
+### Development Setup
+
+For contributors or those who want to modify the code:
 
 ```bash
 # Clone the repository
@@ -41,7 +83,7 @@ cd markdown-slides
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server with hot reload
 npm run dev
 ```
 
@@ -53,7 +95,10 @@ The application will be available at `http://localhost:5173`
 # Create production build
 npm run build
 
-# Preview production build locally
+# Test the built version locally
+npm run start
+
+# Or preview with vite
 npm run preview
 ```
 
@@ -202,192 +247,48 @@ All UI components are in `src/components/ui/` (shadcn components) and custom com
 
 ## 📦 Publishing to npm
 
-### Preparation Steps
+This package is ready to be published to npm. See the [NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md) for detailed instructions.
 
-1. **Update package.json for publishing**
+### Quick Publish Steps
 
-Change the following fields in `package.json`:
+1. **Update package.json with your details:**
+   - Change `name` to your desired package name
+   - Update `author`, `repository`, and `homepage` URLs
+   - Ensure `version` is set correctly
 
-```json
-{
-  "name": "markdown-slides-presenter",
-  "version": "1.0.0",
-  "description": "A powerful markdown-based presentation tool",
-  "private": false,
-  "author": "Your Name <your.email@example.com>",
-  "license": "MIT",
-  "keywords": [
-    "markdown",
-    "slides",
-    "presentation",
-    "react",
-    "typescript",
-    "presenter"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/markdown-slides.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yourusername/markdown-slides/issues"
-  },
-  "homepage": "https://yourusername.github.io/markdown-slides",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ]
-}
-```
+2. **Build and test:**
+   ```bash
+   npm run build
+   npm run start  # Test the CLI locally
+   npm pack       # Create tarball for testing
+   ```
 
-2. **Create .npmignore file**
+3. **Login and publish:**
+   ```bash
+   npm login
+   npm publish
+   ```
+
+4. **Verify publication:**
+   ```bash
+   npm view markdown-slides-presenter
+   npx markdown-slides-presenter
+   ```
+
+### After Publishing
+
+Users can install and run your package:
 
 ```bash
-# Create .npmignore in project root
-cat > .npmignore << 'EOF'
-src/
-.github/
-.gitlab-ci.yml
-.devcontainer/
-examples/
-node_modules/
-.git/
-.gitignore
-*.log
-.DS_Store
-vite.config.ts
-tsconfig.json
-tailwind.config.js
-components.json
-*.md
-!README.md
-!LICENSE
-EOF
+# Run without installing
+npx markdown-slides-presenter
+
+# Or install globally
+npm install -g markdown-slides-presenter
+markdown-slides
 ```
 
-3. **Test the package locally**
-
-```bash
-# Create a tarball to test
-npm pack
-
-# This creates markdown-slides-presenter-1.0.0.tgz
-# Test installation in another project
-npm install /path/to/markdown-slides-presenter-1.0.0.tgz
-```
-
-### Publishing to npm Registry
-
-1. **Create an npm account** at [npmjs.com/signup](https://www.npmjs.com/signup)
-
-2. **Login to npm**
-
-```bash
-npm login
-# Enter your username, password, and email
-```
-
-3. **Verify your login**
-
-```bash
-npm whoami
-```
-
-4. **Publish the package**
-
-```bash
-# First-time publication
-npm publish
-
-# If package name is scoped (e.g., @username/markdown-slides)
-npm publish --access public
-```
-
-5. **Verify publication**
-
-```bash
-npm view markdown-slides-presenter
-```
-
-### Version Management
-
-Follow [Semantic Versioning](https://semver.org/):
-
-```bash
-# Bug fixes: 1.0.0 -> 1.0.1
-npm version patch
-
-# New features: 1.0.1 -> 1.1.0
-npm version minor
-
-# Breaking changes: 1.1.0 -> 2.0.0
-npm version major
-
-# Then publish
-npm publish
-```
-
-### Publishing Workflow
-
-```bash
-# 1. Test thoroughly
-npm run lint
-npm run build
-npm run preview
-
-# 2. Update version
-npm version patch
-
-# 3. Push to git
-git push origin main --tags
-
-# 4. Publish to npm
-npm publish
-
-# 5. Verify
-npm view markdown-slides-presenter
-```
-
-### Automated Publishing with GitHub Actions
-
-Create `.github/workflows/publish.yml`:
-
-```yaml
-name: Publish to npm
-
-on:
-  release:
-    types: [created]
-
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-      
-      - run: npm ci
-      - run: npm run build
-      
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-```
-
-Add your npm token to repository secrets as `NPM_TOKEN`.
+See [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) for complete publishing documentation.
 
 ## 🌐 Deployment
 
@@ -411,6 +312,25 @@ Deploy the `dist/` folder to any static hosting:
 - **Firebase Hosting**: `firebase deploy`
 
 ## 📖 Usage Guide
+
+### Running as CLI
+
+```bash
+# Quick start with npx (no install)
+npx markdown-slides-presenter
+
+# Or install globally
+npm install -g markdown-slides-presenter
+markdown-slides
+
+# Custom port
+markdown-slides --port 8080
+
+# Show help
+markdown-slides --help
+```
+
+See the [CLI Usage Guide](./CLI_USAGE_GUIDE.md) for complete CLI documentation.
 
 ### Keyboard Shortcuts
 
@@ -490,6 +410,8 @@ Press `T` to open the theme selector and preview themes in real-time.
 
 ### Getting Started
 - [README](./README.md) - Project overview and setup
+- [Quick Start - CLI Edition](./QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
+- [CLI Usage Guide](./CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
 - [Quick Start Release Guide](./QUICKSTART_RELEASE.md) - Create your first release in 5 minutes
 
 ### Release & Deployment
