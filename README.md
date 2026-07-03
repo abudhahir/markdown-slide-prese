@@ -32,19 +32,51 @@ A powerful full-screen presentation system that transforms markdown files into b
 
 ## 🚀 Quick Start
 
-### Using npx (No Installation Required)
+### Option 1: Run Locally (Development)
 
-Run instantly without installing:
+For contributors or local testing:
+
+```bash
+# Clone the repository
+git clone https://github.com/abudhahir/markdown-slides-presenter.git
+cd markdown-slides-presenter
+
+# Install dependencies
+npm install
+
+# Start development server with hot reload
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Option 2: Test the Production Build Locally
+
+Build and run the production version:
+
+```bash
+# Build for production
+npm run build
+
+# Run the built version
+npm run start
+```
+
+Open your browser to `http://localhost:3000` and start presenting!
+
+See the **[Testing and Local Deployment Guide](./TESTING_AND_LOCAL_DEPLOYMENT.md)** for comprehensive testing instructions.
+
+### Option 3: Using npx (No Installation - After Publishing)
+
+Once published to npm, users can run instantly without installing:
 
 ```bash
 npx markdown-slides-presenter
 ```
 
-Open your browser to `http://localhost:3000` and start presenting!
+### Option 4: Global Installation (After Publishing)
 
-### Using npm Global Install
-
-Install globally to use anywhere:
+After publishing to npm, install globally to use anywhere:
 
 ```bash
 # Install globally
@@ -71,36 +103,7 @@ markdown-slides --help
 markdown-slides --version
 ```
 
-### Development Setup
-
-For contributors or those who want to modify the code:
-
-```bash
-# Clone the repository
-git clone <your-repository-url>
-cd markdown-slides
-
-# Install dependencies
-npm install
-
-# Start development server with hot reload
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`
-
-### Build for Production
-
-```bash
-# Create production build
-npm run build
-
-# Test the built version locally
-npm run start
-
-# Or preview with vite
-npm run preview
-```
+For complete CLI documentation, see the [CLI Usage Guide](./CLI_USAGE_GUIDE.md).
 
 ## 🚢 Releases & Versioning
 
@@ -410,6 +413,7 @@ Press `T` to open the theme selector and preview themes in real-time.
 
 ### Getting Started
 - [README](./README.md) - Project overview and setup
+- [Testing and Local Deployment Guide](./TESTING_AND_LOCAL_DEPLOYMENT.md) - **⭐ Comprehensive testing guide for local deployment and npm publishing**
 - [Quick Start - CLI Edition](./QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
 - [CLI Usage Guide](./CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
 - [Quick Start Release Guide](./QUICKSTART_RELEASE.md) - Create your first release in 5 minutes
