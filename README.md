@@ -2,6 +2,8 @@
 
 A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
+> **📚 Documentation Organization**: All documentation has been moved to the [`docs/`](./docs/) directory. See the [Documentation Index](./docs/README.md) or [Migration Guide](./MIGRATE_DOCS.md) for details.
+
 [![CI](https://github.com/yourusername/markdown-slides/workflows/CI/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/ci.yml)
 [![Release](https://github.com/yourusername/markdown-slides/workflows/Release/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/release.yml)
 [![Deploy](https://github.com/yourusername/markdown-slides/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/deploy.yml)
@@ -64,7 +66,7 @@ npm run start
 
 Open your browser to `http://localhost:3000` and start presenting!
 
-See the **[Testing and Local Deployment Guide](./TESTING_AND_LOCAL_DEPLOYMENT.md)** for comprehensive testing instructions.
+See the **[Testing and Local Deployment Guide](./docs/getting-started/TESTING_AND_LOCAL_DEPLOYMENT.md)** for comprehensive testing instructions.
 
 ### Option 3: Using npx (No Installation - After Publishing)
 
@@ -112,7 +114,7 @@ markdown-slides --help
 markdown-slides --version
 ```
 
-For complete CLI documentation, see the [CLI Usage Guide](./CLI_USAGE_GUIDE.md).
+For complete CLI documentation, see the [CLI Usage Guide](./docs/getting-started/CLI_USAGE_GUIDE.md).
 
 ## 🚢 Releases & Publishing
 
@@ -162,7 +164,7 @@ Pre-releases are fully supported for testing before stable releases:
 - GitHub Pages only deploys for stable releases
 - Perfect for testing new features before general availability
 
-See **[Pre-Release Guide](./PRERELEASE_GUIDE.md)** for detailed instructions.
+See **[Pre-Release Guide](./docs/release/PRERELEASE_GUIDE.md)** for detailed instructions.
 
 ### 📦 npm Publishing Setup
 
@@ -175,7 +177,7 @@ Before your first release, add your npm token to GitHub:
 
 **That's all!** Future releases will automatically publish to npm.
 
-See **[Automated npm Publishing Guide](./AUTOMATED_NPM_PUBLISHING.md)** for complete setup instructions.
+See **[Automated npm Publishing Guide](./docs/release/AUTOMATED_NPM_PUBLISHING.md)** for complete setup instructions.
 
 ### Release Workflow Features
 
@@ -210,7 +212,7 @@ docker run -p 8080:80 ghcr.io/yourusername/markdown-slides:latest
 npm install markdown-slides@1.0.0
 ```
 
-See [RELEASE_WORKFLOW.md](./RELEASE_WORKFLOW.md) for complete documentation.
+See [RELEASE_WORKFLOW.md](./docs/release/RELEASE_WORKFLOW.md) for complete documentation.
 
 ## 🛠️ Development Setup
 
@@ -296,7 +298,7 @@ All UI components are in `src/components/ui/` (shadcn components) and custom com
 
 ## 📦 Publishing to npm
 
-This package is ready to be published to npm. See the [NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md) for detailed instructions.
+This package is ready to be published to npm. See the [NPM Publishing Guide](./docs/release/NPM_PUBLISHING_GUIDE.md) for detailed instructions.
 
 ### Quick Publish Steps
 
@@ -337,7 +339,7 @@ npm install -g markdown-slides-presenter
 markdown-slides
 ```
 
-See [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) for complete publishing documentation.
+See [NPM_PUBLISHING_GUIDE.md](./docs/release/NPM_PUBLISHING_GUIDE.md) for complete publishing documentation.
 
 ## 🌐 Deployment
 
@@ -345,11 +347,11 @@ This project can be deployed to various platforms:
 
 ### GitHub Pages
 
-Automated deployment using GitHub Actions. See [GITHUB_PAGES_DEPLOYMENT.md](./GITHUB_PAGES_DEPLOYMENT.md) for detailed instructions.
+Automated deployment using GitHub Actions. See [GITHUB_PAGES_DEPLOYMENT.md](./docs/deployment/GITHUB_PAGES_DEPLOYMENT.md) for detailed instructions.
 
 ### GitLab Pages
 
-Deploy to GitLab Pages using GitLab CI. See [GITLAB_PAGES_DEPLOYMENT.md](./GITLAB_PAGES_DEPLOYMENT.md) for instructions.
+Deploy to GitLab Pages using GitLab CI. See [GITLAB_PAGES_DEPLOYMENT.md](./docs/deployment/GITLAB_PAGES_DEPLOYMENT.md) for instructions.
 
 ### Other Platforms
 
@@ -379,7 +381,7 @@ markdown-slides --port 8080
 markdown-slides --help
 ```
 
-See the [CLI Usage Guide](./CLI_USAGE_GUIDE.md) for complete CLI documentation.
+See the [CLI Usage Guide](./docs/getting-started/CLI_USAGE_GUIDE.md) for complete CLI documentation.
 
 ### Keyboard Shortcuts
 
@@ -457,35 +459,35 @@ Press `T` to open the theme selector and preview themes in real-time.
 
 ## 📚 Documentation & Resources
 
+**📁 All documentation has been organized into the [`docs/`](./docs/) directory.** See the [Documentation Index](./docs/README.md) for the complete structure.
+
 ### Getting Started
 - [README](./README.md) - Project overview and setup
-- [Testing and Local Deployment Guide](./TESTING_AND_LOCAL_DEPLOYMENT.md) - **⭐ Comprehensive testing guide for local deployment and npm publishing**
-- [Quick Start - CLI Edition](./QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
-- [CLI Usage Guide](./CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
-- [Quick Start Release Guide](./QUICKSTART_RELEASE.md) - Create your first release in 5 minutes
+- [Testing and Local Deployment Guide](./docs/getting-started/TESTING_AND_LOCAL_DEPLOYMENT.md) - **⭐ Comprehensive testing guide for local deployment and npm publishing**
+- [Quick Start - CLI Edition](./docs/getting-started/QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
+- [CLI Usage Guide](./docs/getting-started/CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
+- [User Guide](./docs/getting-started/USER_GUIDE.md) - Complete usage instructions
 
-### Release & Deployment
-- [Release Workflow Guide](./RELEASE_WORKFLOW.md) - Comprehensive release automation documentation
-- [Release Implementation](./RELEASE_IMPLEMENTATION.md) - Implementation details and architecture
-- [Workflow Architecture](./WORKFLOW_ARCHITECTURE.md) - Visual workflow diagrams and flow
-- [Quick Release Guide](./.github/RELEASE_GUIDE.md) - Quick reference for releases
-- [Version Bump Quick Reference](./VERSION_BUMP_QUICKREF.md) - **⭐ Quick guide for automated version bumps and pre-releases**
-- [Pre-Release Guide](./PRERELEASE_GUIDE.md) - Complete guide to alpha, beta, and RC releases
-- [Release Template](./.github/RELEASE_TEMPLATE.md) - Template for release notes
+### Release & Publishing
+- [Release Workflow Guide](./docs/release/RELEASE_WORKFLOW.md) - Comprehensive release automation documentation
+- [Quick Start Release Guide](./docs/release/QUICKSTART_RELEASE.md) - Create your first release in 5 minutes
+- [Version Bump Quick Reference](./docs/release/VERSION_BUMP_QUICKREF.md) - **⭐ Quick guide for automated version bumps and pre-releases**
+- [Pre-Release Guide](./docs/release/PRERELEASE_GUIDE.md) - Complete guide to alpha, beta, and RC releases
+- [Automated npm Publishing Guide](./docs/release/AUTOMATED_NPM_PUBLISHING.md) - npm publishing automation
+- [NPM Publishing Guide](./docs/release/NPM_PUBLISHING_GUIDE.md) - Publishing to npm registry
+- [Release Implementation](./docs/release/RELEASE_IMPLEMENTATION.md) - Implementation details and architecture
+- [Workflow Architecture](./docs/release/WORKFLOW_ARCHITECTURE.md) - Visual workflow diagrams and flow
 - [Changelog](./CHANGELOG.md) - Version history and changes
 
 ### Deployment Guides
-- [GitHub Pages Deployment](./GITHUB_PAGES_DEPLOYMENT.md) - Deploy to GitHub Pages
-- [GitLab Pages Deployment](./GITLAB_PAGES_DEPLOYMENT.md) - Deploy to GitLab Pages
-
-### User Documentation
-- [User Guide](./USER_GUIDE.md) - Complete usage instructions
-- [VS Code Extension](./VSCODE_EXTENSION_GUIDE.md) - Create a VS Code extension
-- [Architecture](./ARCHITECTURE.md) - Technical architecture details
+- [GitHub Pages Deployment](./docs/deployment/GITHUB_PAGES_DEPLOYMENT.md) - Deploy to GitHub Pages
+- [GitLab Pages Deployment](./docs/deployment/GITLAB_PAGES_DEPLOYMENT.md) - Deploy to GitLab Pages
 
 ### Development
-- [Scripts Documentation](./scripts/README.md) - Helper scripts for releases
-- [NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md) - Publishing to npm registry
+- [Architecture](./docs/development/ARCHITECTURE.md) - Technical architecture details
+- [Product Requirements Document](./docs/development/PRD.md) - Project requirements and specifications
+- [VS Code Extension Guide](./docs/development/VSCODE_EXTENSION_GUIDE.md) - Create a VS Code extension
+- [Scripts Documentation](./docs/reference/SCRIPTS_README.md) - Helper scripts for releases
 
 ### Example Presentations
 
