@@ -21,6 +21,8 @@ Everything about automated releases:
 | Document | Description | Audience |
 |----------|-------------|----------|
 | [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) | Quick start guide for releases | Everyone |
+| [VERSION_BUMP_QUICKREF.md](./VERSION_BUMP_QUICKREF.md) | **⭐ Quick reference for version bumps and pre-releases** | Developers |
+| [PRERELEASE_GUIDE.md](./PRERELEASE_GUIDE.md) | Complete alpha/beta/RC guide | Developers |
 | [RELEASE_WORKFLOW.md](./RELEASE_WORKFLOW.md) | Comprehensive workflow documentation | Developers/DevOps |
 | [WORKFLOW_ARCHITECTURE.md](./WORKFLOW_ARCHITECTURE.md) | Visual diagrams and architecture | Developers/DevOps |
 | [RELEASE_IMPLEMENTATION.md](./RELEASE_IMPLEMENTATION.md) | Implementation details and summary | Technical leads |
@@ -69,8 +71,14 @@ Quick reference materials:
 
 ### "I want to create a release"
 1. [QUICKSTART_RELEASE.md](./QUICKSTART_RELEASE.md) - 5 minute guide
-2. [.github/RELEASE_GUIDE.md](./.github/RELEASE_GUIDE.md) - Quick reference
-3. [scripts/README.md](./scripts/README.md) - Using helper scripts
+2. [VERSION_BUMP_QUICKREF.md](./VERSION_BUMP_QUICKREF.md) - Quick version bump reference
+3. [.github/RELEASE_GUIDE.md](./.github/RELEASE_GUIDE.md) - Quick reference
+4. [scripts/README.md](./scripts/README.md) - Using helper scripts
+
+### "I want to create a pre-release (alpha/beta/RC)"
+1. [VERSION_BUMP_QUICKREF.md](./VERSION_BUMP_QUICKREF.md) - **⭐ Quick reference with examples**
+2. [PRERELEASE_GUIDE.md](./PRERELEASE_GUIDE.md) - Complete pre-release guide
+3. [.github/RELEASE_GUIDE.md](./.github/RELEASE_GUIDE.md) - Pre-release section
 
 ### "I want to understand the release automation"
 1. [WORKFLOW_ARCHITECTURE.md](./WORKFLOW_ARCHITECTURE.md) - Visual overview

@@ -11,7 +11,21 @@ on:
           - patch
           - minor
           - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
         default: 'patch'
+      prerelease_id:
+        description: 'Pre-release identifier (alpha, beta, rc) - only for pre* bump types'
+        required: false
+        type: choice
+        options:
+          - ''
+          - alpha
+          - beta
+          - rc
+        default: ''
       create_release:
         description: 'Create release after bump'
         required: false
@@ -27,6 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new_version: ${{ steps.bump.outputs.new_version }}
+      is_prerelease: ${{ steps.bump.outputs.is_prerelease }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,41 +60,190 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Validate inputs
+        run: |
+          BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+          PRERELEASE_ID="${{ github.event.inputs.prerelease_id }}"
+          
+          if [[ "$BUMP_TYPE" =~ ^pre ]]; then
+            if [ -z "$PRERELEASE_ID" ]; then
+              echo "❌ Error: Pre-release identifier is required for $BUMP_TYPE"
+              echo "Please select one: alpha, beta, or rc"
+              exit 1
+            fi
+            echo "✅ Valid pre-release bump: $BUMP_TYPE with identifier: $PRERELEASE_ID"
+          elif [ -n "$PRERELEASE_ID" ]; then
+            echo "⚠️  Warning: Pre-release identifier '$PRERELEASE_ID' will be ignored for $BUMP_TYPE"
+            echo "Pre-release identifiers are only used with pre* bump types"
+          fi
+
       - name: Bump version
         id: bump
         run: |
           BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+          PRERELEASE_ID="${{ github.event.inputs.prerelease_id }}"
           
           # Get current version
           CURRENT_VERSION=$(node -p "require('./package.json').version")
-          echo "Current version: $CURRENT_VERSION"
+          echo "📦 Current version: $CURRENT_VERSION"
           
-          # Bump version
-          npm version $BUMP_TYPE --no-git-tag-version
+          # Determine if this is a pre-release
+          IS_PRERELEASE="false"
+          
+          # Bump version based on type
+          if [[ "$BUMP_TYPE" =~ ^pre ]]; then
+            if [ -n "$PRERELEASE_ID" ]; then
+              echo "🔷 Bumping $BUMP_TYPE version with identifier: $PRERELEASE_ID"
+              npm version $BUMP_TYPE --preid=$PRERELEASE_ID --no-git-tag-version
+              IS_PRERELEASE="true"
+            else
+              echo "❌ Error: Pre-release identifier required for $BUMP_TYPE"
+              exit 1
+            fi
+          else
+            echo "✅ Bumping $BUMP_TYPE version"
+            npm version $BUMP_TYPE --no-git-tag-version
+          fi
           
           # Get new version
           NEW_VERSION=$(node -p "require('./package.json').version")
-          echo "New version: $NEW_VERSION"
+          echo "🎉 New version: $NEW_VERSION"
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "is_prerelease=$IS_PRERELEASE" >> $GITHUB_OUTPUT
           
-          # Update version in other files if needed
-          echo "Version bumped from $CURRENT_VERSION to $NEW_VERSION"
+          # Detect pre-release from version string as backup
+          if [[ $NEW_VERSION =~ -[a-zA-Z] ]]; then
+            IS_PRERELEASE="true"
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          fi
+          
+          echo ""
+          echo "📊 Version Bump Summary:"
+          echo "  From: $CURRENT_VERSION"
+          echo "  To: $NEW_VERSION"
+          echo "  Type: $BUMP_TYPE"
+          echo "  Pre-release: $IS_PRERELEASE"
+
+      - name: Update package-lock.json
+        run: |
+          # Ensure package-lock.json is updated with new version
+          if [ -f package-lock.json ]; then
+            npm install --package-lock-only
+            echo "✅ Updated package-lock.json"
+          fi
 
       - name: Commit version bump
         run: |
           NEW_VERSION="${{ steps.bump.outputs.new_version }}"
+          IS_PRERELEASE="${{ steps.bump.outputs.is_prerelease }}"
+          
           git add package.json package-lock.json
-          git commit -m "chore: bump version to $NEW_VERSION"
+          
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            git commit -m "chore: bump version to $NEW_VERSION [pre-release]"
+          else
+            git commit -m "chore: bump version to $NEW_VERSION"
+          fi
+          
           git push origin main
+          echo "✅ Committed and pushed version bump to main"
 
       - name: Create and push tag
         run: |
           NEW_VERSION="${{ steps.bump.outputs.new_version }}"
-          git tag -a "v$NEW_VERSION" -m "Release v$NEW_VERSION"
+          IS_PRERELEASE="${{ steps.bump.outputs.is_prerelease }}"
+          
+          # Determine tag message
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            if [[ $NEW_VERSION =~ -alpha ]]; then
+              TAG_MSG="🔷 Alpha Pre-release v$NEW_VERSION"
+            elif [[ $NEW_VERSION =~ -beta ]]; then
+              TAG_MSG="🔶 Beta Pre-release v$NEW_VERSION"
+            elif [[ $NEW_VERSION =~ -rc ]]; then
+              TAG_MSG="🔸 Release Candidate v$NEW_VERSION"
+            else
+              TAG_MSG="Pre-release v$NEW_VERSION"
+            fi
+          else
+            TAG_MSG="Release v$NEW_VERSION"
+          fi
+          
+          git tag -a "v$NEW_VERSION" -m "$TAG_MSG"
           git push origin "v$NEW_VERSION"
+          echo "✅ Created and pushed tag: v$NEW_VERSION"
 
-      - name: Trigger release workflow
-        if: github.event.inputs.create_release == 'true'
+      - name: Summary
         run: |
-          echo "✅ Version bumped to ${{ steps.bump.outputs.new_version }}"
-          echo "🚀 Release workflow will be triggered automatically by the tag push"
+          NEW_VERSION="${{ steps.bump.outputs.new_version }}"
+          IS_PRERELEASE="${{ steps.bump.outputs.is_prerelease }}"
+          CREATE_RELEASE="${{ github.event.inputs.create_release }}"
+          
+          echo "## 🎉 Version Bump Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 New Version: \`$NEW_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            if [[ $NEW_VERSION =~ -alpha ]]; then
+              echo "🔷 **Type:** Alpha Pre-release" >> $GITHUB_STEP_SUMMARY
+            elif [[ $NEW_VERSION =~ -beta ]]; then
+              echo "🔶 **Type:** Beta Pre-release" >> $GITHUB_STEP_SUMMARY
+            elif [[ $NEW_VERSION =~ -rc ]]; then
+              echo "🔸 **Type:** Release Candidate" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "🔹 **Type:** Pre-release" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "✅ **Type:** Stable Release" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🏷️ Tag Created: \`v$NEW_VERSION\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$CREATE_RELEASE" = "true" ]; then
+            echo "🚀 **Release workflow will be triggered automatically**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The tag push will automatically trigger the release workflow which will:" >> $GITHUB_STEP_SUMMARY
+            echo "- Build and test the application" >> $GITHUB_STEP_SUMMARY
+            echo "- Create a GitHub release" >> $GITHUB_STEP_SUMMARY
+            if [ "$IS_PRERELEASE" = "true" ]; then
+              echo "- Publish to npm with appropriate pre-release tag" >> $GITHUB_STEP_SUMMARY
+              echo "- Mark as pre-release in GitHub" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- Publish to npm with 'latest' tag" >> $GITHUB_STEP_SUMMARY
+              echo "- Deploy to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "ℹ️ **Release creation skipped** (as requested)" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📝 Installation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "$IS_PRERELEASE" = "true" ]; then
+            if [[ $NEW_VERSION =~ -alpha ]]; then
+              echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@alpha" >> $GITHUB_STEP_SUMMARY
+              echo "# or specific version" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            elif [[ $NEW_VERSION =~ -beta ]]; then
+              echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@beta" >> $GITHUB_STEP_SUMMARY
+              echo "# or specific version" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            elif [[ $NEW_VERSION =~ -rc ]]; then
+              echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@rc" >> $GITHUB_STEP_SUMMARY
+              echo "# or specific version" >> $GITHUB_STEP_SUMMARY
+              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+            echo "npm install markdown-slides-presenter@latest" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -22,6 +22,14 @@ Use the automated version bump workflow:
      - **patch** (1.0.0 → 1.0.1) - Bug fixes
      - **minor** (1.0.0 → 1.1.0) - New features
      - **major** (1.0.0 → 2.0.0) - Breaking changes
+     - **prepatch** (1.0.0 → 1.0.1-[id].0) - Pre-release patch
+     - **preminor** (1.0.0 → 1.1.0-[id].0) - Pre-release minor
+     - **premajor** (1.0.0 → 2.0.0-[id].0) - Pre-release major
+     - **prerelease** (1.0.1-alpha.0 → 1.0.1-alpha.1) - Increment pre-release
+   - Select pre-release identifier (for pre* types only):
+     - **alpha** - Early development
+     - **beta** - Feature complete, testing
+     - **rc** - Release candidate
    - Check "Create release after bump"
    - Click "Run workflow"
 
@@ -75,7 +83,54 @@ The push of the tag triggers the release workflow, which:
 
 For detailed information on pre-releases, see [PRERELEASE_GUIDE.md](../PRERELEASE_GUIDE.md).
 
-### Quick Pre-release
+### Automated Pre-release (Recommended)
+
+Use the version bump workflow with pre-release options:
+
+1. **Go to GitHub Actions**
+   - Navigate to: Actions → Version Bump
+
+2. **Run Workflow for Pre-release**
+   - Click "Run workflow"
+   - Select bump type:
+     - **prepatch** - Creates 1.0.1-alpha.0 from 1.0.0
+     - **preminor** - Creates 1.1.0-alpha.0 from 1.0.0
+     - **premajor** - Creates 2.0.0-alpha.0 from 1.0.0
+     - **prerelease** - Increments existing pre-release (alpha.0 → alpha.1)
+   - Select identifier:
+     - **alpha** - Early development, unstable
+     - **beta** - Feature complete, needs testing
+     - **rc** - Release candidate, final testing
+   - Check "Create release after bump"
+   - Click "Run workflow"
+
+3. **Examples**
+   - 1.0.0 + **prepatch** + **alpha** → 1.0.1-alpha.0
+   - 1.0.0 + **preminor** + **beta** → 1.1.0-beta.0
+   - 1.0.0 + **premajor** + **rc** → 2.0.0-rc.0
+   - 1.0.1-alpha.0 + **prerelease** + **alpha** → 1.0.1-alpha.1
+   - 1.0.1-alpha.2 + **patch** → 1.0.1 (graduates to stable)
+
+### Manual Pre-release
+
+```bash
+# Create alpha pre-release
+npm version prepatch --preid=alpha
+# Results in: 1.0.1-alpha.0
+
+# Create beta pre-release
+npm version preminor --preid=beta
+# Results in: 1.1.0-beta.0
+
+# Increment existing pre-release
+npm version prerelease --preid=beta
+# 1.1.0-beta.0 → 1.1.0-beta.1
+
+# Push to trigger release
+git push origin main --tags
+```
+
+Or create tag directly:
 
 ```bash
 # Alpha (early development)
@@ -91,15 +146,13 @@ git tag v1.0.0-rc.1
 git push origin v1.0.0-rc.1
 ```
 
-Or use GitHub UI:
-- Actions → Release → Run workflow
-- Version: `1.0.0-beta.1` (or `-alpha.1`, `-rc.1`)
-- Pre-release: ✓
+### Installing Pre-releases
 
 **Important:** Pre-releases are published to npm with specific tags:
 - Alpha → `npm install markdown-slides-presenter@alpha`
 - Beta → `npm install markdown-slides-presenter@beta`
 - RC → `npm install markdown-slides-presenter@rc`
+- Specific version → `npm install markdown-slides-presenter@1.0.0-beta.1`
 
 **Note:** Pre-releases are NOT deployed to GitHub Pages (demo stays stable).
 

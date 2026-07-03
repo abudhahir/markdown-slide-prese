@@ -469,6 +469,8 @@ Press `T` to open the theme selector and preview themes in real-time.
 - [Release Implementation](./RELEASE_IMPLEMENTATION.md) - Implementation details and architecture
 - [Workflow Architecture](./WORKFLOW_ARCHITECTURE.md) - Visual workflow diagrams and flow
 - [Quick Release Guide](./.github/RELEASE_GUIDE.md) - Quick reference for releases
+- [Version Bump Quick Reference](./VERSION_BUMP_QUICKREF.md) - **⭐ Quick guide for automated version bumps and pre-releases**
+- [Pre-Release Guide](./PRERELEASE_GUIDE.md) - Complete guide to alpha, beta, and RC releases
 - [Release Template](./.github/RELEASE_TEMPLATE.md) - Template for release notes
 - [Changelog](./CHANGELOG.md) - Version history and changes
 

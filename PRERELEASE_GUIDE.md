@@ -74,7 +74,90 @@ Pre-releases allow you to publish experimental versions of your package for test
 
 ## Creating Pre-Releases
 
-### Method 1: Using Git Tags (Recommended)
+### Method 1: Automated Version Bump Workflow (Recommended) 🚀
+
+The easiest way to create pre-releases is using the automated GitHub Actions workflow:
+
+#### Initial Pre-Release Creation
+
+1. **Go to GitHub Actions**
+   - Navigate to: **Actions** → **Version Bump**
+
+2. **Run Workflow**
+   - Click **Run workflow**
+   - Select bump type:
+     - **prepatch** - Creates 1.0.1-[id].0 from 1.0.0 (for pre-release patches)
+     - **preminor** - Creates 1.1.0-[id].0 from 1.0.0 (for pre-release features)
+     - **premajor** - Creates 2.0.0-[id].0 from 1.0.0 (for pre-release breaking changes)
+   - Select pre-release identifier:
+     - **alpha** - Early development
+     - **beta** - Feature complete
+     - **rc** - Release candidate
+   - Check **Create release after bump**
+   - Click **Run workflow**
+
+#### Examples:
+
+| Current Version | Bump Type | Identifier | Result |
+|----------------|-----------|------------|--------|
+| 1.0.0 | prepatch | alpha | 1.0.1-alpha.0 |
+| 1.0.0 | preminor | beta | 1.1.0-beta.0 |
+| 1.0.0 | premajor | rc | 2.0.0-rc.0 |
+
+#### Incrementing Existing Pre-Releases
+
+If you already have a pre-release (e.g., `1.2.0-beta.1`) and want to create the next version:
+
+1. **Go to GitHub Actions**
+   - Navigate to: **Actions** → **Version Bump**
+
+2. **Run Workflow**
+   - Click **Run workflow**
+   - Select bump type: **prerelease**
+   - Select the SAME identifier you're currently using (e.g., **beta**)
+   - Check **Create release after bump**
+   - Click **Run workflow**
+
+| Current Version | Bump Type | Identifier | Result |
+|----------------|-----------|------------|--------|
+| 1.0.1-alpha.0 | prerelease | alpha | 1.0.1-alpha.1 |
+| 1.1.0-beta.2 | prerelease | beta | 1.1.0-beta.3 |
+| 2.0.0-rc.1 | prerelease | rc | 2.0.0-rc.2 |
+
+#### Graduating to Stable Release
+
+When your pre-release is ready to become stable:
+
+1. **Go to GitHub Actions**
+   - Navigate to: **Actions** → **Version Bump**
+
+2. **Run Workflow**
+   - Click **Run workflow**
+   - Select bump type: **patch** (if no more changes) or appropriate type
+   - Leave identifier EMPTY
+   - Check **Create release after bump**
+   - Click **Run workflow**
+
+| Current Version | Bump Type | Result |
+|----------------|-----------|--------|
+| 1.0.1-alpha.2 | patch | 1.0.1 |
+| 1.1.0-beta.3 | minor | 1.1.0 |
+| 2.0.0-rc.1 | major | 2.0.0 |
+
+#### What the Workflow Does Automatically:
+
+1. ✅ Updates `package.json` with new version
+2. ✅ Updates `package-lock.json`
+3. ✅ Commits changes to main branch
+4. ✅ Creates and pushes git tag
+5. ✅ Triggers release workflow
+6. ✅ Publishes to npm with correct tag
+7. ✅ Creates GitHub release (marked as pre-release)
+8. ✅ Adds installation instructions
+
+---
+
+### Method 2: Using Git Tags
 
 #### Alpha Release
 
@@ -118,7 +201,34 @@ git push origin v1.2.0-rc.2
 
 ---
 
-### Method 2: Manual Workflow Dispatch
+### Method 3: Using npm version command
+
+You can also use npm's version command locally:
+
+```bash
+# Create first alpha pre-release
+npm version prepatch --preid=alpha
+# Results in: 1.0.1-alpha.0
+
+# Create first beta pre-release
+npm version preminor --preid=beta
+# Results in: 1.1.0-beta.0
+
+# Increment existing pre-release
+npm version prerelease --preid=beta
+# 1.1.0-beta.0 → 1.1.0-beta.1
+
+# Graduate to stable
+npm version patch
+# 1.0.1-alpha.2 → 1.0.1
+
+# Push to trigger release
+git push origin main --tags
+```
+
+---
+
+### Method 4: Manual Workflow Dispatch
 
 You can also trigger releases manually from GitHub Actions:
 
