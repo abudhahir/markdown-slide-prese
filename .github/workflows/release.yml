@@ -1,0 +1,332 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Mark as pre-release'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+jobs:
+  validate:
+    name: Validate Release
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version from tag or input
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=${GITHUB_REF#refs/tags/v}
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Validate version format
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          if ! [[ $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+            echo "Error: Invalid version format: $VERSION"
+            echo "Expected format: X.Y.Z or X.Y.Z-prerelease"
+            exit 1
+          fi
+          echo "Version format is valid: $VERSION"
+
+  build:
+    name: Build Release
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Create build archive
+        run: |
+          cd dist
+          tar -czf ../markdown-slides-v${{ needs.validate.outputs.version }}-dist.tar.gz .
+          cd ..
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            markdown-slides-v${{ needs.validate.outputs.version }}-dist.tar.gz
+          retention-days: 30
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [validate, build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          VERSION="${{ needs.validate.outputs.version }}"
+          
+          echo "# Release v${VERSION}" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "## 🎉 What's New" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          
+          # Get commits since last tag
+          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            echo "First release! 🚀" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "This is the initial release of Markdown Slides." >> RELEASE_NOTES.md
+          else
+            echo "Changes since ${LAST_TAG}:" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            
+            # Group commits by type
+            echo "### ✨ Features" >> RELEASE_NOTES.md
+            git log ${LAST_TAG}..HEAD --pretty=format:"- %s" --grep="^feat" >> RELEASE_NOTES.md || echo "- No new features" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            
+            echo "### 🐛 Bug Fixes" >> RELEASE_NOTES.md
+            git log ${LAST_TAG}..HEAD --pretty=format:"- %s" --grep="^fix" >> RELEASE_NOTES.md || echo "- No bug fixes" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            
+            echo "### 📚 Documentation" >> RELEASE_NOTES.md
+            git log ${LAST_TAG}..HEAD --pretty=format:"- %s" --grep="^docs" >> RELEASE_NOTES.md || echo "- No documentation changes" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            
+            echo "### 🔧 Other Changes" >> RELEASE_NOTES.md
+            git log ${LAST_TAG}..HEAD --pretty=format:"- %s" --invert-grep --grep="^feat" --grep="^fix" --grep="^docs" >> RELEASE_NOTES.md || echo "- No other changes" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+          fi
+          
+          echo "" >> RELEASE_NOTES.md
+          echo "## 📦 Installation" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo '```bash' >> RELEASE_NOTES.md
+          echo "# Clone the repository" >> RELEASE_NOTES.md
+          echo "git clone https://github.com/${{ github.repository }}.git" >> RELEASE_NOTES.md
+          echo "cd $(basename ${{ github.repository }})" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "# Checkout this version" >> RELEASE_NOTES.md
+          echo "git checkout v${VERSION}" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "# Install and run" >> RELEASE_NOTES.md
+          echo "npm install" >> RELEASE_NOTES.md
+          echo "npm run dev" >> RELEASE_NOTES.md
+          echo '```' >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "## 🌐 Live Demo" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "Try it online: [GitHub Pages](https://${{ github.repository_owner }}.github.io/$(basename ${{ github.repository }}))" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "## 📝 Documentation" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "- [User Guide](https://github.com/${{ github.repository }}/blob/v${VERSION}/USER_GUIDE.md)" >> RELEASE_NOTES.md
+          echo "- [README](https://github.com/${{ github.repository }}/blob/v${VERSION}/README.md)" >> RELEASE_NOTES.md
+          echo "- [Architecture](https://github.com/${{ github.repository }}/blob/v${VERSION}/ARCHITECTURE.md)" >> RELEASE_NOTES.md
+          
+          cat RELEASE_NOTES.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.validate.outputs.version }}
+          name: Release v${{ needs.validate.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          draft: false
+          prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+          files: |
+            markdown-slides-v${{ needs.validate.outputs.version }}-dist.tar.gz
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: [validate, build]
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  npm-publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    needs: [validate, build]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist
+
+      - name: Update package.json version
+        run: |
+          VERSION="${{ needs.validate.outputs.version }}"
+          npm version $VERSION --no-git-tag-version --allow-same-version
+
+      - name: Publish to npm (dry-run)
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        if: success()
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Comment on release
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const version = '${{ needs.validate.outputs.version }}';
+            const packageName = 'markdown-slides';
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: `📦 Published to npm: [${packageName}@${version}](https://www.npmjs.com/package/${packageName}/v/${version})`
+            })
+
+  docker-build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [validate, build]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}},value=v${{ needs.validate.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=v${{ needs.validate.outputs.version }}
+            type=semver,pattern={{major}},value=v${{ needs.validate.outputs.version }}
+            type=raw,value=latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  announce:
+    name: Announce Release
+    runs-on: ubuntu-latest
+    needs: [validate, create-release, deploy-pages]
+    if: always() && needs.create-release.result == 'success'
+    steps:
+      - name: Create success message
+        run: |
+          VERSION="${{ needs.validate.outputs.version }}"
+          echo "🎉 Release v${VERSION} has been successfully published!"
+          echo ""
+          echo "📦 GitHub Release: https://github.com/${{ github.repository }}/releases/tag/v${VERSION}"
+          echo "🌐 Live Demo: https://${{ github.repository_owner }}.github.io/$(basename ${{ github.repository }})"

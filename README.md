@@ -2,9 +2,14 @@
 
 A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/react-19.0.0-blue.svg)
-![TypeScript](https://img.shields.io/badge/typescript-5.7.2-blue.svg)
+[![CI](https://github.com/yourusername/markdown-slides/workflows/CI/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/ci.yml)
+[![Release](https://github.com/yourusername/markdown-slides/workflows/Release/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/release.yml)
+[![Deploy](https://github.com/yourusername/markdown-slides/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/deploy.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![React](https://img.shields.io/badge/react-19.0.0-blue.svg)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/typescript-5.7.2-blue.svg)](https://www.typescriptlang.org/)
+[![GitHub release](https://img.shields.io/github/v/release/yourusername/markdown-slides)](https://github.com/yourusername/markdown-slides/releases)
+[![npm version](https://img.shields.io/npm/v/markdown-slides)](https://www.npmjs.com/package/markdown-slides)
 
 ## ✨ Features
 
@@ -51,6 +56,67 @@ npm run build
 # Preview production build locally
 npm run preview
 ```
+
+## 🚢 Releases & Versioning
+
+This project uses automated releases with GitHub Actions. Each release includes:
+
+- 📦 GitHub Release with changelog
+- 🌐 Automatic deployment to GitHub Pages
+- 🐳 Docker image published to GHCR
+- 📦 npm package (optional)
+
+### Quick Release
+
+```bash
+# Go to GitHub → Actions → Version Bump → Run workflow
+# Select: patch (bug fix) | minor (feature) | major (breaking)
+# ✓ Create release after bump
+# Click "Run workflow"
+```
+
+### Manual Release
+
+```bash
+# Update version and create tag
+npm version patch  # or minor/major
+git push origin main --tags
+
+# Release workflow runs automatically!
+```
+
+### Release Workflow Features
+
+- ✅ **Automated Changelog** - Generated from commit messages
+- ✅ **GitHub Release** - Created with assets
+- ✅ **GitHub Pages Deploy** - Live demo updated
+- ✅ **Docker Build** - Container published to GHCR
+- ✅ **npm Publish** - Package updated (optional)
+- ✅ **Version Management** - Semantic versioning
+
+### Using Releases
+
+**Download build:**
+```bash
+# From GitHub releases
+wget https://github.com/yourusername/markdown-slides/releases/download/v1.0.0/markdown-slides-v1.0.0-dist.tar.gz
+tar -xzf markdown-slides-v1.0.0-dist.tar.gz
+```
+
+**Docker:**
+```bash
+# Pull and run
+docker pull ghcr.io/yourusername/markdown-slides:latest
+docker run -p 8080:80 ghcr.io/yourusername/markdown-slides:latest
+```
+
+**npm:**
+```bash
+# Install specific version
+npm install markdown-slides@1.0.0
+```
+
+See [RELEASE_WORKFLOW.md](./RELEASE_WORKFLOW.md) for complete documentation.
 
 ## 🛠️ Development Setup
 
@@ -422,12 +488,30 @@ Press `T` to open the theme selector and preview themes in real-time.
 
 ## 📚 Documentation & Resources
 
-### Guides
-- [User Guide](./USER_GUIDE.md) - Complete usage instructions
+### Getting Started
+- [README](./README.md) - Project overview and setup
+- [Quick Start Release Guide](./QUICKSTART_RELEASE.md) - Create your first release in 5 minutes
+
+### Release & Deployment
+- [Release Workflow Guide](./RELEASE_WORKFLOW.md) - Comprehensive release automation documentation
+- [Release Implementation](./RELEASE_IMPLEMENTATION.md) - Implementation details and architecture
+- [Workflow Architecture](./WORKFLOW_ARCHITECTURE.md) - Visual workflow diagrams and flow
+- [Quick Release Guide](./.github/RELEASE_GUIDE.md) - Quick reference for releases
+- [Release Template](./.github/RELEASE_TEMPLATE.md) - Template for release notes
+- [Changelog](./CHANGELOG.md) - Version history and changes
+
+### Deployment Guides
 - [GitHub Pages Deployment](./GITHUB_PAGES_DEPLOYMENT.md) - Deploy to GitHub Pages
 - [GitLab Pages Deployment](./GITLAB_PAGES_DEPLOYMENT.md) - Deploy to GitLab Pages
+
+### User Documentation
+- [User Guide](./USER_GUIDE.md) - Complete usage instructions
 - [VS Code Extension](./VSCODE_EXTENSION_GUIDE.md) - Create a VS Code extension
 - [Architecture](./ARCHITECTURE.md) - Technical architecture details
+
+### Development
+- [Scripts Documentation](./scripts/README.md) - Helper scripts for releases
+- [NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md) - Publishing to npm registry
 
 ### Example Presentations
 
