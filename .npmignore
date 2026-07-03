@@ -1,0 +1,71 @@
+# Source files (keep dist/)
+src/
+
+# Development and configuration files
+.github/
+.gitlab-ci.yml
+.gitlab-ci.root-domain.yml
+.devcontainer/
+.git/
+.gitignore
+.eslintrc*
+eslint.config.js
+vite.config.ts
+tsconfig.json
+tailwind.config.js
+components.json
+theme.json
+runtime.config.json
+spark.meta.json
+
+# Build artifacts and caches
+node_modules/
+.vite/
+pids/
+packages/
+*.log
+.DS_Store
+*.tgz
+
+# Documentation files (except README.md and LICENSE)
+PRD.md
+USER_GUIDE.md
+GITHUB_PAGES_DEPLOYMENT.md
+GITHUB_PAGES_QUICKSTART.md
+GITLAB_PAGES_DEPLOYMENT.md
+VSCODE_EXTENSION_GUIDE.md
+ARCHITECTURE.md
+DEPLOYMENT_CHECKLIST.md
+DEPLOYMENT_COMPARISON.md
+SECURITY.md
+
+# Example files
+examples/
+
+# Spark specific files
+.spark-*
+.file-manifest
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+__tests__/
+coverage/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Lock files (optional - comment out if you want to include them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
