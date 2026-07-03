@@ -105,42 +105,57 @@ markdown-slides --version
 
 For complete CLI documentation, see the [CLI Usage Guide](./CLI_USAGE_GUIDE.md).
 
-## 🚢 Releases & Versioning
+## 🚢 Releases & Publishing
 
-This project uses automated releases with GitHub Actions. Each release includes:
+This project uses **fully automated** releases with GitHub Actions. Each release automatically includes:
 
-- 📦 GitHub Release with changelog
-- 🌐 Automatic deployment to GitHub Pages
-- 🐳 Docker image published to GHCR
-- 📦 npm package (optional)
+- 📦 **GitHub Release** with changelog and build artifacts
+- 🌐 **GitHub Pages Deploy** - Live demo updated instantly
+- 📤 **npm Publication** - Package published to npm registry automatically
+- 🐳 **Docker Image** - Container published to GHCR
+- ✅ **Version Management** - Semantic versioning enforced
 
-### Quick Release
+### 🚀 Quick Release (Automated npm Publishing)
 
-```bash
-# Go to GitHub → Actions → Version Bump → Run workflow
-# Select: patch (bug fix) | minor (feature) | major (breaking)
-# ✓ Create release after bump
-# Click "Run workflow"
-```
-
-### Manual Release
+**Just push a tag** - Everything else is automatic!
 
 ```bash
 # Update version and create tag
-npm version patch  # or minor/major
-git push origin main --tags
+git tag v1.0.0
+git push origin main
+git push origin v1.0.0
 
-# Release workflow runs automatically!
+# That's it! The workflow automatically:
+# ✅ Builds the application
+# ✅ Creates GitHub release
+# ✅ Publishes to npm
+# ✅ Deploys to GitHub Pages
+# ✅ Builds Docker image
 ```
+
+### 📦 npm Publishing Setup
+
+Before your first release, add your npm token to GitHub:
+
+1. **Create npm token** at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
+2. **Add to GitHub Secrets**: Settings → Secrets → New secret
+   - Name: `NPM_TOKEN`
+   - Value: Your npm access token
+
+**That's all!** Future releases will automatically publish to npm.
+
+See **[Automated npm Publishing Guide](./AUTOMATED_NPM_PUBLISHING.md)** for complete setup instructions.
 
 ### Release Workflow Features
 
 - ✅ **Automated Changelog** - Generated from commit messages
-- ✅ **GitHub Release** - Created with assets
-- ✅ **GitHub Pages Deploy** - Live demo updated
+- ✅ **GitHub Release** - Created with assets and release notes
+- ✅ **npm Auto-Publish** - Published to npm registry (with NPM_TOKEN)
+- ✅ **GitHub Pages** - Live demo updated automatically
 - ✅ **Docker Build** - Container published to GHCR
-- ✅ **npm Publish** - Package updated (optional)
-- ✅ **Version Management** - Semantic versioning
+- ✅ **Version Validation** - Semantic versioning enforced
+- ✅ **Build Verification** - Tested before publishing
+- ✅ **Release Notes** - Updated with npm package info
 
 ### Using Releases
 

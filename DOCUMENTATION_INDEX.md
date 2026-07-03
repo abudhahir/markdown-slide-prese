@@ -34,9 +34,11 @@ Deploy your application to various platforms:
 
 | Document | Description | Platform |
 |----------|-------------|----------|
+| [QUICKSTART_AUTOMATED_RELEASE.md](./QUICKSTART_AUTOMATED_RELEASE.md) | **⭐ NEW: 5-min automated release setup** | All platforms |
+| [AUTOMATED_NPM_PUBLISHING.md](./AUTOMATED_NPM_PUBLISHING.md) | **⭐ NEW: Complete automated npm guide** | npm (automated) |
+| [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) | Manual npm publishing guide | npm (manual) |
 | [GITHUB_PAGES_DEPLOYMENT.md](./GITHUB_PAGES_DEPLOYMENT.md) | Deploy to GitHub Pages | GitHub |
 | [GITLAB_PAGES_DEPLOYMENT.md](./GITLAB_PAGES_DEPLOYMENT.md) | Deploy to GitLab Pages | GitLab |
-| [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) | Publish to npm registry | npm |
 | [Dockerfile](./Dockerfile) | Docker containerization | Docker |
 
 ## 🛠️ Development
@@ -81,9 +83,10 @@ Quick reference materials:
 3. [Dockerfile](./Dockerfile) - Docker deployment
 
 ### "I want to publish to npm"
-1. [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) - npm guide
-2. [RELEASE_WORKFLOW.md](./RELEASE_WORKFLOW.md) - Automated npm publishing
-3. [.npmignore](./.npmignore) - npm package configuration
+1. [QUICKSTART_AUTOMATED_RELEASE.md](./QUICKSTART_AUTOMATED_RELEASE.md) - **⭐ 5-minute automated setup**
+2. [AUTOMATED_NPM_PUBLISHING.md](./AUTOMATED_NPM_PUBLISHING.md) - Complete automated guide
+3. [NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md) - Manual publishing (fallback)
+4. [.npmignore](./.npmignore) - npm package configuration
 
 ### "I want to learn how to use the app"
 1. [USER_GUIDE.md](./USER_GUIDE.md) - Complete user guide

@@ -29,7 +29,45 @@ npm run start
 
 ---
 
-## ✅ DEPLOY TO NPM (When Ready)
+## ✅ DEPLOY TO NPM
+
+### 🎉 NEW: Automated Publishing with GitHub Actions!
+
+**The easiest way**: Just push a git tag and everything publishes automatically!
+
+#### Quick Setup (5 minutes)
+
+1. **Get npm token**:
+   - Go to [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
+   - Click "Generate New Token" → Choose "Automation"
+   - Copy the token
+
+2. **Add to GitHub**:
+   - Go to your repo → Settings → Secrets → Actions
+   - New secret: Name = `NPM_TOKEN`, Value = your token
+   - Click "Add secret"
+
+3. **Create a release**:
+   ```bash
+   git tag v1.0.0
+   git push origin main
+   git push origin v1.0.0
+   ```
+
+**That's it!** The workflow automatically:
+- ✅ Builds your app
+- ✅ Creates GitHub release
+- ✅ **Publishes to npm**
+- ✅ Deploys to GitHub Pages
+- ✅ Builds Docker image
+
+**See**: [QUICKSTART_AUTOMATED_RELEASE.md](./QUICKSTART_AUTOMATED_RELEASE.md) for complete guide.
+
+---
+
+### Manual Publishing (Alternative)
+
+If you prefer to publish manually or need to troubleshoot:
 
 ### Prerequisites
 
@@ -274,9 +312,11 @@ markdown-slides         # Run installed version
 
 If you need more details:
 
+- **[QUICKSTART_AUTOMATED_RELEASE.md](./QUICKSTART_AUTOMATED_RELEASE.md)** - ⭐ **NEW: 5-min automated setup**
+- **[AUTOMATED_NPM_PUBLISHING.md](./AUTOMATED_NPM_PUBLISHING.md)** - ⭐ **NEW: Complete automated guide**
 - **[QUICKSTART_LOCAL_AND_NPM.md](./QUICKSTART_LOCAL_AND_NPM.md)** - Quick reference guide
 - **[TESTING_AND_LOCAL_DEPLOYMENT.md](./TESTING_AND_LOCAL_DEPLOYMENT.md)** - Comprehensive testing guide
-- **[NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md)** - Detailed publishing guide
+- **[NPM_PUBLISHING_GUIDE.md](./NPM_PUBLISHING_GUIDE.md)** - Manual publishing guide
 - **[README.md](./README.md)** - Full project documentation
 
 ---
