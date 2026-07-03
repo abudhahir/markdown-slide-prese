@@ -9,6 +9,7 @@ Complete documentation for Markdown Slides presentation system.
 - [Quick Start - CLI Edition](./getting-started/QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
 - [CLI Usage Guide](./getting-started/CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
 - [User Guide](./getting-started/USER_GUIDE.md) - Complete usage instructions
+- [Visual Guide](./getting-started/VISUAL_GUIDE.md) - **🎨 Screenshots and visual examples of features**
 - [Quick Start - Local and NPM](./getting-started/QUICKSTART_LOCAL_AND_NPM.md) - Local development and npm quick start
 
 ### Deployment
@@ -72,6 +73,7 @@ Complete documentation for Markdown Slides presentation system.
 
 **Use as an end user:**
 - → [User Guide](./getting-started/USER_GUIDE.md)
+- → [Visual Guide](./getting-started/VISUAL_GUIDE.md)
 - → [CLI Usage Guide](./getting-started/CLI_USAGE_GUIDE.md)
 
 ## 📖 Documentation Conventions

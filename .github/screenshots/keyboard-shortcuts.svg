@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="500" viewBox="0 0 600 500">
+  <!-- Overlay background -->
+  <rect width="600" height="500" fill="oklch(0 0 0)" opacity="0.5"/>
+  
+  <!-- Dialog box -->
+  <rect x="50" y="50" width="500" height="400" rx="12" fill="oklch(1 0 0)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+  
+  <!-- Header -->
+  <text x="70" y="90" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="oklch(0.20 0 0)">
+    Keyboard Shortcuts
+  </text>
+  
+  <!-- Search bar -->
+  <rect x="70" y="110" width="460" height="40" rx="8" fill="oklch(0.97 0 0)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+  <text x="90" y="137" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.50 0.01 260)">
+    🔍 Search shortcuts...
+  </text>
+  
+  <!-- Shortcuts list -->
+  <g transform="translate(70, 170)">
+    <!-- Navigation section -->
+    <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600" fill="oklch(0.40 0 0)">NAVIGATION</text>
+    
+    <g transform="translate(0, 20)">
+      <rect width="460" height="35" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="15" y="23" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.25 0 0)">→ ← ↑ ↓</text>
+      <text x="400" y="23" font-family="'Inter', sans-serif" font-size="13" fill="oklch(0.50 0.01 260)" text-anchor="end">Navigate slides</text>
+    </g>
+    
+    <g transform="translate(0, 60)">
+      <rect width="460" height="35" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="15" y="23" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.25 0 0)">Space</text>
+      <text x="400" y="23" font-family="'Inter', sans-serif" font-size="13" fill="oklch(0.50 0.01 260)" text-anchor="end">Next slide</text>
+    </g>
+    
+    <!-- Features section -->
+    <text x="0" y="120" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600" fill="oklch(0.40 0 0)">FEATURES</text>
+    
+    <g transform="translate(0, 140)">
+      <rect width="460" height="35" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="15" y="23" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="oklch(0.45 0.15 260)">S</text>
+      <text x="400" y="23" font-family="'Inter', sans-serif" font-size="13" fill="oklch(0.50 0.01 260)" text-anchor="end">Show slides list</text>
+    </g>
+    
+    <g transform="translate(0, 180)">
+      <rect width="460" height="35" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="15" y="23" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="oklch(0.45 0.15 260)">T</text>
+      <text x="400" y="23" font-family="'Inter', sans-serif" font-size="13" fill="oklch(0.50 0.01 260)" text-anchor="end">Toggle theme</text>
+    </g>
+    
+    <g transform="translate(0, 220)">
+      <rect width="460" height="35" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="15" y="23" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" fill="oklch(0.45 0.15 260)">O</text>
+      <text x="400" y="23" font-family="'Inter', sans-serif" font-size="13" fill="oklch(0.50 0.01 260)" text-anchor="end">Open file selector</text>
+    </g>
+  </g>
+  
+  <!-- Close button -->
+  <g transform="translate(510, 70)">
+    <circle cx="0" cy="0" r="16" fill="oklch(0.95 0 0)"/>
+    <text x="0" y="5" font-family="'Inter', sans-serif" font-size="20" fill="oklch(0.40 0 0)" text-anchor="middle">×</text>
+  </g>
+</svg>

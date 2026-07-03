@@ -1,8 +1,8 @@
 # Markdown Slides 🎯
 
-A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
+<div align="center">
 
-> **📚 Documentation**: All documentation is organized in the [`docs/`](./docs/) directory. See the [Documentation Index](./docs/README.md) for the complete guide.
+A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
 [![CI](https://github.com/yourusername/markdown-slides/workflows/CI/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/ci.yml)
 [![Release](https://github.com/yourusername/markdown-slides/workflows/Release/badge.svg)](https://github.com/yourusername/markdown-slides/actions/workflows/release.yml)
@@ -13,19 +13,106 @@ A powerful full-screen presentation system that transforms markdown files into b
 [![GitHub release](https://img.shields.io/github/v/release/yourusername/markdown-slides)](https://github.com/yourusername/markdown-slides/releases)
 [![npm version](https://img.shields.io/npm/v/markdown-slides)](https://www.npmjs.com/package/markdown-slides)
 
+[Quick Start](#-quick-start) • [Features](#-features) • [Documentation](./docs/README.md) • [Examples](#-usage-guide)
+
+![Hero Demo](./.github/screenshots/hero-demo.svg)
+
+</div>
+
+> **📚 Documentation**: All documentation is organized in the [`docs/`](./docs/) directory. See the [Documentation Index](./docs/README.md) for the complete guide.
+
 ## ✨ Features
 
+<table>
+<tr>
+<td width="50%">
+
+### 🎨 Beautiful Themes
+Switch between 6 carefully crafted themes with light/dark modes. Each theme features unique typography and color palettes designed for maximum readability.
+
+![Theme Selector](./.github/screenshots/theme-selector.svg)
+
+</td>
+<td width="50%">
+
+### 📂 Flexible Loading
+Load presentations from local files or directly from Git URLs (GitHub/GitLab). No downloads needed.
+
+![File Selector](./.github/screenshots/file-selector.svg)
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### ⌨️ Keyboard Shortcuts
+Lightning-fast navigation with intuitive keyboard shortcuts. Press `?` to see all available shortcuts.
+
+![Keyboard Shortcuts](./.github/screenshots/keyboard-shortcuts.svg)
+
+</td>
+<td width="50%">
+
+### 📱 Mobile Optimized
+Fully responsive design with touch gestures. Swipe to navigate, pinch to zoom.
+
+![Mobile View](./.github/screenshots/mobile-view.svg)
+
+</td>
+</tr>
+</table>
+
+### Complete Feature List
+
 - 📝 **Markdown-First** - Write slides in familiar markdown syntax
-- ⌨️ **Keyboard Shortcuts** - Lightning-fast navigation
+- ⌨️ **Keyboard Shortcuts** - Lightning-fast navigation with intuitive shortcuts
 - 📱 **Touch Support** - Swipe gestures on mobile devices
-- 🎨 **Multiple Themes** - Switch between 6 beautiful color schemes with light/dark modes
+- 🎨 **Multiple Themes** - 6 beautiful color schemes with light/dark modes
 - 📂 **Flexible Loading** - Load from local files or Git URLs (GitHub/GitLab)
-- ⏱️ **Presentation Timer** - Track your presentation time
+- ⏱️ **Presentation Timer** - Track your presentation time with pause/resume
 - 🔍 **Slide Search** - Quick navigation with searchable slide list
-- 📤 **PDF Export** - Export your presentation to PDF
-- ✨ **Smooth Transitions** - Polished animations and effects
+- 📤 **PDF Export** - Export your presentation to PDF with one click
+- ✨ **Smooth Transitions** - Polished animations and directional effects
 - 🌐 **Cross-Platform** - Works on desktop, tablet, and mobile
 - 🚀 **CLI Ready** - Run with npm or npx without installation
+- 🎯 **Fullscreen Mode** - Distraction-free presenting experience
+
+---
+
+### Why Markdown Slides?
+
+<div align="center">
+
+![Comparison](./.github/screenshots/comparison.svg)
+
+**Built for developers, by developers.** Version control your presentations, collaborate with Git, and present with confidence.
+
+</div>
+
+## 🎬 Demo & Screenshots
+
+<div align="center">
+
+### Visual Feature Overview
+
+![Features Overview](./.github/screenshots/features-overview.svg)
+
+### See It In Action
+
+The images above are SVG placeholders showing the features. To generate actual screenshots:
+
+```bash
+# Start the development server
+npm run dev
+
+# In another terminal, run the screenshot helper
+chmod +x .github/screenshots/generate-screenshots.sh
+.github/screenshots/generate-screenshots.sh
+```
+
+Or follow the [Screenshot Instructions](./.github/screenshots/INSTRUCTIONS.md) to manually capture images, or view the [Visual Guide](./docs/getting-started/VISUAL_GUIDE.md) for detailed feature examples.
+
+</div>
 
 ## 📋 Prerequisites
 
@@ -33,6 +120,12 @@ A powerful full-screen presentation system that transforms markdown files into b
 - npm 8.x or higher
 
 ## 🚀 Quick Start
+
+<div align="center">
+
+![Getting Started Steps](./.github/screenshots/getting-started-steps.svg)
+
+</div>
 
 ### Option 1: Run Locally (Development)
 
@@ -383,22 +476,9 @@ markdown-slides --help
 
 See the [CLI Usage Guide](./docs/getting-started/CLI_USAGE_GUIDE.md) for complete CLI documentation.
 
-### Keyboard Shortcuts
+---
 
-| Key | Action |
-|-----|--------|
-| `→` or `↓` | Next slide |
-| `←` or `↑` | Previous slide |
-| `Space` | Next slide |
-| `S` | Show slides list with search |
-| `T` | Toggle theme selector |
-| `O` | Open file selector |
-| `D` | Display current file name |
-| `F` | Enter fullscreen mode |
-| `?` | Show keyboard shortcuts help |
-| `Esc` | Exit fullscreen or close dialogs |
-
-## Creating Slides
+### Creating Slides
 
 Slides are written in standard markdown, separated by `---`:
 
@@ -420,42 +500,83 @@ Welcome to my presentation!
 # Thank You!
 ```
 
-## Loading Presentations
+---
 
-### Local Files
+### Keyboard Shortcuts
+
+<div align="center">
+
+| Key | Action | Key | Action |
+|:---:|--------|:---:|--------|
+| `→` `↓` | Next slide | `←` `↑` | Previous slide |
+| `Space` | Next slide | `S` | Show slides list |
+| `T` | Toggle theme | `O` | Open file selector |
+| `D` | Display filename | `F` | Fullscreen |
+| `?` | Show shortcuts | `Esc` | Exit/Close |
+
+</div>
+
+---
+
+### Loading Presentations
+
+<table>
+<tr>
+<td width="50%">
+
+#### Local Files
 1. Press `O` to open the file selector
 2. Navigate to your markdown file
 3. Click to load the presentation
 
-### Git URLs
+</td>
+<td width="50%">
+
+#### Git URLs
 1. Press `O` to open the file selector
 2. Switch to the "Git URL" tab
 3. Paste a GitHub or GitLab URL
 4. Click "Load from Git"
 
-Supported formats:
+**Supported formats:**
 - `https://github.com/owner/repo/blob/main/slides.md`
 - `https://gitlab.com/owner/repo/-/blob/main/slides.md`
 
-## Themes
+</td>
+</tr>
+</table>
 
-Choose from 6 carefully designed themes, each with light and dark modes:
+---
 
-- **Solarized** - Classic balanced color scheme
-- **Dracula** - Popular dark theme with vibrant accents
-- **Code Dark/Light** - Technical coding-friendly themes
-- **Midnight** - Deep indigo with cyan accents
-- **Forest** - Natural green tones
-- **Sunset** - Warm browns and oranges
+### Themes
+
+<div align="center">
+
+Choose from **6 carefully designed themes**, each with light and dark modes:
+
+| Theme | Description | Best For |
+|-------|-------------|----------|
+| **Solarized** | Classic balanced color scheme | General presentations |
+| **Dracula** | Popular dark theme with vibrant accents | Creative content |
+| **Code Dark/Light** | Technical coding-friendly themes | Technical talks |
+| **Midnight** | Deep indigo with cyan accents | Professional slides |
+| **Forest** | Natural green tones | Environmental topics |
+| **Sunset** | Warm browns and oranges | Warm, inviting talks |
 
 Press `T` to open the theme selector and preview themes in real-time.
+
+</div>
+
+---
 
 ### Exporting to PDF
 
 1. Navigate to your presentation
-2. Click the download icon in the top-right corner
+2. Click the **download icon** in the top-right corner
 3. Wait for PDF generation
 4. PDF will download automatically to your browser's download folder
+
+> **Note**: Ensure all fonts and images are loaded before exporting for best results.
 
 ## 📚 Documentation & Resources
 
@@ -491,12 +612,19 @@ Press `T` to open the theme selector and preview themes in real-time.
 
 ### Example Presentations
 
-Example markdown files are in the `examples/` directory:
-- `tutorial.md` - Feature showcase and tutorial
-- `technical-presentation.md` - Technical presentation template
-- `product-demo.md` - Product demo template
+<div align="center">
 
-Load examples by pressing `O` and navigating to the `examples/` folder.
+Example markdown files are included in the `examples/` directory:
+
+| File | Description | Best For |
+|------|-------------|----------|
+| 📚 `tutorial.md` | Feature showcase and complete tutorial | Learning the system |
+| 💻 `technical-presentation.md` | Technical presentation template | Developer talks |
+| 🎯 `product-demo.md` | Product demo template | Product launches |
+
+**Try them out:** Press `O` and navigate to the `examples/` folder to load any example.
+
+</div>
 
 ## 🔧 Technical Details
 

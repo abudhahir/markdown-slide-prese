@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="dialogBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(1 0 0);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.98 0 0);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Overlay background -->
+  <rect width="800" height="600" fill="oklch(0 0 0)" opacity="0.5"/>
+  
+  <!-- Dialog box -->
+  <rect x="100" y="50" width="600" height="500" rx="12" fill="url(#dialogBg)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+  
+  <!-- Dialog header -->
+  <text x="120" y="90" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="oklch(0.20 0 0)">
+    Theme Selector
+  </text>
+  
+  <!-- Mode toggle -->
+  <g transform="translate(120, 120)">
+    <rect width="120" height="40" rx="8" fill="oklch(0.45 0.15 260)"/>
+    <text x="60" y="28" font-family="'Inter', sans-serif" font-size="14" fill="white" text-anchor="middle">Dark</text>
+    <rect x="140" width="120" height="40" rx="8" fill="oklch(0.90 0.01 260)"/>
+    <text x="200" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.20 0 0)" text-anchor="middle">Light</text>
+  </g>
+  
+  <!-- Theme previews -->
+  <g id="themes" transform="translate(120, 180)">
+    <!-- Solarized -->
+    <g>
+      <rect width="250" height="100" rx="8" fill="oklch(0.30 0.10 200)" stroke="oklch(0.45 0.15 260)" stroke-width="2"/>
+      <text x="10" y="25" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" fill="oklch(0.85 0.08 200)">Solarized</text>
+      <text x="10" y="50" font-family="'Inter', sans-serif" font-size="12" fill="oklch(0.75 0.06 200)">Classic balanced colors</text>
+      <circle cx="230" cy="20" r="8" fill="oklch(0.50 0.15 200)"/>
+    </g>
+    
+    <!-- Dracula -->
+    <g transform="translate(280, 0)">
+      <rect width="250" height="100" rx="8" fill="oklch(0.28 0.08 290)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+      <text x="10" y="25" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" fill="oklch(0.75 0.15 330)">Dracula</text>
+      <text x="10" y="50" font-family="'Inter', sans-serif" font-size="12" fill="oklch(0.70 0.08 290)">Vibrant purple accents</text>
+      <circle cx="230" cy="20" r="8" fill="oklch(0.70 0.20 330)"/>
+    </g>
+    
+    <!-- Code Dark -->
+    <g transform="translate(0, 120)">
+      <rect width="250" height="100" rx="8" fill="oklch(0.25 0.01 260)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+      <text x="10" y="25" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" fill="oklch(0.75 0.15 160)">Code Dark</text>
+      <text x="10" y="50" font-family="'Inter', sans-serif" font-size="12" fill="oklch(0.65 0.05 260)">Technical presentations</text>
+      <circle cx="230" cy="20" r="8" fill="oklch(0.60 0.15 160)"/>
+    </g>
+    
+    <!-- Midnight -->
+    <g transform="translate(280, 120)">
+      <rect width="250" height="100" rx="8" fill="oklch(0.30 0.12 250)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+      <text x="10" y="25" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" fill="oklch(0.80 0.15 180)">Midnight</text>
+      <text x="10" y="50" font-family="'Inter', sans-serif" font-size="12" fill="oklch(0.70 0.08 250)">Deep indigo with cyan</text>
+      <circle cx="230" cy="20" r="8" fill="oklch(0.65 0.18 180)"/>
+    </g>
+  </g>
+  
+  <!-- Close button -->
+  <g transform="translate(660, 70)">
+    <circle cx="0" cy="0" r="16" fill="oklch(0.90 0.01 260)"/>
+    <text x="0" y="5" font-family="'Inter', sans-serif" font-size="20" fill="oklch(0.40 0 0)" text-anchor="middle">×</text>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="800" viewBox="0 0 400 800">
+  <defs>
+    <linearGradient id="mobileBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:oklch(0.35 0.15 260);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:oklch(0.25 0.10 260);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Phone frame -->
+  <rect width="400" height="800" rx="40" fill="oklch(0.15 0 0)"/>
+  <rect x="10" y="10" width="380" height="780" rx="30" fill="url(#mobileBg)"/>
+  
+  <!-- Status bar -->
+  <text x="30" y="45" font-family="'Inter', sans-serif" font-size="14" fill="white">9:41</text>
+  <text x="350" y="45" font-family="'Inter', sans-serif" font-size="14" fill="white" text-anchor="end">100%</text>
+  
+  <!-- Slide content -->
+  <g transform="translate(30, 120)">
+    <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="36" font-weight="700" fill="white">
+      <tspan x="0" dy="0">Mobile</tspan>
+      <tspan x="0" dy="45">Presentations</tspan>
+    </text>
+    
+    <text x="0" y="120" font-family="'Inter', sans-serif" font-size="18" fill="oklch(0.85 0.05 260)">
+      <tspan x="0" dy="0">Swipe to navigate</tspan>
+      <tspan x="0" dy="30">between slides</tspan>
+    </text>
+    
+    <!-- Feature list -->
+    <g transform="translate(0, 200)">
+      <text x="0" y="0" font-family="'Inter', sans-serif" font-size="16" fill="white">✨ Touch gestures</text>
+      <text x="0" y="40" font-family="'Inter', sans-serif" font-size="16" fill="white">📱 Responsive design</text>
+      <text x="0" y="80" font-family="'Inter', sans-serif" font-size="16" fill="white">🎯 Optimized layout</text>
+    </g>
+  </g>
+  
+  <!-- Swipe indicator -->
+  <g transform="translate(160, 650)">
+    <circle cx="0" cy="0" r="30" fill="white" opacity="0.2"/>
+    <text x="0" y="8" font-size="24" fill="white" text-anchor="middle">→</text>
+  </g>
+  
+  <!-- Progress dots -->
+  <g transform="translate(170, 720)">
+    <circle cx="0" cy="0" r="6" fill="white" opacity="1"/>
+    <circle cx="20" cy="0" r="6" fill="white" opacity="0.3"/>
+    <circle cx="40" cy="0" r="6" fill="white" opacity="0.3"/>
+    <circle cx="60" cy="0" r="6" fill="white" opacity="0.3"/>
+  </g>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <!-- Overlay background -->
+  <rect width="800" height="500" fill="oklch(0 0 0)" opacity="0.5"/>
+  
+  <!-- Dialog box -->
+  <rect x="100" y="50" width="600" height="400" rx="12" fill="oklch(1 0 0)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+  
+  <!-- Tabs -->
+  <g transform="translate(120, 70)">
+    <rect width="150" height="40" rx="8" fill="oklch(0.45 0.15 260)"/>
+    <text x="75" y="28" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">Local Files</text>
+    
+    <rect x="160" width="150" height="40" rx="8" fill="oklch(0.95 0 0)"/>
+    <text x="235" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.40 0 0)" text-anchor="middle">Git URL</text>
+  </g>
+  
+  <!-- File browser header -->
+  <text x="120" y="150" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="600" fill="oklch(0.20 0 0)">
+    Select Markdown File
+  </text>
+  
+  <!-- File list -->
+  <g transform="translate(120, 170)">
+    <!-- Folder -->
+    <g>
+      <rect width="540" height="40" rx="6" fill="oklch(0.97 0 0)"/>
+      <text x="40" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.30 0 0)">📁 examples/</text>
+    </g>
+    
+    <!-- File 1 -->
+    <g transform="translate(0, 50)">
+      <rect width="540" height="40" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="40" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.30 0 0)">📄 tutorial.md</text>
+    </g>
+    
+    <!-- File 2 -->
+    <g transform="translate(0, 100)">
+      <rect width="540" height="40" rx="6" fill="oklch(0.98 0 0)"/>
+      <text x="40" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.30 0 0)">📄 technical-presentation.md</text>
+    </g>
+    
+    <!-- File 3 (selected) -->
+    <g transform="translate(0, 150)">
+      <rect width="540" height="40" rx="6" fill="oklch(0.92 0.02 260)" stroke="oklch(0.45 0.15 260)" stroke-width="2"/>
+      <text x="40" y="28" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="oklch(0.30 0 0)">📄 product-demo.md</text>
+    </g>
+  </g>
+  
+  <!-- Load button -->
+  <g transform="translate(500, 390)">
+    <rect width="140" height="40" rx="8" fill="oklch(0.45 0.15 260)"/>
+    <text x="70" y="28" font-family="'Inter', sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">Load File</text>
+  </g>
+  
+  <!-- Cancel button -->
+  <g transform="translate(340, 390)">
+    <rect width="140" height="40" rx="8" fill="oklch(0.95 0 0)" stroke="oklch(0.85 0.01 260)" stroke-width="1"/>
+    <text x="70" y="28" font-family="'Inter', sans-serif" font-size="14" fill="oklch(0.40 0 0)" text-anchor="middle">Cancel</text>
+  </g>
+</svg>

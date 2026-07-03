@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="oklch(0.98 0 0)"/>
+  
+  <!-- Title -->
+  <text x="500" y="50" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="700" fill="oklch(0.20 0 0)" text-anchor="middle">
+    Quick Comparison: Traditional Tools vs. Markdown Slides
+  </text>
+  
+  <!-- Headers -->
+  <g transform="translate(150, 100)">
+    <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="600" fill="oklch(0.40 0 0)">Feature</text>
+  </g>
+  <g transform="translate(450, 100)">
+    <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="600" fill="oklch(0.55 0.22 25)" text-anchor="middle">Traditional Tools</text>
+  </g>
+  <g transform="translate(750, 100)">
+    <text x="0" y="0" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">Markdown Slides</text>
+  </g>
+  
+  <!-- Divider -->
+  <line x1="100" y1="120" x2="900" y2="120" stroke="oklch(0.85 0.01 260)" stroke-width="2"/>
+  
+  <!-- Rows -->
+  
+  <!-- Row 1: Setup Time -->
+  <g transform="translate(0, 150)">
+    <rect x="100" width="800" height="60" fill="oklch(1 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">Setup Time</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">Minutes to hours</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">Seconds ✨</text>
+  </g>
+  
+  <!-- Row 2: File Format -->
+  <g transform="translate(0, 220)">
+    <rect x="100" width="800" height="60" fill="oklch(0.99 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">File Format</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">Proprietary</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">Plain Text (Markdown) ✨</text>
+  </g>
+  
+  <!-- Row 3: Version Control -->
+  <g transform="translate(0, 290)">
+    <rect x="100" width="800" height="60" fill="oklch(1 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">Version Control</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">Difficult/Manual</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">Git-Native ✨</text>
+  </g>
+  
+  <!-- Row 4: Collaboration -->
+  <g transform="translate(0, 360)">
+    <rect x="100" width="800" height="60" fill="oklch(0.99 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">Collaboration</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">Email attachments</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">GitHub/GitLab PRs ✨</text>
+  </g>
+  
+  <!-- Row 5: Themes -->
+  <g transform="translate(0, 430)">
+    <rect x="100" width="800" height="60" fill="oklch(1 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">Theme Switching</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">Manual redesign</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">One keystroke (T) ✨</text>
+  </g>
+  
+  <!-- Row 6: Cost -->
+  <g transform="translate(0, 500)">
+    <rect x="100" width="800" height="60" fill="oklch(0.99 0 0)" rx="8"/>
+    <text x="150" y="38" font-family="'Inter', sans-serif" font-size="16" fill="oklch(0.25 0 0)">Cost</text>
+    <text x="450" y="38" font-family="'Inter', sans-serif" font-size="15" fill="oklch(0.55 0.22 25)" text-anchor="middle">$$$</text>
+    <text x="750" y="38" font-family="'Inter', sans-serif" font-size="15" font-weight="600" fill="oklch(0.45 0.15 260)" text-anchor="middle">Free & Open Source ✨</text>
+  </g>
+</svg>
