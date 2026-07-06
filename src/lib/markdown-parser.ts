@@ -11,7 +11,7 @@ export function parseMarkdownToSlides(markdown: string): Slide[] {
 
   const slides = markdown
     .split(/^---$/gm)
-    .map((slideContent, index) => slideContent.trim())
+    .map((slideContent) => slideContent.trim())
     .filter(content => content.length > 0)
     .map((content, index) => ({
       id: `slide-${index}`,

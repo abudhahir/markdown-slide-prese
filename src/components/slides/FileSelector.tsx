@@ -35,7 +35,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
 
   const parseGitUrl = (url: string): { platform: 'github' | 'gitlab', owner: string, repo: string, branch: string, path: string } | null => {
     try {
-      const githubMatch = url.match(/github\.com\/([^\/]+)\/([^\/]+)(?:\/blob\/([^\/]+)\/(.+))?/)
+      const githubMatch = url.match(/github\.com\/([^/]+)\/([^/]+)(?:\/blob\/([^/]+)\/(.+))?/)
       if (githubMatch) {
         return {
           platform: 'github',
@@ -46,7 +46,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
         }
       }
 
-      const gitlabMatch = url.match(/gitlab\.com\/([^\/]+)\/([^\/]+)(?:\/-\/blob\/([^\/]+)\/(.+))?/)
+      const gitlabMatch = url.match(/gitlab\.com\/([^/]+)\/([^/]+)(?:\/-\/blob\/([^/]+)\/(.+))?/)
       if (gitlabMatch) {
         return {
           platform: 'gitlab',
@@ -58,7 +58,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
       }
 
       return null
-    } catch (error) {
+    } catch {
       return null
     }
   }
@@ -122,7 +122,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
       let currentPath = ''
       let currentLevel = fileTree
 
-      dirParts.forEach((dir, index) => {
+      dirParts.forEach((dir) => {
         currentPath = currentPath ? `${currentPath}/${dir}` : dir
         
         if (!fileMap.has(currentPath)) {
@@ -292,6 +292,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   type="file"
                   accept=".md,.markdown"
                   multiple
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   {...({ webkitdirectory: '' } as any)}
                   className="hidden"
                   onChange={handleFileInput}
