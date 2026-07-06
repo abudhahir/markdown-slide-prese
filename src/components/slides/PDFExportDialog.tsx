@@ -99,7 +99,6 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       const primaryColor = getColor('--primary', 'rgba(139, 92, 246, 0.8)')
       const primaryFgColor = getColor('--primary-foreground', 'rgb(255, 255, 255)')
       const accentColor = getColor('--accent', 'rgba(139, 92, 246, 0.8)')
-      const mutedFgColor = getColor('--muted-foreground', 'rgb(102, 102, 102)')
       
       const fontHeading = computedStyles.getPropertyValue('--font-heading').trim() || 'sans-serif'
       const fontBody = computedStyles.getPropertyValue('--font-body').trim() || 'sans-serif'

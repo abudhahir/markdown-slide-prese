@@ -11,9 +11,9 @@ const oklchToRgb = (l: number, c: number, h: number): [number, number, number] =
   const a = c * Math.cos(hRad)
   const b = c * Math.sin(hRad)
   
-  let L = l * 100
-  let A = a * 125
-  let B = b * 125
+  const L = l * 100
+  const A = a * 125
+  const B = b * 125
   
   let x = L + 0.3963377774 * A + 0.2158037573 * B
   let y = L - 0.1055613458 * A - 0.0638541728 * B

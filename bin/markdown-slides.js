@@ -46,7 +46,7 @@ async function serveFile(filePath, res) {
   }
 }
 
-function parseArgs() {
+async function parseArgs() {
   const args = process.argv.slice(2)
   const options = {
     port: DEFAULT_PORT,

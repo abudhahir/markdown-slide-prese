@@ -15,7 +15,7 @@ const isResizeObserverError = (message: string) => {
 }
 
 const originalConsoleError = console.error
-console.error = (...args: any[]) => {
+console.error = (...args: unknown[]) => {
   if (args.length > 0) {
     const firstArg = args[0]
     const errorMessage = typeof firstArg === 'string' ? firstArg : (firstArg?.message || firstArg?.toString() || '')
@@ -27,7 +27,7 @@ console.error = (...args: any[]) => {
 }
 
 const originalConsoleWarn = console.warn
-console.warn = (...args: any[]) => {
+console.warn = (...args: unknown[]) => {
   if (args.length > 0) {
     const firstArg = args[0]
     const warnMessage = typeof firstArg === 'string' ? firstArg : (firstArg?.message || firstArg?.toString() || '')
@@ -61,9 +61,9 @@ const unhandledRejectionHandler = (event: PromiseRejectionEvent) => {
 window.addEventListener('unhandledrejection', unhandledRejectionHandler, { capture: true })
 
 if (typeof window !== 'undefined') {
-  const debounce = (fn: (...args: any[]) => void, delay: number) => {
+  const debounce = <T extends unknown[]>(fn: (...args: T) => void, delay: number) => {
     let timeoutId: number | null = null
-    return (...args: any[]) => {
+    return (...args: T): void => {
       if (timeoutId) clearTimeout(timeoutId)
       timeoutId = window.setTimeout(() => fn(...args), delay)
     }
