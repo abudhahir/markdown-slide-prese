@@ -208,7 +208,11 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
       return (
         <div key={node.path}>
           <button
-            onClick={() => handleFileClick(node)}
+            onClick={() => {
+              handleFileClick(node).catch((err: unknown) => {
+                toast.error(`Failed to open file: ${err instanceof Error ? err.message : 'Unknown error'}`)
+              })
+            }}
             className={cn(
               'w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-accent/10 transition-colors rounded-md group',
               'text-foreground'

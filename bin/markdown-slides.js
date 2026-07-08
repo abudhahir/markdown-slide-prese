@@ -41,8 +41,13 @@ async function serveFile(filePath, res) {
     res.writeHead(200, { 'Content-Type': mimeType })
     res.end(content)
   } catch (error) {
-    res.writeHead(404, { 'Content-Type': 'text/plain' })
-    res.end('404 Not Found')
+    if (error.code === 'ENOENT') {
+      res.writeHead(404, { 'Content-Type': 'text/plain' })
+      res.end('404 Not Found')
+    } else {
+      res.writeHead(500, { 'Content-Type': 'text/plain' })
+      res.end('500 Internal Server Error')
+    }
   }
 }
 
@@ -97,7 +102,7 @@ Examples:
 
 Once started, open your browser to http://localhost:3000 (or your specified port)
 
-Documentation: https://github.com/yourusername/markdown-slides
+Documentation: https://github.com/abudhahir/markdown-slides
 `)
 }
 
@@ -109,12 +114,13 @@ async function startServer(port) {
 
   const server = createServer(async (req, res) => {
     let filePath = req.url === '/' ? '/index.html' : req.url
-    
+
     filePath = filePath.split('?')[0]
-    
-    const fullPath = join(DIST_DIR, filePath)
-    
-    if (fullPath.startsWith(DIST_DIR) && existsSync(fullPath)) {
+    filePath = decodeURIComponent(filePath)
+
+    const fullPath = resolve(DIST_DIR, filePath.replace(/^\/+/, ''))
+
+    if ((fullPath === DIST_DIR || fullPath.startsWith(DIST_DIR + '/')) && existsSync(fullPath)) {
       await serveFile(fullPath, res)
     } else {
       await serveFile(join(DIST_DIR, 'index.html'), res)

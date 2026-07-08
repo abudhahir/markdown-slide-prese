@@ -1,7 +1,7 @@
 {
     "name": "markdown-slides-presenter",
     "private": false,
-    "version": "1.0.0",
+    "version": "1.0.3",
     "type": "module",
     "description": "A powerful markdown-based presentation tool with multiple themes, keyboard shortcuts, and PDF export",
     "author": "abudhahir <abudhahir@gmail.com>",
@@ -47,6 +47,7 @@
         "optimize": "vite optimize",
         "preview": "vite preview",
         "start": "node bin/markdown-slides.js",
+        "publish": "bash scripts/publish.sh",
         "prepublishOnly": "npm run build"
     },
     "dependencies": {

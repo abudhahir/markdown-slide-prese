@@ -1,23 +1,19 @@
 import { marked } from 'marked'
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
+import DOMPurify from 'dompurify'
 
 interface MarkdownRendererProps {
   content: string
 }
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  const [html, setHtml] = useState('')
-
-  useEffect(() => {
-    const renderMarkdown = async () => {
-      const rendered = await marked.parse(content)
-      setHtml(rendered)
-    }
-    renderMarkdown()
+  const html = useMemo(() => {
+    const raw = marked.parse(content, { async: false }) as string
+    return DOMPurify.sanitize(raw)
   }, [content])
 
   return (
-    <div 
+    <div
       className="markdown-content prose prose-invert prose-lg max-w-none"
       dangerouslySetInnerHTML={{ __html: html }}
     />

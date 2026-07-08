@@ -1,6 +1,52 @@
 # Release Scripts
 
-Helper scripts for managing releases.
+Helper scripts for managing releases and publishing.
+
+## publish.sh
+
+Complete NPM publishing script with authentication, pre-checks, build, and verification.
+
+### Quick Start
+
+```bash
+npm run publish
+```
+
+### What It Does
+
+1. **Pre-Flight Checks** - Validates package.json
+2. **Dependencies** - Installs node_modules if needed
+3. **Linting** - Runs ESLint
+4. **Build** - Creates dist/ artifacts
+5. **Authentication** - Handles NPM login
+6. **Verification** - Checks package configuration
+7. **Publish** - Publishes to npm with confirmation
+8. **Verification** - Confirms package is live
+
+### Features
+
+✅ Automatic dependency installation  
+✅ Interactive npm login prompt  
+✅ Pre-publish confirmation  
+✅ Build verification  
+✅ Linting checks  
+✅ Registry sync verification  
+✅ Installation instructions  
+✅ Colored output for readability  
+
+### Usage
+
+```bash
+# Publish with all checks
+npm run publish
+
+# Or directly
+bash scripts/publish.sh
+```
+
+See [PUBLISH_SCRIPT_GUIDE.md](../docs/release/PUBLISH_SCRIPT_GUIDE.md) for detailed documentation.
+
+---
 
 ## release.sh
 

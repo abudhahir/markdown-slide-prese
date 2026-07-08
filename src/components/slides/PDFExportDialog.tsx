@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 import type { Slide } from '@/lib/markdown-parser'
 
 interface PDFExportDialogProps {
@@ -109,8 +110,9 @@ export function PDFExportDialog({ isOpen, onOpenChange, slides, fileName }: PDFE
       for (let i = 0; i < slides.length; i++) {
         const slide = slides[i]
         
-        const html = await marked.parse(slide.content)
-        
+        const rawHtml = await marked.parse(slide.content)
+        const html = DOMPurify.sanitize(rawHtml)
+
         const tempDiv = document.createElement('div')
         tempDiv.style.width = `${slideWidth}px`
         tempDiv.style.height = `${slideHeight}px`
