@@ -1,6 +1,6 @@
 # NPM Publishing Guide
 
-Complete guide to publishing `markdown-slides-presenter` to npm with automated checks and verification.
+Complete guide to publishing `c-deck-lite` to npm with automated checks and verification.
 
 ## Quick Start
 
@@ -88,7 +88,7 @@ You'll see a summary before publication:
 
 ```
 About to publish:
-  Package: markdown-slides-presenter
+  Package: c-deck-lite
   Version: v1.0.0
 
 Confirm publish? (y/n) y
@@ -152,13 +152,13 @@ Example output:
 ╚════════════════════════════════════════════════════════╝
 
 Your package is now available:
-  https://www.npmjs.com/package/markdown-slides-presenter
+  https://www.npmjs.com/package/c-deck-lite
 
 Install with:
-  npm install markdown-slides-presenter
+  npm install c-deck-lite
 
 Or use the CLI:
-  npx markdown-slides-presenter
+  npx c-deck-lite
 ```
 
 ## Troubleshooting
@@ -179,7 +179,7 @@ npm run publish
 ### "package.json not found!"
 Make sure you're in the project root directory:
 ```bash
-cd /path/to/markdown-slides-presenter
+cd /path/to/c-deck-lite
 npm run publish
 ```
 
@@ -188,7 +188,7 @@ The npm registry takes 5-10 minutes to fully sync. The script waits 10s, but it 
 
 Check progress:
 ```bash
-npm view markdown-slides-presenter@VERSION
+npm view c-deck-lite@VERSION
 ```
 
 ### "Publish cancelled"

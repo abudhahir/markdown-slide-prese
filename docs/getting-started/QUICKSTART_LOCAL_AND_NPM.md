@@ -50,13 +50,13 @@ npm run start
 npm pack
 ```
 
-✅ Creates `markdown-slides-presenter-1.0.0.tgz`
+✅ Creates `c-deck-lite-1.0.0.tgz`
 
 ### Step 4: Test as if installed globally
 
 ```bash
 # Install the tarball globally
-npm install -g ./markdown-slides-presenter-1.0.0.tgz
+npm install -g ./c-deck-lite-1.0.0.tgz
 
 # Test the command
 markdown-slides --help
@@ -66,7 +66,7 @@ markdown-slides --port 3000
 # http://localhost:3000
 
 # Uninstall after testing
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 ```
 
 ✅ Your package works as expected!
@@ -81,11 +81,11 @@ Check that these fields are correct:
 
 ```json
 {
-  "name": "markdown-slides-presenter",
+  "name": "c-deck-lite",
   "version": "1.0.0",
   "author": "abudhahir <abudhahir@gmail.com>",
   "repository": {
-    "url": "https://github.com/abudhahir/markdown-slides-presenter.git"
+    "url": "https://github.com/abudhahir/c-deck-lite.git"
   },
   "private": false
 }
@@ -111,7 +111,7 @@ npm whoami
 ### Step 3: Check if name is available
 
 ```bash
-npm view markdown-slides-presenter
+npm view c-deck-lite
 ```
 
 - If it shows "npm ERR! 404" → Name is available ✅
@@ -125,7 +125,7 @@ npm publish
 
 **Expected output:**
 ```
-+ markdown-slides-presenter@1.0.0
++ c-deck-lite@1.0.0
 ```
 
 ✅ Package published successfully!
@@ -134,10 +134,10 @@ npm publish
 
 ```bash
 # View on npm
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Visit package page
-https://www.npmjs.com/package/markdown-slides-presenter
+https://www.npmjs.com/package/c-deck-lite
 ```
 
 ---
@@ -149,7 +149,7 @@ https://www.npmjs.com/package/markdown-slides-presenter
 ```bash
 # In a different directory
 cd ~
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ✅ Opens on `http://localhost:3000`
@@ -157,7 +157,7 @@ npx markdown-slides-presenter
 ### Test global installation
 
 ```bash
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 markdown-slides --help
 markdown-slides
 ```
@@ -178,9 +178,9 @@ npm run start
 
 # 3. Test package
 npm pack
-npm install -g ./markdown-slides-presenter-1.0.0.tgz
+npm install -g ./c-deck-lite-1.0.0.tgz
 markdown-slides --help
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 
 # 4. Login to npm
 npm login
@@ -189,7 +189,7 @@ npm login
 npm publish
 
 # 6. Test from npm
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ---
@@ -224,8 +224,8 @@ npm version patch                 # Bump version (1.0.0 → 1.0.1)
 
 ### Using After Publishing
 ```bash
-npx markdown-slides-presenter                # Run without installing
-npm install -g markdown-slides-presenter    # Install globally
+npx c-deck-lite                # Run without installing
+npm install -g c-deck-lite    # Install globally
 markdown-slides                              # Run installed version
 markdown-slides --port 8080                 # Custom port
 ```
@@ -238,7 +238,7 @@ markdown-slides --port 8080                 # Custom port
 
 ```bash
 # Check global installs
-npm list -g markdown-slides-presenter
+npm list -g c-deck-lite
 
 # Check PATH
 echo $PATH | grep $(npm bin -g)
@@ -264,7 +264,7 @@ ls -la dist/
 npm whoami
 
 # Package name might be taken, try:
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # If taken, change name in package.json or use scoped:
 # "@yourusername/markdown-slides"

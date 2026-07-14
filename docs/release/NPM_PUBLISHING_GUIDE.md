@@ -27,7 +27,7 @@ Update your `package.json` with the following changes:
 
 ```json
 {
-  "name": "markdown-slides-presenter",
+  "name": "c-deck-lite",
   "version": "1.0.0",
   "description": "A powerful markdown-based presentation tool built with React",
   "private": false,
@@ -54,7 +54,7 @@ Update your `package.json` with the following changes:
   "homepage": "https://yourusername.github.io/markdown-slides",
   "bin": {
     "markdown-slides": "./bin/markdown-slides.js",
-    "markdown-slides-presenter": "./bin/markdown-slides.js"
+    "c-deck-lite": "./bin/markdown-slides.js"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -130,7 +130,7 @@ node bin/markdown-slides.js --help
 # Create a tarball
 npm pack
 
-# This creates a file like: markdown-slides-presenter-1.0.0.tgz
+# This creates a file like: c-deck-lite-1.0.0.tgz
 ```
 
 Test the tarball in another directory:
@@ -141,7 +141,7 @@ mkdir test-project
 cd test-project
 
 # Install the tarball
-npm install /path/to/markdown-slides-presenter-1.0.0.tgz
+npm install /path/to/c-deck-lite-1.0.0.tgz
 
 # Test the CLI
 npx markdown-slides --help
@@ -154,7 +154,7 @@ Test global installation:
 
 ```bash
 # Install globally from tarball
-npm install -g /path/to/markdown-slides-presenter-1.0.0.tgz
+npm install -g /path/to/c-deck-lite-1.0.0.tgz
 
 # Test command
 markdown-slides --version
@@ -164,7 +164,7 @@ markdown-slides --help
 markdown-slides
 
 # Cleanup
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 ```
 
 ### 4. Login to npm
@@ -205,15 +205,15 @@ npm publish --dry-run
 
 Check your package on npm:
 ```bash
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Or visit
-# https://www.npmjs.com/package/markdown-slides-presenter
+# https://www.npmjs.com/package/c-deck-lite
 ```
 
 Test installation:
 ```bash
-npm install markdown-slides-presenter
+npm install c-deck-lite
 ```
 
 ## Version Management
@@ -268,7 +268,7 @@ npm version 1.1.0-beta.0
 npm publish --tag beta
 
 # Users can install with:
-# npm install markdown-slides-presenter@beta
+# npm install c-deck-lite@beta
 ```
 
 ## Complete Publishing Workflow
@@ -294,7 +294,7 @@ git push origin main --tags
 npm publish
 
 # 6. Verify publication
-npm view markdown-slides-presenter version
+npm view c-deck-lite version
 ```
 
 ## Automated Publishing with CI/CD
@@ -481,10 +481,10 @@ npm install @yourusername/markdown-slides
 7. **Deprecation**
    ```bash
    # Deprecate a version
-   npm deprecate markdown-slides-presenter@1.0.0 "Security vulnerability, please upgrade"
+   npm deprecate c-deck-lite@1.0.0 "Security vulnerability, please upgrade"
    
    # Deprecate entire package
-   npm deprecate markdown-slides-presenter "Package is no longer maintained"
+   npm deprecate c-deck-lite "Package is no longer maintained"
    ```
 
 ## Unpublishing
@@ -493,10 +493,10 @@ npm install @yourusername/markdown-slides
 
 ```bash
 # Unpublish a specific version (within 72 hours of publishing)
-npm unpublish markdown-slides-presenter@1.0.0
+npm unpublish c-deck-lite@1.0.0
 
 # Unpublish entire package
-npm unpublish markdown-slides-presenter --force
+npm unpublish c-deck-lite --force
 ```
 
 **Better alternatives:**

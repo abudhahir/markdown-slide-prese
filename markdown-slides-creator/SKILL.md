@@ -1,6 +1,6 @@
 ---
 name: markdown-slides-creator
-description: Creates markdown slide presentations (.md files) for the markdown-slides-presenter app. Use when asked to create, write, build, or generate a presentation, slide deck, slides, or talk for this project. Produces a .md file the user can open with `npx markdown-slides-presenter`.
+description: Creates markdown slide presentations (.md files) for the c-deck-lite app. Use when asked to create, write, build, or generate a presentation, slide deck, slides, or talk for this project. Produces a .md file the user can open with `npx c-deck-lite`.
 compatibility: Designed for the abudhahir/markdown-slide-prese project
 metadata:
   author: abudhahir
@@ -31,7 +31,7 @@ More content.
 
 Save the file anywhere (e.g. `examples/my-talk.md` or `~/presentations/my-talk.md`).
 
-To preview: `npx markdown-slides-presenter examples/my-talk.md`
+To preview: `npx c-deck-lite examples/my-talk.md`
 
 ## Supported markdown
 

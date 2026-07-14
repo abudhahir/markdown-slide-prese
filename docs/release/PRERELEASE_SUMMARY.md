@@ -2,7 +2,7 @@
 
 ## ✅ What Was Added
 
-This document summarizes the pre-release support implementation for the markdown-slides-presenter npm package.
+This document summarizes the pre-release support implementation for the c-deck-lite npm package.
 
 ### 1. Enhanced Release Workflow
 
@@ -118,19 +118,19 @@ When you push the tag:
 #### For Testers
 ```bash
 # Latest alpha
-npm install markdown-slides-presenter@alpha
+npm install c-deck-lite@alpha
 
 # Latest beta
-npm install markdown-slides-presenter@beta
+npm install c-deck-lite@beta
 
 # Specific version
-npm install markdown-slides-presenter@1.2.0-beta.1
+npm install c-deck-lite@1.2.0-beta.1
 ```
 
 #### For End Users (Stable)
 ```bash
 # Always gets stable version
-npm install markdown-slides-presenter
+npm install c-deck-lite
 ```
 
 ### npm Dist-Tags
@@ -145,7 +145,7 @@ Each pre-release type uses its own npm tag:
 | `rc` | Latest RC (e.g., 1.2.0-rc.1) | Final testers |
 
 **Why This Matters:**
-- Users running `npm install markdown-slides-presenter` always get stable
+- Users running `npm install c-deck-lite` always get stable
 - Pre-releases require explicit tag or version
 - Multiple versions can coexist safely
 - Easy to test without affecting production users
@@ -158,7 +158,7 @@ Each pre-release type uses its own npm tag:
 # Week 1-2: Alpha testing
 git tag v2.0.0-alpha.1
 git push origin v2.0.0-alpha.1
-# Testers: npm install markdown-slides-presenter@alpha
+# Testers: npm install c-deck-lite@alpha
 
 git tag v2.0.0-alpha.2
 git push origin v2.0.0-alpha.2
@@ -166,7 +166,7 @@ git push origin v2.0.0-alpha.2
 # Week 3-4: Beta testing
 git tag v2.0.0-beta.1
 git push origin v2.0.0-beta.1
-# Testers: npm install markdown-slides-presenter@beta
+# Testers: npm install c-deck-lite@beta
 
 git tag v2.0.0-beta.2
 git push origin v2.0.0-beta.2
@@ -174,12 +174,12 @@ git push origin v2.0.0-beta.2
 # Week 5: Release candidate
 git tag v2.0.0-rc.1
 git push origin v2.0.0-rc.1
-# Testers: npm install markdown-slides-presenter@rc
+# Testers: npm install c-deck-lite@rc
 
 # Week 6: Stable release
 git tag v2.0.0
 git push origin v2.0.0
-# Everyone: npm install markdown-slides-presenter
+# Everyone: npm install c-deck-lite
 ```
 
 ### Example 2: Minor Feature (v1.3.0)
@@ -220,9 +220,9 @@ This is an **alpha** release intended for early testing and development.
 It may contain bugs and incomplete features. Not recommended for production use.
 
 ```bash
-npm install markdown-slides-presenter@alpha
+npm install c-deck-lite@alpha
 # or
-npm install markdown-slides-presenter@1.2.0-alpha.1
+npm install c-deck-lite@1.2.0-alpha.1
 ```
 
 ## 🎉 What's New
@@ -269,12 +269,12 @@ Try it online: [GitHub Pages](...)
 
 ### Check Available Versions
 ```bash
-npm view markdown-slides-presenter versions
+npm view c-deck-lite versions
 ```
 
 ### Check Current Tags
 ```bash
-npm view markdown-slides-presenter dist-tags
+npm view c-deck-lite dist-tags
 ```
 
 ### Install and Test
@@ -284,13 +284,13 @@ mkdir test-prerelease
 cd test-prerelease
 
 # Install beta version
-npm install markdown-slides-presenter@beta
+npm install c-deck-lite@beta
 
 # Run
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Check version
-npm list markdown-slides-presenter
+npm list c-deck-lite
 ```
 
 ## 📁 Files Modified/Created

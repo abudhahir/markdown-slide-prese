@@ -24,13 +24,13 @@ Check your `package.json`:
 
 ```json
 {
-  "name": "markdown-slides-presenter",
+  "name": "c-deck-lite",
   "version": "1.0.0",
   "private": false,  // ← Must be false!
   "author": "Your Name <email@example.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/markdown-slides-presenter.git"
+    "url": "https://github.com/yourusername/c-deck-lite.git"
   }
 }
 ```
@@ -65,8 +65,8 @@ When you push a tag:
 
 After ~2-5 minutes:
 
-- Your package is live on npm: `npm install markdown-slides-presenter`
-- Demo is updated: `https://yourusername.github.io/markdown-slides-presenter`
+- Your package is live on npm: `npm install c-deck-lite`
+- Demo is updated: `https://yourusername.github.io/c-deck-lite`
 - Release is on GitHub: `https://github.com/yourusername/repo/releases/tag/v1.0.0`
 
 ## Subsequent Releases
@@ -105,12 +105,12 @@ npm run start
 
 # 2. Test package creation
 npm pack
-# Creates: markdown-slides-presenter-1.0.0.tgz
+# Creates: c-deck-lite-1.0.0.tgz
 
 # 3. Test installation in temp directory
 mkdir test && cd test
-npm install ../markdown-slides-presenter-1.0.0.tgz
-npx markdown-slides-presenter --help
+npm install ../c-deck-lite-1.0.0.tgz
+npx c-deck-lite --help
 cd .. && rm -rf test
 
 # 4. If everything works, create release
@@ -124,13 +124,13 @@ After workflow completes:
 
 ```bash
 # Check npm
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Test install
-npm install markdown-slides-presenter
+npm install c-deck-lite
 
 # Test run
-npx markdown-slides-presenter --help
+npx c-deck-lite --help
 ```
 
 ## Troubleshooting
@@ -184,7 +184,7 @@ git push origin v1.1.0-beta.0
 
 Users install with:
 ```bash
-npm install markdown-slides-presenter@beta
+npm install c-deck-lite@beta
 ```
 
 ---

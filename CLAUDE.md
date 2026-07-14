@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Markdown Slides Presenter is a full-screen presentation tool that transforms markdown files into slide presentations. Published to npm as `markdown-slides-presenter` (`npx markdown-slides-presenter`). Built with React 19, TypeScript, Vite 7, and Tailwind CSS v4.
+Markdown Slides Presenter is a full-screen presentation tool that transforms markdown files into slide presentations. Published to npm as `c-deck-lite` (`npx c-deck-lite`). Built with React 19, TypeScript, Vite 7, and Tailwind CSS v4.
 
 ## Commands
 

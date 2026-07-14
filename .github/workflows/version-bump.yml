@@ -225,25 +225,25 @@ jobs:
           if [ "$IS_PRERELEASE" = "true" ]; then
             if [[ $NEW_VERSION =~ -alpha ]]; then
               echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@alpha" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@alpha" >> $GITHUB_STEP_SUMMARY
               echo "# or specific version" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             elif [[ $NEW_VERSION =~ -beta ]]; then
               echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@beta" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@beta" >> $GITHUB_STEP_SUMMARY
               echo "# or specific version" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             elif [[ $NEW_VERSION =~ -rc ]]; then
               echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@rc" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@rc" >> $GITHUB_STEP_SUMMARY
               echo "# or specific version" >> $GITHUB_STEP_SUMMARY
-              echo "npm install markdown-slides-presenter@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
+              echo "npm install c-deck-lite@$NEW_VERSION" >> $GITHUB_STEP_SUMMARY
               echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             fi
           else
             echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-            echo "npm install markdown-slides-presenter@latest" >> $GITHUB_STEP_SUMMARY
+            echo "npm install c-deck-lite@latest" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           fi

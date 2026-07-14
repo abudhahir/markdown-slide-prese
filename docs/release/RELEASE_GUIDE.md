@@ -149,10 +149,10 @@ git push origin v1.0.0-rc.1
 ### Installing Pre-releases
 
 **Important:** Pre-releases are published to npm with specific tags:
-- Alpha → `npm install markdown-slides-presenter@alpha`
-- Beta → `npm install markdown-slides-presenter@beta`
-- RC → `npm install markdown-slides-presenter@rc`
-- Specific version → `npm install markdown-slides-presenter@1.0.0-beta.1`
+- Alpha → `npm install c-deck-lite@alpha`
+- Beta → `npm install c-deck-lite@beta`
+- RC → `npm install c-deck-lite@rc`
+- Specific version → `npm install c-deck-lite@1.0.0-beta.1`
 
 **Note:** Pre-releases are NOT deployed to GitHub Pages (demo stays stable).
 

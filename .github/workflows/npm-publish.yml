@@ -114,7 +114,7 @@ jobs:
       - name: Publish to npm
         run: |
           npm publish --provenance --access public --tag ${{ steps.bump.outputs.npm_tag }}
-          echo "✅ Published markdown-slides-presenter@${{ steps.bump.outputs.new_version }} (tag: ${{ steps.bump.outputs.npm_tag }})"
+          echo "✅ Published c-deck-lite@${{ steps.bump.outputs.new_version }} (tag: ${{ steps.bump.outputs.npm_tag }})"
 
       - name: Summary
         run: |
@@ -124,10 +124,10 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
           echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Package | \`markdown-slides-presenter\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Package | \`c-deck-lite\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Version | \`$V\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| npm tag | \`$TAG\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "\`\`\`bash" >> "$GITHUB_STEP_SUMMARY"
-          echo "npx markdown-slides-presenter@$TAG" >> "$GITHUB_STEP_SUMMARY"
+          echo "npx c-deck-lite@$TAG" >> "$GITHUB_STEP_SUMMARY"
           echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"

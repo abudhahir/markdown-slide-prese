@@ -178,9 +178,9 @@ jobs:
                 echo "It may contain bugs and incomplete features. Not recommended for production use." >> RELEASE_NOTES.md
                 echo "" >> RELEASE_NOTES.md
                 echo '```bash' >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@alpha" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@alpha" >> RELEASE_NOTES.md
                 echo "# or" >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@${VERSION}" >> RELEASE_NOTES.md
                 echo '```' >> RELEASE_NOTES.md
                 ;;
               "beta")
@@ -190,9 +190,9 @@ jobs:
                 echo "Most features are complete but may still have bugs. Use with caution in production." >> RELEASE_NOTES.md
                 echo "" >> RELEASE_NOTES.md
                 echo '```bash' >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@beta" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@beta" >> RELEASE_NOTES.md
                 echo "# or" >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@${VERSION}" >> RELEASE_NOTES.md
                 echo '```' >> RELEASE_NOTES.md
                 ;;
               "rc")
@@ -202,9 +202,9 @@ jobs:
                 echo "Features are complete and tested. Report any issues found." >> RELEASE_NOTES.md
                 echo "" >> RELEASE_NOTES.md
                 echo '```bash' >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@rc" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@rc" >> RELEASE_NOTES.md
                 echo "# or" >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@${VERSION}" >> RELEASE_NOTES.md
                 echo '```' >> RELEASE_NOTES.md
                 ;;
               *)
@@ -213,9 +213,9 @@ jobs:
                 echo "This is a pre-release version. Use with caution." >> RELEASE_NOTES.md
                 echo "" >> RELEASE_NOTES.md
                 echo '```bash' >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@next" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@next" >> RELEASE_NOTES.md
                 echo "# or" >> RELEASE_NOTES.md
-                echo "npm install markdown-slides-presenter@${VERSION}" >> RELEASE_NOTES.md
+                echo "npm install c-deck-lite@${VERSION}" >> RELEASE_NOTES.md
                 echo '```' >> RELEASE_NOTES.md
                 ;;
             esac
@@ -414,7 +414,7 @@ jobs:
           
           npm publish --access public --tag $NPM_TAG
           echo "✅ Successfully published to npm!"
-          echo "📦 Package: markdown-slides-presenter@$VERSION"
+          echo "📦 Package: c-deck-lite@$VERSION"
           echo "🏷️  npm tag: $NPM_TAG"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
