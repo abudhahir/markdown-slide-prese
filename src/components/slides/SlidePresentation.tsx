@@ -19,7 +19,7 @@ interface SlidePresentationProps {
 }
 
 export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentationProps) {
-  const [slides, setSlides] = useState<ReturnType<typeof parseMarkdownToSlides>>([])
+  const [slides, setSlides] = useState(() => parseMarkdownToSlides(markdown))
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false)
@@ -28,7 +28,7 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   const [isSlidesListOpen, setIsSlidesListOpen] = useState(false)
   const [isCommandsListOpen, setIsCommandsListOpen] = useState(false)
   const [isPDFExportOpen, setIsPDFExportOpen] = useState(false)
-  const [currentFileName, setCurrentFileName] = useState('tutorial-slides.md')
+  const [currentFileName, setCurrentFileName] = useState('quick-reference.md')
 
   useEffect(() => {
     const parsedSlides = parseMarkdownToSlides(markdown)
