@@ -1,0 +1,136 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+        default: 'patch'
+      prerelease_id:
+        description: 'Pre-release identifier (alpha, beta, rc) — only for pre* bump types'
+        required: false
+        type: choice
+        options:
+          - ''
+          - alpha
+          - beta
+          - rc
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Bump version and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate inputs
+        run: |
+          BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+          PRERELEASE_ID="${{ github.event.inputs.prerelease_id }}"
+          if [[ "$BUMP_TYPE" =~ ^pre ]] && [ -z "$PRERELEASE_ID" ]; then
+            echo "❌ Pre-release identifier is required for bump type: $BUMP_TYPE"
+            exit 1
+          fi
+
+      - name: Bump version
+        id: bump
+        run: |
+          BUMP_TYPE="${{ github.event.inputs.bump_type }}"
+          PRERELEASE_ID="${{ github.event.inputs.prerelease_id }}"
+
+          CURRENT=$(node -p "require('./package.json').version")
+          echo "Current version: $CURRENT"
+
+          if [[ "$BUMP_TYPE" =~ ^pre ]]; then
+            npm version "$BUMP_TYPE" --preid="$PRERELEASE_ID" --no-git-tag-version
+          else
+            npm version "$BUMP_TYPE" --no-git-tag-version
+          fi
+
+          NEW=$(node -p "require('./package.json').version")
+          echo "New version: $NEW"
+
+          IS_PRERELEASE="false"
+          NPM_TAG="latest"
+          if [[ "$NEW" =~ -alpha ]]; then IS_PRERELEASE="true"; NPM_TAG="alpha"; fi
+          if [[ "$NEW" =~ -beta  ]]; then IS_PRERELEASE="true"; NPM_TAG="beta";  fi
+          if [[ "$NEW" =~ -rc    ]]; then IS_PRERELEASE="true"; NPM_TAG="rc";    fi
+          if [[ "$NEW" =~ -[a-zA-Z] && "$NPM_TAG" == "latest" ]]; then IS_PRERELEASE="true"; NPM_TAG="next"; fi
+
+          echo "new_version=$NEW"       >> "$GITHUB_OUTPUT"
+          echo "is_prerelease=$IS_PRERELEASE" >> "$GITHUB_OUTPUT"
+          echo "npm_tag=$NPM_TAG"       >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Commit, tag and push
+        run: |
+          NEW="${{ steps.bump.outputs.new_version }}"
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to $NEW"
+          git tag -a "v$NEW" -m "Release v$NEW"
+          git push origin main --follow-tags
+
+      - name: Verify package (dry-run)
+        run: npm publish --dry-run --tag ${{ steps.bump.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        run: |
+          npm publish --access public --tag ${{ steps.bump.outputs.npm_tag }}
+          echo "✅ Published markdown-slides-presenter@${{ steps.bump.outputs.new_version }} (tag: ${{ steps.bump.outputs.npm_tag }})"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Summary
+        run: |
+          V="${{ steps.bump.outputs.new_version }}"
+          TAG="${{ steps.bump.outputs.npm_tag }}"
+          echo "## ✅ Published to npm" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Package | \`markdown-slides-presenter\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Version | \`$V\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| npm tag | \`$TAG\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "\`\`\`bash" >> "$GITHUB_STEP_SUMMARY"
+          echo "npx markdown-slides-presenter@$TAG" >> "$GITHUB_STEP_SUMMARY"
+          echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
