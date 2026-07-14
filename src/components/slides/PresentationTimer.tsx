@@ -2,19 +2,9 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Play, Pause, ArrowClockwise } from '@phosphor-icons/react'
 
-interface PresentationTimerProps {
-  isRunning?: boolean
-}
-
-export function PresentationTimer({ isRunning: externalControl }: PresentationTimerProps) {
+export function PresentationTimer() {
   const [seconds, setSeconds] = useState(0)
-  const [isRunning, setIsRunning] = useState(externalControl ?? true)
-
-  useEffect(() => {
-    if (externalControl !== undefined) {
-      setIsRunning(externalControl)
-    }
-  }, [externalControl])
+  const [isRunning, setIsRunning] = useState(true)
 
   useEffect(() => {
     let interval: number | undefined

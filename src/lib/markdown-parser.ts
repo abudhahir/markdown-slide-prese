@@ -1,7 +1,6 @@
 export interface Slide {
   id: string
   content: string
-  rawContent: string
 }
 
 function hashContent(content: string): string {
@@ -26,8 +25,7 @@ export function parseMarkdownToSlides(markdown: string): Slide[] {
     .map((content, index) => ({
       id: `slide-${index}-${hashContent(content)}`,
       content: content,
-      rawContent: content
     }))
 
-  return slides.length > 0 ? slides : []
+  return slides
 }
