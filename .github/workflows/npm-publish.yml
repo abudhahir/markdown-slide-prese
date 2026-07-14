@@ -29,6 +29,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write  # required for npm trusted publishing (OIDC)
 
 jobs:
   publish:
@@ -109,15 +110,11 @@ jobs:
 
       - name: Verify package (dry-run)
         run: npm publish --dry-run --tag ${{ steps.bump.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         run: |
-          npm publish --access public --tag ${{ steps.bump.outputs.npm_tag }}
+          npm publish --provenance --access public --tag ${{ steps.bump.outputs.npm_tag }}
           echo "✅ Published markdown-slides-presenter@${{ steps.bump.outputs.new_version }} (tag: ${{ steps.bump.outputs.npm_tag }})"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Summary
         run: |
