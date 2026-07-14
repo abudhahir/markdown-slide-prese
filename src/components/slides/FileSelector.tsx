@@ -298,7 +298,6 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   type="file"
                   accept=".md,.markdown"
                   multiple
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   {...({ webkitdirectory: '' } as any)}
                   className="hidden"
                   onChange={handleFileInput}
