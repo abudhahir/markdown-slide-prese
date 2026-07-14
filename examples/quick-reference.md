@@ -265,6 +265,40 @@ Use sparingly within slides!
 
 ---
 
+## Mermaid Diagrams 🗺️
+
+Render diagrams using fenced code blocks with ` ```mermaid `:
+
+```mermaid
+flowchart TD
+    A([Write Markdown]) --> B{Has slides?}
+    B -- Yes --> C([Multiple Slides])
+    B -- No  --> D([Single Slide])
+    C --> E([Pick a Theme])
+    D --> E
+    E --> F([Present!])
+```
+
+---
+
+## Sequence & ER Diagrams
+
+```mermaid
+sequenceDiagram
+    autonumber
+    Actor U as User
+    participant App as Markdown Slides
+    participant FS as File System
+
+    U->>App: Press O (open file)
+    App->>FS: Browse local files
+    FS-->>App: Return .md files
+    App-->>U: Show file tree
+    U->>App: Select slides.md
+    App-->>U: Render presentation
+```
+---
+
 ## Emoji
 
 Use emoji to add personality:
