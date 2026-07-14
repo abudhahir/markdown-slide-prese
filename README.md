@@ -4,14 +4,14 @@
 
 A powerful full-screen presentation system that transforms markdown files into beautiful slide presentations. Built with React, TypeScript, and Tailwind CSS.
 
-[![CI](https://github.com/abudhahir/markdown-slides/workflows/CI/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/ci.yml)
-[![Release](https://github.com/abudhahir/markdown-slides/workflows/Release/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/release.yml)
-[![Deploy](https://github.com/abudhahir/markdown-slides/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/abudhahir/markdown-slides/actions/workflows/deploy.yml)
+[![CI](https://github.com/abudhahir/markdown-slide-prese/workflows/CI/badge.svg)](https://github.com/abudhahir/markdown-slide-prese/actions/workflows/ci.yml)
+[![Release](https://github.com/abudhahir/markdown-slide-prese/workflows/Release/badge.svg)](https://github.com/abudhahir/markdown-slide-prese/actions/workflows/release.yml)
+[![Deploy](https://github.com/abudhahir/markdown-slide-prese/workflows/Deploy%20to%20GitHub%20Pages/badge.svg)](https://github.com/abudhahir/markdown-slide-prese/actions/workflows/deploy.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![React](https://img.shields.io/badge/react-19.0.0-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.7.2-blue.svg)](https://www.typescriptlang.org/)
-[![GitHub release](https://img.shields.io/github/v/release/abudhahir/markdown-slides)](https://github.com/abudhahir/markdown-slides/releases)
-[![npm version](https://img.shields.io/npm/v/markdown-slides)](https://www.npmjs.com/package/markdown-slides)
+[![GitHub release](https://img.shields.io/github/v/release/abudhahir/markdown-slide-prese)](https://github.com/abudhahir/markdown-slide-prese/releases)
+[![npm version](https://img.shields.io/npm/v/markdown-slides-presenter)](https://www.npmjs.com/package/markdown-slides-presenter)
 
 [Quick Start](#-quick-start) • [Features](#-features) • [Documentation](./docs/README.md) • [Examples](#-usage-guide)
 
@@ -65,6 +65,8 @@ Fully responsive design with touch gestures. Swipe to navigate, pinch to zoom.
 ### Complete Feature List
 
 - 📝 **Markdown-First** - Write slides in familiar markdown syntax
+- 🗺️ **Mermaid Diagrams** - Render flowcharts, sequence diagrams, ER diagrams, and more with fenced ` ```mermaid ` blocks
+- 📊 **Styled Tables** - Responsive, striped data tables with accent headers rendered automatically
 - ⌨️ **Keyboard Shortcuts** - Lightning-fast navigation with intuitive shortcuts
 - 📱 **Touch Support** - Swipe gestures on mobile devices
 - 🎨 **Multiple Themes** - 6 beautiful color schemes with light/dark modes
@@ -76,6 +78,7 @@ Fully responsive design with touch gestures. Swipe to navigate, pinch to zoom.
 - 🌐 **Cross-Platform** - Works on desktop, tablet, and mobile
 - 🚀 **CLI Ready** - Run with npm or npx without installation
 - 🎯 **Fullscreen Mode** - Distraction-free presenting experience
+- 🤖 **Agent Skill** - [agentskills.io](https://agentskills.io)-compatible skill so AI agents can create slide decks for this app
 
 ---
 
@@ -133,8 +136,8 @@ For contributors or local testing:
 
 ```bash
 # Clone the repository
-git clone https://github.com/abudhahir/markdown-slides.git
-cd markdown-slides
+git clone https://github.com/abudhahir/markdown-slide-prese.git
+cd markdown-slide-prese
 
 # Install dependencies
 npm install
@@ -288,15 +291,15 @@ See **[Automated npm Publishing Guide](./docs/release/AUTOMATED_NPM_PUBLISHING.m
 **Download build:**
 ```bash
 # From GitHub releases
-wget https://github.com/abudhahir/markdown-slides/releases/download/v1.0.0/markdown-slides-v1.0.0-dist.tar.gz
+wget https://github.com/abudhahir/markdown-slide-prese/releases/download/v1.0.0/markdown-slides-v1.0.0-dist.tar.gz
 tar -xzf markdown-slides-v1.0.0-dist.tar.gz
 ```
 
 **Docker:**
 ```bash
 # Pull and run
-docker pull ghcr.io/abudhahir/markdown-slides:latest
-docker run -p 8080:80 ghcr.io/abudhahir/markdown-slides:latest
+docker pull ghcr.io/abudhahir/markdown-slide-prese:latest
+docker run -p 8080:80 ghcr.io/abudhahir/markdown-slide-prese:latest
 ```
 
 **npm:**
@@ -312,34 +315,38 @@ See [RELEASE_WORKFLOW.md](./docs/release/RELEASE_WORKFLOW.md) for complete docum
 ### Project Structure
 
 ```
-markdown-slides/
+markdown-slide-prese/
 ├── src/
 │   ├── components/
 │   │   ├── slides/          # Slide-related components
 │   │   │   ├── SlidePresentation.tsx
+│   │   │   ├── MarkdownRenderer.tsx   # Markdown + mermaid rendering
 │   │   │   ├── FileSelector.tsx
 │   │   │   ├── ThemeSelector.tsx
-│   │   │   ├── SlidesList.tsx
+│   │   │   ├── SlidesListOverlay.tsx
 │   │   │   └── ...
 │   │   └── ui/              # Shadcn UI components
-│   ├── hooks/               # Custom React hooks
-│   │   └── use-mobile.ts
 │   ├── lib/                 # Utility functions
+│   │   ├── markdown-parser.ts
+│   │   ├── themes.ts
 │   │   └── utils.ts
-│   ├── styles/              # Global styles and themes
-│   │   └── theme.css
 │   ├── App.tsx              # Main application component
-│   ├── index.css            # Theme definitions
+│   ├── index.css            # Global styles and themes
 │   └── main.tsx             # Entry point
+├── bin/
+│   └── markdown-slides.js   # CLI entry point (Node.js HTTP server)
 ├── examples/                # Example presentations
-│   ├── tutorial.md
-│   ├── technical-presentation.md
-│   └── product-demo.md
-├── public/                  # Static assets
-├── index.html              # Entry HTML file
-├── package.json            # Dependencies and scripts
-├── vite.config.ts          # Vite configuration
-└── tsconfig.json           # TypeScript configuration
+│   └── quick-reference.md   # Default deck (loaded on startup)
+├── markdown-slides-creator/ # Agent skill (agentskills.io format)
+│   ├── SKILL.md
+│   └── assets/
+│       └── template.md
+├── docs/                    # Documentation
+├── e2e/                     # Playwright end-to-end tests
+├── index.html               # Entry HTML
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
 ```
 
 ### Available Scripts
@@ -356,9 +363,6 @@ npm run preview
 
 # Run linting
 npm run lint
-
-# Optimize dependencies
-npm run optimize
 
 # Kill process on port 5000 (if needed)
 npm run kill
@@ -480,7 +484,7 @@ See the [CLI Usage Guide](./docs/getting-started/CLI_USAGE_GUIDE.md) for complet
 
 ### Creating Slides
 
-Slides are written in standard markdown, separated by `---`:
+Slides are written in standard markdown, separated by `---` (with blank lines on both sides):
 
 ```markdown
 # First Slide
@@ -498,6 +502,39 @@ Welcome to my presentation!
 ---
 
 # Thank You!
+```
+
+All standard markdown is supported: headings, bold/italic, code blocks with syntax highlighting, blockquotes, ordered and unordered lists, task lists, links, images, and tables.
+
+#### Mermaid Diagrams
+
+Render diagrams inline using fenced ` ```mermaid ` blocks:
+
+```
+\```mermaid
+flowchart TD
+    A([Write Markdown]) --> B{Has slides?}
+    B -- Yes --> C([Multiple Slides])
+    B -- No  --> D([Single Slide])
+    C --> E([Present!])
+    D --> E
+\```
+```
+
+Supported diagram types: `flowchart`, `sequenceDiagram`, `classDiagram`, `erDiagram`, `gantt`, `pie`.
+
+> **Note:** Avoid using emojis inside mermaid node labels — they cause the label text to clip in scaled SVGs.
+
+#### Styled Tables
+
+Markdown tables render as responsive, styled data tables with accent headers and striped rows:
+
+```markdown
+| Feature       | Status |
+|---------------|--------|
+| Themes        | ✅ 6 built-in |
+| Mermaid       | ✅ Rendered   |
+| PDF Export    | ✅ One click  |
 ```
 
 ---
@@ -746,7 +783,7 @@ The Spark Template files and resources from GitHub are licensed under the terms 
 **Author**: abudhahir  
 **Email**: abudhahir@gmail.com  
 **GitHub**: [@abudhahir](https://github.com/abudhahir)  
-**Project Repository**: [github.com/abudhahir/markdown-slides](https://github.com/abudhahir/markdown-slides)
+**Project Repository**: [github.com/abudhahir/markdown-slides](https://github.com/abudhahir/markdown-slide-prese)
 **Live Demo**: [markdown-slides-abudhahir.github.app](https://markdown-slides-abudhahir.github.app)
 
 ### Get in Touch
@@ -755,11 +792,11 @@ We'd love to hear from you! Here are the best ways to reach out:
 
 #### For Project-Related Questions
 - 📖 **Documentation**: Check the comprehensive guides in this repository
-- 💬 **GitHub Discussions**: [Start a discussion](https://github.com/abudhahir/markdown-slides/discussions) for questions, ideas, or showcasing your presentations
-- 💡 **Feature Requests**: [Open an issue](https://github.com/abudhahir/markdown-slides/issues/new?template=feature_request.md) with the enhancement label
+- 💬 **GitHub Discussions**: [Start a discussion](https://github.com/abudhahir/markdown-slide-prese/discussions) for questions, ideas, or showcasing your presentations
+- 💡 **Feature Requests**: [Open an issue](https://github.com/abudhahir/markdown-slide-prese/issues/new?template=feature_request.md) with the enhancement label
 
 #### For Bug Reports & Issues
-- 🐛 **Bug Reports**: [Open an issue](https://github.com/abudhahir/markdown-slides/issues/new?template=bug_report.md) with detailed reproduction steps
+- 🐛 **Bug Reports**: [Open an issue](https://github.com/abudhahir/markdown-slide-prese/issues/new?template=bug_report.md) with detailed reproduction steps
 - 🔍 **Search Existing Issues**: Check if your issue has already been reported or resolved
 
 #### For Collaboration & Contributions

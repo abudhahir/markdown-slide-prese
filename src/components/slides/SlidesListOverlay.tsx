@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 
 interface Slide {
   content: string
-  rawContent: string
 }
 
 interface SlidesListOverlayProps {
@@ -41,7 +40,7 @@ export function SlidesListOverlay({
   }, [isOpen, currentIndex])
 
   const getSlidePreview = (slide: Slide): string => {
-    const text = slide.rawContent.trim()
+    const text = slide.content.trim()
     const firstLine = text.split('\n')[0]
     const cleanedLine = firstLine.replace(/^#+\s*/, '').trim()
     return cleanedLine || text.substring(0, 60).trim() + '...'
@@ -52,7 +51,7 @@ export function SlidesListOverlay({
     .filter(({ slide }) => {
       if (!searchQuery) return true
       const preview = getSlidePreview(slide).toLowerCase()
-      const content = slide.rawContent.toLowerCase()
+      const content = slide.content.toLowerCase()
       return preview.includes(searchQuery.toLowerCase()) || content.includes(searchQuery.toLowerCase())
     })
 

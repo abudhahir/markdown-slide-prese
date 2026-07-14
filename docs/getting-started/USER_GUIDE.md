@@ -57,6 +57,34 @@ function hello() {
 ```
 ````
 
+#### Tables
+
+Markdown tables render as styled, responsive data tables with accent headers and striped rows:
+
+```markdown
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Row 1    | Data     | Data     |
+| Row 2    | Data     | Data     |
+```
+
+#### Mermaid Diagrams
+
+Render diagrams using fenced ` ```mermaid ` code blocks:
+
+```
+\```mermaid
+flowchart TD
+    A([Write Markdown]) --> B{Has slides?}
+    B -- Yes --> C([Multiple Slides])
+    B -- No  --> D([Single Slide])
+\```
+```
+
+Supported diagram types: `flowchart`, `sequenceDiagram`, `classDiagram`, `erDiagram`, `gantt`, `pie`.
+
+> **Gotcha:** Do not use emojis inside mermaid node labels — they cause the label text to clip when the SVG is scaled.
+
 #### Links
 ```markdown
 [Link text](https://example.com)
@@ -257,45 +285,17 @@ Keep practicing
 
 ## Customization
 
-### Changing Content
+### Changing the Default Presentation
 
-Edit the markdown string in `App.tsx`:
-
-```tsx
-const myMarkdown = `
-# Your Title
-
-Your content here
-
----
-
-# Next Slide
-
-More content
-`
-
-function App() {
-  return <SlidePresentation markdown={myMarkdown} />
-}
-```
-
-### Loading from Files
-
-You can load markdown from external sources:
+The default deck loaded on startup is `examples/quick-reference.md`. To change it, update the `?raw` import in `src/App.tsx`:
 
 ```tsx
-function App() {
-  const [markdown, setMarkdown] = useState('')
-  
-  useEffect(() => {
-    fetch('/path/to/slides.md')
-      .then(res => res.text())
-      .then(setMarkdown)
-  }, [])
-  
-  return <SlidePresentation markdown={markdown} />
-}
+import defaultMarkdown from '../examples/your-deck.md?raw'
 ```
+
+### Loading a Custom File
+
+Press `O` (or click the folder icon) to open the file selector and load any local `.md` file or a GitHub/GitLab URL at runtime — no code changes needed.
 
 ## Design Philosophy
 

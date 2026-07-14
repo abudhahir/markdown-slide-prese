@@ -8,9 +8,13 @@ Complete documentation for Markdown Slides presentation system.
 - [Testing and Local Deployment Guide](./getting-started/TESTING_AND_LOCAL_DEPLOYMENT.md) - **⭐ Comprehensive testing guide for local deployment and npm publishing**
 - [Quick Start - CLI Edition](./getting-started/QUICKSTART_CLI.md) - Get started in 60 seconds with CLI
 - [CLI Usage Guide](./getting-started/CLI_USAGE_GUIDE.md) - Complete CLI reference and troubleshooting
-- [User Guide](./getting-started/USER_GUIDE.md) - Complete usage instructions
+- [User Guide](./getting-started/USER_GUIDE.md) - Complete usage instructions (includes mermaid diagrams and styled tables)
 - [Visual Guide](./getting-started/VISUAL_GUIDE.md) - **🎨 Screenshots and visual examples of features**
 - [Quick Start - Local and NPM](./getting-started/QUICKSTART_LOCAL_AND_NPM.md) - Local development and npm quick start
+
+### Agent Skill
+
+- [markdown-slides-creator](../markdown-slides-creator/SKILL.md) - [agentskills.io](https://agentskills.io)-compatible skill for AI agents to create slide decks for this app
 
 ### Deployment
 - [GitHub Pages Deployment](./deployment/GITHUB_PAGES_DEPLOYMENT.md) - Deploy to GitHub Pages
@@ -54,6 +58,9 @@ Complete documentation for Markdown Slides presentation system.
 **Get started quickly:**
 - → [Quick Start - CLI Edition](./getting-started/QUICKSTART_CLI.md)
 - → [Testing and Local Deployment Guide](./getting-started/TESTING_AND_LOCAL_DEPLOYMENT.md)
+
+**Create slides with an AI agent:**
+- → [markdown-slides-creator skill](../markdown-slides-creator/SKILL.md)
 
 **Deploy my app:**
 - → [GitHub Pages Deployment](./deployment/GITHUB_PAGES_DEPLOYMENT.md)

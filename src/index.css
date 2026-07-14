@@ -143,4 +143,60 @@
   .markdown-content img {
     @apply rounded-lg max-w-full h-auto my-5 md:my-6;
   }
+
+  /* ── Tables ─────────────────────────────────────────────── */
+  .markdown-content table {
+    @apply w-full border-collapse rounded-xl overflow-hidden my-6 text-base md:text-lg;
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--border) 60%, transparent);
+  }
+
+  .markdown-content thead {
+    @apply bg-primary/20;
+  }
+
+  .markdown-content thead th {
+    @apply px-4 md:px-6 py-3 text-left text-sm md:text-base font-semibold tracking-wide text-accent uppercase;
+    border-bottom: 2px solid color-mix(in oklch, var(--accent) 40%, transparent);
+  }
+
+  .markdown-content tbody tr {
+    @apply border-b transition-colors;
+    border-color: color-mix(in oklch, var(--border) 40%, transparent);
+  }
+
+  .markdown-content tbody tr:last-child {
+    @apply border-b-0;
+  }
+
+  .markdown-content tbody tr:hover {
+    @apply bg-accent/5;
+  }
+
+  .markdown-content tbody tr:nth-child(even) {
+    @apply bg-primary/5;
+  }
+
+  .markdown-content tbody td {
+    @apply px-4 md:px-6 py-3 text-foreground/90 text-sm md:text-base;
+  }
+
+  /* ── Mermaid diagrams ───────────────────────────────────── */
+  .markdown-content .mermaid-diagram {
+    @apply flex justify-center items-center my-6;
+  }
+
+  .markdown-content .mermaid-diagram svg {
+    @apply rounded-lg;
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  .markdown-content .mermaid-diagram svg foreignObject {
+    overflow: visible;
+  }
 }
