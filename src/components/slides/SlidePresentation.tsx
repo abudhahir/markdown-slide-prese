@@ -60,6 +60,10 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return
+      }
+
       if (isSlidesListOpen) {
         return
       }
@@ -106,21 +110,28 @@ export function SlidePresentation({ markdown, onMarkdownChange }: SlidePresentat
   useEffect(() => {
     let touchStartX = 0
     let touchEndX = 0
+    let touchStartY = 0
+    let touchEndY = 0
 
     const handleTouchStart = (e: TouchEvent) => {
       touchStartX = e.changedTouches[0].screenX
+      touchStartY = e.changedTouches[0].screenY
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
       touchEndX = e.changedTouches[0].screenX
+      touchEndY = e.changedTouches[0].screenY
       handleSwipe()
     }
 
     const handleSwipe = () => {
+      const deltaX = touchStartX - touchEndX
+      const deltaY = touchStartY - touchEndY
       const swipeThreshold = 50
-      if (touchStartX - touchEndX > swipeThreshold) {
+      if (Math.abs(deltaX) <= Math.abs(deltaY)) return
+      if (deltaX > swipeThreshold) {
         goToNext()
-      } else if (touchEndX - touchStartX > swipeThreshold) {
+      } else if (-deltaX > swipeThreshold) {
         goToPrevious()
       }
     }

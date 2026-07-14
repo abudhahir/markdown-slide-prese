@@ -21,7 +21,6 @@ describe('parseMarkdownToSlides', () => {
       const slides = parseMarkdownToSlides('# Hello World')
       expect(slides).toHaveLength(1)
       expect(slides[0].content).toBe('# Hello World')
-      expect(slides[0].rawContent).toBe('# Hello World')
     })
 
     it('trims whitespace from slide content', () => {

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { File, Folder, FolderOpen, CaretRight, Link } from '@phosphor-icons/react'
 import {
   Dialog,
@@ -32,6 +32,8 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
   const [expandedDirs, setExpandedDirs] = useState<Set<string>>(new Set())
   const [isLoading, setIsLoading] = useState(false)
   const [gitUrl, setGitUrl] = useState('')
+  const singleInputRef = useRef<HTMLInputElement>(null)
+  const directoryInputRef = useRef<HTMLInputElement>(null)
 
   const parseGitUrl = (url: string): { platform: 'github' | 'gitlab', owner: string, repo: string, branch: string, path: string } | null => {
     try {
@@ -186,7 +188,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
       return
     }
 
-    const input = document.getElementById('file-directory-input') as HTMLInputElement
+    const input = directoryInputRef.current
     if (!input?.files) return
 
     for (let i = 0; i < input.files.length; i++) {
@@ -278,7 +280,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   Select a markdown file or folder
                 </p>
                 <input
-                  id="file-single-input"
+                  ref={singleInputRef}
                   type="file"
                   accept=".md,.markdown"
                   className="hidden"
@@ -292,7 +294,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                   }}
                 />
                 <input
-                  id="file-directory-input"
+                  ref={directoryInputRef}
                   type="file"
                   accept=".md,.markdown"
                   multiple
@@ -303,20 +305,14 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                 />
                 <div className="flex gap-2">
                   <Button
-                    onClick={() => {
-                      const input = document.getElementById('file-single-input') as HTMLInputElement
-                      input?.click()
-                    }}
+                    onClick={() => singleInputRef.current?.click()}
                     variant="default"
                   >
                     <File className="mr-2" size={16} />
                     Select File
                   </Button>
                   <Button
-                    onClick={() => {
-                      const input = document.getElementById('file-directory-input') as HTMLInputElement
-                      input?.click()
-                    }}
+                    onClick={() => directoryInputRef.current?.click()}
                     variant="secondary"
                   >
                     <Folder className="mr-2" size={16} />
@@ -336,8 +332,7 @@ export function FileSelector({ isOpen, onOpenChange, onFileSelect }: FileSelecto
                     onClick={() => {
                       setFiles([])
                       setExpandedDirs(new Set())
-                      const input = document.getElementById('file-directory-input') as HTMLInputElement
-                      if (input) input.value = ''
+                      if (directoryInputRef.current) directoryInputRef.current.value = ''
                     }}
                   >
                     Change Folder
