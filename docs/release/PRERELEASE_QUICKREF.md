@@ -34,40 +34,40 @@ git push origin v1.2.0
 
 ```bash
 # Latest alpha
-npm install markdown-slides-presenter@alpha
-npx markdown-slides-presenter@alpha
+npm install c-deck-lite@alpha
+npx c-deck-lite@alpha
 
 # Latest beta
-npm install markdown-slides-presenter@beta
-npx markdown-slides-presenter@beta
+npm install c-deck-lite@beta
+npx c-deck-lite@beta
 
 # Latest RC
-npm install markdown-slides-presenter@rc
-npx markdown-slides-presenter@rc
+npm install c-deck-lite@rc
+npx c-deck-lite@rc
 
 # Specific version
-npm install markdown-slides-presenter@1.2.0-beta.1
+npm install c-deck-lite@1.2.0-beta.1
 ```
 
 ### For Production (Stable Only)
 
 ```bash
 # Always installs latest stable
-npm install markdown-slides-presenter
-npx markdown-slides-presenter
+npm install c-deck-lite
+npx c-deck-lite
 ```
 
 ## 🔍 Checking Versions
 
 ```bash
 # View all available versions
-npm view markdown-slides-presenter versions
+npm view c-deck-lite versions
 
 # Check current dist-tags
-npm view markdown-slides-presenter dist-tags
+npm view c-deck-lite dist-tags
 
 # Show package info
-npm info markdown-slides-presenter
+npm info c-deck-lite
 ```
 
 ## 📋 Version Progression
@@ -98,7 +98,7 @@ Each release type gets its own npm tag:
 ## ⚠️ Important Notes
 
 1. **Pre-releases don't affect stable users**
-   - Users running `npm install markdown-slides-presenter` always get stable
+   - Users running `npm install c-deck-lite` always get stable
    - Pre-release testing requires explicit tag or version
 
 2. **GitHub Pages**

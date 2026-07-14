@@ -55,7 +55,7 @@ Ensure your `package.json` is properly configured:
 
 ```json
 {
-  "name": "markdown-slides-presenter",
+  "name": "c-deck-lite",
   "version": "1.0.0",
   "private": false,
   "description": "A powerful markdown-based presentation tool",
@@ -63,7 +63,7 @@ Ensure your `package.json` is properly configured:
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/markdown-slides-presenter.git"
+    "url": "https://github.com/yourusername/c-deck-lite.git"
   },
   "keywords": [
     "markdown",
@@ -233,22 +233,22 @@ Once the workflow completes:
 
 ```bash
 # Check if package is published
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Check specific version
-npm view markdown-slides-presenter@1.0.0
+npm view c-deck-lite@1.0.0
 
 # Test installation
-npm install markdown-slides-presenter
+npm install c-deck-lite
 
 # Test running
-npx markdown-slides-presenter --help
+npx c-deck-lite --help
 ```
 
 ### 3. Verify on npm Website
 
 Visit your package page:
-- `https://www.npmjs.com/package/markdown-slides-presenter`
+- `https://www.npmjs.com/package/c-deck-lite`
 
 You should see:
 - ✅ Your package name and version
@@ -285,7 +285,7 @@ You should see:
 **Solutions**:
 1. Choose a more distinctive name
 2. Use a scoped package: `@yourusername/markdown-slides`
-3. Add descriptive suffix: `markdown-slides-presenter`
+3. Add descriptive suffix: `c-deck-lite`
 
 ### ❌ "Cannot publish over previously published version"
 
@@ -338,7 +338,7 @@ npm pack
 # 3. Install in a test directory
 mkdir test-install
 cd test-install
-npm install ../markdown-slides-presenter-1.0.0.tgz
+npm install ../c-deck-lite-1.0.0.tgz
 
 # 4. Test the CLI
 npx markdown-slides --help
@@ -347,7 +347,7 @@ npx markdown-slides
 # 5. Clean up
 cd ..
 rm -rf test-install
-rm markdown-slides-presenter-1.0.0.tgz
+rm c-deck-lite-1.0.0.tgz
 ```
 
 ## Complete Release Checklist
@@ -402,7 +402,7 @@ npm login
 npm publish --access public
 
 # 5. Verify
-npm view markdown-slides-presenter
+npm view c-deck-lite
 ```
 
 ## Security Best Practices
@@ -434,7 +434,7 @@ You can also publish to GitHub Packages alongside npm:
 ### Users can install from GitHub
 
 ```bash
-npm install @yourusername/markdown-slides-presenter
+npm install @yourusername/c-deck-lite
 ```
 
 ## Resources
@@ -455,13 +455,13 @@ git tag v1.0.0 && git push origin v1.0.0
 
 ### Check if published:
 ```bash
-npm view markdown-slides-presenter
+npm view c-deck-lite
 ```
 
 ### Test install:
 ```bash
-npm install markdown-slides-presenter
-npx markdown-slides-presenter --help
+npm install c-deck-lite
+npx c-deck-lite --help
 ```
 
 ### Update version:

@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- **CLI Entry Point**: Run with `npx markdown-slides-presenter` or install globally
+- **CLI Entry Point**: Run with `npx c-deck-lite` or install globally
 - Command-line interface with built-in HTTP server
 - CLI options: `--port`, `--help`, `--version`
 - Comprehensive CLI Usage Guide documentation

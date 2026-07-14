@@ -11,7 +11,7 @@ A powerful full-screen presentation system that transforms markdown files into b
 [![React](https://img.shields.io/badge/react-19.0.0-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/typescript-5.7.2-blue.svg)](https://www.typescriptlang.org/)
 [![GitHub release](https://img.shields.io/github/v/release/abudhahir/markdown-slide-prese)](https://github.com/abudhahir/markdown-slide-prese/releases)
-[![npm version](https://img.shields.io/npm/v/markdown-slides-presenter)](https://www.npmjs.com/package/markdown-slides-presenter)
+[![npm version](https://img.shields.io/npm/v/c-deck-lite)](https://www.npmjs.com/package/c-deck-lite)
 
 [Quick Start](#-quick-start) • [Features](#-features) • [Documentation](./docs/README.md) • [Examples](#-usage-guide)
 
@@ -170,11 +170,11 @@ Once published to npm, users can run instantly without installing:
 
 ```bash
 # Stable version
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Pre-release versions (for testing)
-npx markdown-slides-presenter@beta
-npx markdown-slides-presenter@alpha
+npx c-deck-lite@beta
+npx c-deck-lite@alpha
 ```
 
 ### Option 4: Global Installation (After Publishing)
@@ -183,11 +183,11 @@ After publishing to npm, install globally to use anywhere:
 
 ```bash
 # Install stable version globally
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 
 # Or install pre-release for testing
-npm install -g markdown-slides-presenter@beta
-npm install -g markdown-slides-presenter@alpha
+npm install -g c-deck-lite@beta
+npm install -g c-deck-lite@alpha
 
 # Run from anywhere
 markdown-slides
@@ -250,10 +250,10 @@ Pre-releases are fully supported for testing before stable releases:
 
 | Version Type | Tag Format | npm Tag | Install Command |
 |-------------|------------|---------|-----------------|
-| **Alpha** | `v1.2.0-alpha.1` | `alpha` | `npm install markdown-slides-presenter@alpha` |
-| **Beta** | `v1.2.0-beta.1` | `beta` | `npm install markdown-slides-presenter@beta` |
-| **Release Candidate** | `v1.2.0-rc.1` | `rc` | `npm install markdown-slides-presenter@rc` |
-| **Stable** | `v1.2.0` | `latest` | `npm install markdown-slides-presenter` |
+| **Alpha** | `v1.2.0-alpha.1` | `alpha` | `npm install c-deck-lite@alpha` |
+| **Beta** | `v1.2.0-beta.1` | `beta` | `npm install c-deck-lite@beta` |
+| **Release Candidate** | `v1.2.0-rc.1` | `rc` | `npm install c-deck-lite@rc` |
+| **Stable** | `v1.2.0` | `latest` | `npm install c-deck-lite` |
 
 **Key Points:**
 - Pre-releases won't affect stable users (they use different npm tags)
@@ -419,8 +419,8 @@ This package is ready to be published to npm. See the [NPM Publishing Guide](./d
 
 4. **Verify publication:**
    ```bash
-   npm view markdown-slides-presenter
-   npx markdown-slides-presenter
+   npm view c-deck-lite
+   npx c-deck-lite
    ```
 
 ### After Publishing
@@ -429,10 +429,10 @@ Users can install and run your package:
 
 ```bash
 # Run without installing
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Or install globally
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 markdown-slides
 ```
 
@@ -465,10 +465,10 @@ Deploy the `dist/` folder to any static hosting:
 
 ```bash
 # Quick start with npx (no install)
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Or install globally
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 markdown-slides
 
 # Custom port

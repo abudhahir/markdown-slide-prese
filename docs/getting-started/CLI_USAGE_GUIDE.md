@@ -16,7 +16,7 @@ This guide covers how to use Markdown Slides as a command-line tool with npm or 
 The fastest way to get started is using npx (no installation required):
 
 ```bash
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 This will:
@@ -32,10 +32,10 @@ Perfect for quick presentations without cluttering your system:
 
 ```bash
 # Run directly without installing
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Run on custom port
-npx markdown-slides-presenter --port 8080
+npx c-deck-lite --port 8080
 ```
 
 **Pros:**
@@ -53,13 +53,13 @@ Best for frequent users who present regularly:
 
 ```bash
 # Install globally
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 
 # Run from anywhere
 markdown-slides
 
 # Or with full command name
-markdown-slides-presenter
+c-deck-lite
 ```
 
 **Pros:**
@@ -293,7 +293,7 @@ Create a `Dockerfile`:
 ```dockerfile
 FROM node:18-alpine
 
-RUN npm install -g markdown-slides-presenter
+RUN npm install -g c-deck-lite
 
 EXPOSE 3000
 
@@ -314,7 +314,7 @@ Use in GitHub Actions:
 ```yaml
 - name: Start Presentation
   run: |
-    npm install -g markdown-slides-presenter
+    npm install -g c-deck-lite
     markdown-slides --port 8080 &
     sleep 5
     curl http://localhost:8080
@@ -392,7 +392,7 @@ markdown-slides
 
 1. **If using npx**: Use full command:
    ```bash
-   npx markdown-slides-presenter
+   npx c-deck-lite
    ```
 
 2. **If globally installed**: Check npm global path:
@@ -404,8 +404,8 @@ markdown-slides
 
 3. **Reinstall globally**:
    ```bash
-   npm uninstall -g markdown-slides-presenter
-   npm install -g markdown-slides-presenter
+   npm uninstall -g c-deck-lite
+   npm install -g c-deck-lite
    ```
 
 ### Dist Folder Not Found
@@ -473,9 +473,9 @@ npm run start
 
 ```bash
 # Global install
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 npm cache clean --force
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 
 # Local install
 rm -rf node_modules
@@ -499,13 +499,13 @@ markdown-slides
 ### 1. Use npx for Quick Presentations
 
 ```bash
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ### 2. Install Globally for Regular Use
 
 ```bash
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 markdown-slides
 ```
 
@@ -513,7 +513,7 @@ markdown-slides
 
 ```bash
 markdown-slides --version
-npm update -g markdown-slides-presenter
+npm update -g c-deck-lite
 ```
 
 ### 4. Use Custom Ports for Multiple Instances
@@ -537,7 +537,7 @@ alias slides-work="markdown-slides --port 8080"
 Global or local installation is faster than npx:
 
 ```bash
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 ```
 
 ### 2. Clear npx Cache if Slow
@@ -594,7 +594,7 @@ If you encounter issues:
 - [User Guide](./USER_GUIDE.md) - Presentation features
 - [NPM Publishing Guide](./NPM_PUBLISHING_GUIDE.md) - Publishing instructions
 - [GitHub Repository](https://github.com/yourusername/markdown-slides)
-- [npm Package](https://www.npmjs.com/package/markdown-slides-presenter)
+- [npm Package](https://www.npmjs.com/package/c-deck-lite)
 
 ---
 

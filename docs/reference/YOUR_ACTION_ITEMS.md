@@ -76,8 +76,8 @@ If you prefer to publish manually or need to troubleshoot:
    - Create account with username, email, password
 
 2. **Check your package name**:
-   - Your current package name: `markdown-slides-presenter`
-   - Check if available: `npm view markdown-slides-presenter`
+   - Your current package name: `c-deck-lite`
+   - Check if available: `npm view c-deck-lite`
    - If it shows 404 error → Name is available ✅
    - If it shows package info → Name taken, choose different name ❌
 
@@ -100,10 +100,10 @@ npm run start
 # Create a package file
 npm pack
 
-# This creates: markdown-slides-presenter-1.0.0.tgz
+# This creates: c-deck-lite-1.0.0.tgz
 
 # Install it globally to test
-npm install -g ./markdown-slides-presenter-1.0.0.tgz
+npm install -g ./c-deck-lite-1.0.0.tgz
 
 # Test the command
 markdown-slides --help
@@ -113,7 +113,7 @@ markdown-slides
 # If it works, you're ready to publish!
 
 # Uninstall the test
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 ```
 
 #### 3. Login to npm
@@ -139,11 +139,11 @@ npm publish
 **Expected output:**
 ```
 npm notice 
-npm notice 📦  markdown-slides-presenter@1.0.0
+npm notice 📦  c-deck-lite@1.0.0
 npm notice === Tarball Contents ===
 ...
 npm notice 
-+ markdown-slides-presenter@1.0.0
++ c-deck-lite@1.0.0
 ```
 
 ✅ **Published successfully!**
@@ -151,13 +151,13 @@ npm notice
 #### 5. Verify It Worked
 ```bash
 # View your package on npm
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Visit the package page
-# https://www.npmjs.com/package/markdown-slides-presenter
+# https://www.npmjs.com/package/c-deck-lite
 
 # Test with npx (no installation needed)
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ---
@@ -168,18 +168,18 @@ After publishing, anyone can run it:
 
 ### Option 1: Run with npx (no installation)
 ```bash
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ### Option 2: Install globally
 ```bash
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 markdown-slides
 ```
 
 ### Option 3: Custom port
 ```bash
-npx markdown-slides-presenter --port 8080
+npx c-deck-lite --port 8080
 markdown-slides --port 8080
 ```
 
@@ -188,10 +188,10 @@ markdown-slides --port 8080
 ## 🔧 YOUR CURRENT PACKAGE INFO
 
 From your `package.json`:
-- **Name**: `markdown-slides-presenter`
+- **Name**: `c-deck-lite`
 - **Version**: `1.0.0`
 - **Author**: `abudhahir <abudhahir@gmail.com>`
-- **Repository**: `https://github.com/abudhahir/markdown-slides-presenter.git`
+- **Repository**: `https://github.com/abudhahir/c-deck-lite.git`
 
 These look good! ✅
 
@@ -273,8 +273,8 @@ npm publish             # Publish to npm
 npm version patch       # Bump version
 
 # Using
-npx markdown-slides-presenter         # Run without install
-npm install -g markdown-slides-presenter  # Install globally
+npx c-deck-lite         # Run without install
+npm install -g c-deck-lite  # Install globally
 markdown-slides         # Run installed version
 ```
 
@@ -303,7 +303,7 @@ markdown-slides         # Run installed version
 
 4. **Test the published package**:
    ```bash
-   npx markdown-slides-presenter
+   npx c-deck-lite
    ```
 
 ---

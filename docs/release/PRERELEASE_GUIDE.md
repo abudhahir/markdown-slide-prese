@@ -1,6 +1,6 @@
 # Pre-Release Guide
 
-This guide explains how to create and publish alpha, beta, and release candidate versions of the markdown-slides-presenter package.
+This guide explains how to create and publish alpha, beta, and release candidate versions of the c-deck-lite package.
 
 ## 📋 Table of Contents
 
@@ -246,10 +246,10 @@ Pre-releases are published to npm with specific distribution tags:
 
 | Version Pattern | npm Tag | Install Command |
 |----------------|---------|-----------------|
-| `1.2.0-alpha.x` | `alpha` | `npm install markdown-slides-presenter@alpha` |
-| `1.2.0-beta.x` | `beta` | `npm install markdown-slides-presenter@beta` |
-| `1.2.0-rc.x` | `rc` | `npm install markdown-slides-presenter@rc` |
-| `1.2.0` (stable) | `latest` | `npm install markdown-slides-presenter` |
+| `1.2.0-alpha.x` | `alpha` | `npm install c-deck-lite@alpha` |
+| `1.2.0-beta.x` | `beta` | `npm install c-deck-lite@beta` |
+| `1.2.0-rc.x` | `rc` | `npm install c-deck-lite@rc` |
+| `1.2.0` (stable) | `latest` | `npm install c-deck-lite` |
 
 ### Why Tags Matter
 
@@ -265,10 +265,10 @@ Pre-releases are published to npm with specific distribution tags:
 
 ```bash
 # Always installs the latest stable version
-npm install markdown-slides-presenter
+npm install c-deck-lite
 
 # Or run with npx
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 ### For Testers (Pre-Release Versions)
@@ -276,50 +276,50 @@ npx markdown-slides-presenter
 #### Install Latest Alpha
 
 ```bash
-npm install markdown-slides-presenter@alpha
+npm install c-deck-lite@alpha
 
 # Or specific alpha version
-npm install markdown-slides-presenter@1.2.0-alpha.1
+npm install c-deck-lite@1.2.0-alpha.1
 
 # Run with npx
-npx markdown-slides-presenter@alpha
+npx c-deck-lite@alpha
 ```
 
 #### Install Latest Beta
 
 ```bash
-npm install markdown-slides-presenter@beta
+npm install c-deck-lite@beta
 
 # Or specific beta version
-npm install markdown-slides-presenter@1.2.0-beta.1
+npm install c-deck-lite@1.2.0-beta.1
 
 # Run with npx
-npx markdown-slides-presenter@beta
+npx c-deck-lite@beta
 ```
 
 #### Install Latest RC
 
 ```bash
-npm install markdown-slides-presenter@rc
+npm install c-deck-lite@rc
 
 # Or specific RC version
-npm install markdown-slides-presenter@1.2.0-rc.1
+npm install c-deck-lite@1.2.0-rc.1
 
 # Run with npx
-npx markdown-slides-presenter@rc
+npx c-deck-lite@rc
 ```
 
 #### Check Available Versions
 
 ```bash
 # List all versions
-npm view markdown-slides-presenter versions
+npm view c-deck-lite versions
 
 # Show specific tag
-npm view markdown-slides-presenter dist-tags
+npm view c-deck-lite dist-tags
 
 # Show specific pre-release versions
-npm view markdown-slides-presenter versions --json | grep -E "alpha|beta|rc"
+npm view c-deck-lite versions --json | grep -E "alpha|beta|rc"
 ```
 
 ---
@@ -458,10 +458,10 @@ The system auto-detects tags based on version:
 npm cache clean --force
 
 # Try with explicit version
-npm install markdown-slides-presenter@1.2.0-beta.1
+npm install c-deck-lite@1.2.0-beta.1
 
 # Check if version exists
-npm view markdown-slides-presenter versions
+npm view c-deck-lite versions
 ```
 
 ### Users accidentally getting pre-release
@@ -470,7 +470,7 @@ This shouldn't happen if you're using tags correctly. Verify:
 
 ```bash
 # Check what 'latest' points to
-npm view markdown-slides-presenter dist-tags
+npm view c-deck-lite dist-tags
 
 # Should show: { latest: '1.x.x', beta: '1.x.x-beta.x', ... }
 ```
@@ -541,6 +541,6 @@ git push origin v1.3.0
 
 If you have questions about pre-releases:
 
-1. Check [GitHub Discussions](https://github.com/abudhahir/markdown-slides-presenter/discussions)
-2. Open an [Issue](https://github.com/abudhahir/markdown-slides-presenter/issues)
+1. Check [GitHub Discussions](https://github.com/abudhahir/c-deck-lite/discussions)
+2. Open an [Issue](https://github.com/abudhahir/c-deck-lite/issues)
 3. Review [npm documentation on dist-tags](https://docs.npmjs.com/cli/v8/commands/npm-dist-tag)

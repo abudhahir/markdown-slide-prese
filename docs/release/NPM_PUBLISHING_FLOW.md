@@ -282,7 +282,7 @@ Create tag:
         ▼
 Workflow publishes:
         │
-        ├─→ npm: markdown-slides-presenter@1.1.0
+        ├─→ npm: c-deck-lite@1.1.0
         ├─→ GitHub: Release v1.1.0
         ├─→ Pages: Updated demo
         └─→ Docker: :1.1.0, :1.1, :1, :latest
@@ -290,9 +290,9 @@ Workflow publishes:
         ▼
 Users can install:
         │
-        ├─→ npm install markdown-slides-presenter
-        ├─→ npm install markdown-slides-presenter@1.1.0
-        └─→ npm install markdown-slides-presenter@latest
+        ├─→ npm install c-deck-lite
+        ├─→ npm install c-deck-lite@1.1.0
+        └─→ npm install c-deck-lite@latest
 ```
 
 ## 🛡️ Error Handling
@@ -337,8 +337,8 @@ Users can install:
 |--------|---------|--------|
 | Create release | `git tag v1.0.0 && git push origin v1.0.0` | Full automated release |
 | Check status | Go to Actions tab on GitHub | See workflow progress |
-| Verify npm | `npm view markdown-slides-presenter` | Check if published |
-| Test install | `npx markdown-slides-presenter` | Run published package |
+| Verify npm | `npm view c-deck-lite` | Check if published |
+| Test install | `npx c-deck-lite` | Run published package |
 | View release | GitHub → Releases tab | See release notes |
 | Try demo | Visit github.io URL | See live demo |
 

@@ -5,7 +5,7 @@ Get started with Markdown Slides in under 60 seconds using the command-line inte
 ## Instant Start (No Installation)
 
 ```bash
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 That's it! Open your browser to http://localhost:3000 and start presenting.
@@ -69,10 +69,10 @@ Welcome to my slides!
 
 ```bash
 # Default port 3000
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Custom port
-npx markdown-slides-presenter --port 8080
+npx c-deck-lite --port 8080
 ```
 
 **Pros:** Nothing to install, always latest version  
@@ -82,7 +82,7 @@ npx markdown-slides-presenter --port 8080
 
 ```bash
 # Install once
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 
 # Run anytime
 markdown-slides
@@ -133,7 +133,7 @@ Once the server is running and you're in the browser:
 
 ### From Local Files
 
-1. Start the server: `npx markdown-slides-presenter`
+1. Start the server: `npx c-deck-lite`
 2. Open browser to http://localhost:3000
 3. Press `O` to open file selector
 4. Navigate and select your `.md` file
@@ -209,12 +209,12 @@ markdown-slides --port 3001
 
 If using npx:
 ```bash
-npx markdown-slides-presenter
+npx c-deck-lite
 ```
 
 If globally installed:
 ```bash
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 ```
 
 ### Slides Not Loading
@@ -255,16 +255,16 @@ Copy and paste these complete workflows:
 
 ```bash
 # Quick demo
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # Install and run
-npm i -g markdown-slides-presenter && markdown-slides
+npm i -g c-deck-lite && markdown-slides
 
 # Custom port
-npx markdown-slides-presenter -p 8080
+npx c-deck-lite -p 8080
 
 # Show help
-npx markdown-slides-presenter --help
+npx c-deck-lite --help
 ```
 
 ---

@@ -112,7 +112,7 @@ Test the package as if it were installed from npm:
 npm pack
 ```
 
-This creates: `markdown-slides-presenter-1.0.0.tgz`
+This creates: `c-deck-lite-1.0.0.tgz`
 
 **Install the tarball locally:**
 
@@ -122,7 +122,7 @@ mkdir test-install
 cd test-install
 
 # Install from the tarball
-npm install ../markdown-slides-presenter-1.0.0.tgz
+npm install ../c-deck-lite-1.0.0.tgz
 
 # Test the CLI
 npx markdown-slides
@@ -136,7 +136,7 @@ Test as if installed globally:
 
 ```bash
 # Install globally from the tarball
-npm install -g ./markdown-slides-presenter-1.0.0.tgz
+npm install -g ./c-deck-lite-1.0.0.tgz
 
 # Run from anywhere
 markdown-slides
@@ -147,7 +147,7 @@ markdown-slides --help
 markdown-slides --version
 
 # Uninstall after testing
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 ```
 
 ### 6. Verify Package Contents
@@ -186,7 +186,7 @@ You can test npx behavior locally using a tarball:
 npm pack
 
 # Run with npx from tarball
-npx ./markdown-slides-presenter-1.0.0.tgz
+npx ./c-deck-lite-1.0.0.tgz
 ```
 
 ### After Publishing to npm
@@ -195,13 +195,13 @@ Once published, users can run:
 
 ```bash
 # Run without installing
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # With custom port
-npx markdown-slides-presenter --port 8080
+npx c-deck-lite --port 8080
 
 # View help
-npx markdown-slides-presenter --help
+npx c-deck-lite --help
 ```
 
 ---
@@ -247,14 +247,14 @@ npm whoami
 
 ```bash
 # Search for your desired package name
-npm search markdown-slides-presenter
+npm search c-deck-lite
 
 # View package info (should fail if available)
-npm view markdown-slides-presenter
+npm view c-deck-lite
 ```
 
 If the name is taken, update `package.json` with a different name:
-- `markdown-slides-presenter`
+- `c-deck-lite`
 - `@yourusername/markdown-slides`
 - `md-slides-presenter`
 - etc.
@@ -276,9 +276,9 @@ npm run start
 
 # Create and test tarball
 npm pack
-npm install -g ./markdown-slides-presenter-1.0.0.tgz
+npm install -g ./c-deck-lite-1.0.0.tgz
 markdown-slides --help
-npm uninstall -g markdown-slides-presenter
+npm uninstall -g c-deck-lite
 ```
 
 #### 4. Publish to npm
@@ -294,7 +294,7 @@ npm publish --access public
 **Expected output:**
 ```
 npm notice 
-npm notice 📦  markdown-slides-presenter@1.0.0
+npm notice 📦  c-deck-lite@1.0.0
 npm notice === Tarball Contents === 
 npm notice 4.2kB  bin/markdown-slides.js
 npm notice 2.5MB  dist/...
@@ -302,23 +302,23 @@ npm notice 8.1kB  README.md
 npm notice 1.1kB  LICENSE
 npm notice 2.3kB  package.json
 npm notice === Tarball Details === 
-npm notice name:          markdown-slides-presenter
+npm notice name:          c-deck-lite
 npm notice version:       1.0.0
 npm notice package size:  850.3 kB
 npm notice unpacked size: 2.5 MB
 npm notice total files:   15
 npm notice 
-+ markdown-slides-presenter@1.0.0
++ c-deck-lite@1.0.0
 ```
 
 #### 5. Verify Publication
 
 ```bash
 # View published package
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Check package page
-open https://www.npmjs.com/package/markdown-slides-presenter
+open https://www.npmjs.com/package/c-deck-lite
 ```
 
 ---
@@ -333,7 +333,7 @@ mkdir npm-test
 cd npm-test
 
 # Install from npm
-npm install -g markdown-slides-presenter
+npm install -g c-deck-lite
 
 # Test the command
 markdown-slides --version
@@ -348,10 +348,10 @@ markdown-slides --port 3000
 
 ```bash
 # Run without installing
-npx markdown-slides-presenter
+npx c-deck-lite
 
 # With options
-npx markdown-slides-presenter --port 8080
+npx c-deck-lite --port 8080
 ```
 
 ### Test in Different Environments
@@ -360,22 +360,22 @@ npx markdown-slides-presenter --port 8080
 
 1. **Linux/Mac**:
    ```bash
-   npx markdown-slides-presenter
+   npx c-deck-lite
    ```
 
 2. **Windows**:
    ```powershell
-   npx markdown-slides-presenter
+   npx c-deck-lite
    ```
 
 3. **Different Node versions**:
    ```bash
    # Use nvm to test different versions
    nvm use 18
-   npx markdown-slides-presenter
+   npx c-deck-lite
    
    nvm use 20
-   npx markdown-slides-presenter
+   npx c-deck-lite
    ```
 
 ---
@@ -408,7 +408,7 @@ npm run build -- --debug
 
 ```bash
 # Verify global installation
-npm list -g markdown-slides-presenter
+npm list -g c-deck-lite
 
 # Check npm global bin path
 npm bin -g
@@ -456,7 +456,7 @@ ls -la dist/index.html
 npm whoami
 
 # Check package name isn't taken
-npm view markdown-slides-presenter
+npm view c-deck-lite
 
 # Try a different package name or scope it
 # Update package.json name to: @yourusername/markdown-slides
@@ -494,7 +494,7 @@ cat package.json | grep -A 5 '"files"'
 ]
 
 # Unpublish if needed (within 72 hours)
-npm unpublish markdown-slides-presenter@1.0.0
+npm unpublish c-deck-lite@1.0.0
 
 # Fix and republish with new version
 npm version patch
@@ -573,7 +573,7 @@ jobs:
       - name: Test CLI
         run: |
           npm pack
-          npm install -g ./markdown-slides-presenter-*.tgz
+          npm install -g ./c-deck-lite-*.tgz
           markdown-slides --help
           markdown-slides --version
 ```
@@ -618,8 +618,8 @@ markdown-slides --help  # Show help
 markdown-slides --version # Show version
 
 # npx Usage (after publishing)
-npx markdown-slides-presenter
-npx markdown-slides-presenter -p 8080
+npx c-deck-lite
+npx c-deck-lite -p 8080
 ```
 
 ---
