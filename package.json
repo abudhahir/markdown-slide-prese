@@ -47,7 +47,7 @@
         "optimize": "vite optimize",
         "preview": "vite preview",
         "start": "node bin/markdown-slides.js",
-        "publish": "bash scripts/publish.sh",
+        "publish:manual": "bash scripts/publish.sh",
         "prepublishOnly": "npm run build"
     },
     "dependencies": {

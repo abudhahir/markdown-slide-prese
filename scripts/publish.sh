@@ -33,7 +33,7 @@ echo -e "${YELLOW}[1/7]${NC} Running pre-flight checks..."
 # Check if we're in the right directory
 if [ ! -f "$PACKAGE_JSON" ]; then
     echo -e "${RED}✗ Error: package.json not found!${NC}"
-    echo "   Make sure you run this script from the project root or via: npm run publish"
+    echo "   Make sure you run this script from the project root or via: npm run publish:manual"
     exit 1
 fi
 

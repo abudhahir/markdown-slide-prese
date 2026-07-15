@@ -6,7 +6,7 @@ Complete guide to publishing `c-deck-lite` to npm with automated checks and veri
 
 ```bash
 # Using npm script (recommended)
-npm run publish
+npm run publish:manual
 
 # Or directly
 bash scripts/publish.sh
@@ -63,7 +63,7 @@ The publish script automates the entire release process:
 If you're not authenticated with npm:
 
 ```bash
-npm run publish
+npm run publish:manual
 ```
 
 The script will prompt you to log in:
@@ -81,7 +81,7 @@ Enter your npm credentials when prompted.
 ### Standard Publishing
 
 ```bash
-npm run publish
+npm run publish:manual
 ```
 
 You'll see a summary before publication:
@@ -105,14 +105,14 @@ Before running the script, update the version in `package.json`:
 "version": "1.0.1"
 
 # Then publish
-npm run publish
+npm run publish:manual
 ```
 
 Or use npm's built-in version command:
 
 ```bash
 npm version patch   # 1.0.0 → 1.0.1
-npm run publish
+npm run publish:manual
 ```
 
 ## What Gets Published
@@ -173,14 +173,14 @@ npm run lint   # Check for code issues
 ```bash
 npm logout     # Clear old credentials
 npm login      # Manually log in
-npm run publish
+npm run publish:manual
 ```
 
 ### "package.json not found!"
 Make sure you're in the project root directory:
 ```bash
 cd /path/to/c-deck-lite
-npm run publish
+npm run publish:manual
 ```
 
 ### Package doesn't appear immediately
@@ -254,7 +254,7 @@ For CI/CD or secure environments, use npm access tokens:
 npm config set //registry.npmjs.org/:_authToken "YOUR_TOKEN_HERE"
 
 # Then run publish
-npm run publish
+npm run publish:manual
 ```
 
 ## GitHub Actions Integration
