@@ -9,7 +9,7 @@ Complete NPM publishing script with authentication, pre-checks, build, and verif
 ### Quick Start
 
 ```bash
-npm run publish
+npm run publish:manual
 ```
 
 ### What It Does
@@ -38,7 +38,7 @@ npm run publish
 
 ```bash
 # Publish with all checks
-npm run publish
+npm run publish:manual
 
 # Or directly
 bash scripts/publish.sh

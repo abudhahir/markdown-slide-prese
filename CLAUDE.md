@@ -24,7 +24,7 @@ npx playwright test               # Run e2e tests (builds + starts preview serve
 npx playwright test --headed      # Run e2e tests with visible browser
 
 # Release
-npm run publish      # Run scripts/publish.sh
+npm run publish:manual      # Run scripts/publish.sh
 npm run kill         # Kill process on port 5000
 ```
 
